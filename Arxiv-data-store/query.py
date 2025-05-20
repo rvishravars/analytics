@@ -1,6 +1,4 @@
 """Query interface for semantic search over ArXiv papers in SingleStore."""
-import os
-import singlestoredb as s2
 from sentence_transformers import SentenceTransformer
 from dotenv import load_dotenv
 from common import model, get_db_connection

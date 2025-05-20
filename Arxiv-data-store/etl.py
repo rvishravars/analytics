@@ -1,11 +1,9 @@
 """ETL script for embedding and ingesting ArXiv metadata into SingleStore."""
-import os
 from datetime import datetime
 import json
 
 from dotenv import load_dotenv
 from sentence_transformers import SentenceTransformer
-import singlestoredb as s2
 from tqdm import tqdm
 from common import model, get_db_connection
 
