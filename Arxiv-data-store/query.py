@@ -1,7 +1,9 @@
+"""Query interface for semantic search over ArXiv papers in SingleStore."""
 import os
 import singlestoredb as s2
 from sentence_transformers import SentenceTransformer
 from dotenv import load_dotenv
+from common import model, get_db_connection
 
 # === Load environment variables ===
 load_dotenv()
@@ -10,13 +12,7 @@ load_dotenv()
 model = SentenceTransformer('all-mpnet-base-v2')
 
 # === Connect to SingleStore Cloud ===
-conn = s2.connect(
-    host=os.getenv("S2_HOST"),
-    port=int(os.getenv("S2_PORT")),
-    user=os.getenv("S2_USER"),
-    password=os.getenv("S2_PASSWORD"),
-    database=os.getenv("S2_DATABASE")
-)
+conn = get_db_connection()
 cursor = conn.cursor()
 
 # === Prompt for user query ===
