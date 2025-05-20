@@ -1,21 +1,16 @@
-import json
+"""ETL script for embedding and ingesting ArXiv metadata into SingleStore."""
 from datetime import datetime
-from sentence_transformers import SentenceTransformer
-import singlestoredb as s2
-from tqdm import tqdm
+import json
+
 from dotenv import load_dotenv
-import os
+from sentence_transformers import SentenceTransformer
+from tqdm import tqdm
+from common import model, get_db_connection
 
 # === Load environment variables ===
 load_dotenv()
+conn = get_db_connection()
 
-conn = s2.connect(
-    host=os.getenv("S2_HOST"),
-    port=int(os.getenv("S2_PORT")),
-    user=os.getenv("S2_USER"),
-    password=os.getenv("S2_PASSWORD"),
-    database=os.getenv("S2_DATABASE")
-)
 cursor = conn.cursor()
 
 # === Load embedding model ===
@@ -26,11 +21,13 @@ batch = []
 batch_size = 50
 
 # === Count total lines for progress bar ===
-with open("arxiv-sample-500.json", "r") as f:
+with open("arxiv-sample-500.json", "r", encoding="utf-8") as f:
     total_lines = sum(1 for _ in f)
 
 # === Process and insert ===
-with open("arxiv-sample-500.json", "r") as f, tqdm(total=total_lines, desc="Processing Papers") as pbar:
+with open("arxiv-sample-500.json", "r", encoding="utf-8") as f, tqdm(
+    total=total_lines, desc="Processing Papers"
+) as pbar:
     for i, line in enumerate(f):
         paper = json.loads(line)
         paper_id = paper.get("id")
@@ -45,10 +42,10 @@ with open("arxiv-sample-500.json", "r") as f, tqdm(total=total_lines, desc="Proc
 
         try:
             embedding = model.encode(abstract, normalize_embeddings=True)
-            vector_str = str(embedding.tolist())
+            vector_string = str(embedding.tolist())
             update_date = datetime.strptime(date, "%Y-%m-%d").date() if date else None
 
-            batch.append((paper_id, title, abstract, vector_str, category, update_date))
+            batch.append((paper_id, title, abstract, vector_string, category, update_date))
 
             if len(batch) >= batch_size:
                 cursor.executemany("""
@@ -58,11 +55,11 @@ with open("arxiv-sample-500.json", "r") as f, tqdm(total=total_lines, desc="Proc
                     VALUES (%s, %s, %s, %s, %s, %s)
                 """, batch)
                 conn.commit()
-                print(f"✅ Inserted batch of {len(batch)}")
+                print(f"Inserted batch of {len(batch)}")
                 batch.clear()
 
         except Exception as e:
-            print(f"⚠️ Skipping {paper_id}: {e}")
+            print(f"Skipping {paper_id}: {e}")
 
         pbar.update(1)
 
@@ -75,7 +72,7 @@ if batch:
         VALUES (%s, %s, %s, %s, %s, %s)
     """, batch)
     conn.commit()
-    print(f"✅ Inserted final batch of {len(batch)}")
+    print(f"Inserted final batch of {len(batch)}")
 
 cursor.close()
 conn.close()
