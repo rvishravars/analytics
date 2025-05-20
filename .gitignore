@@ -1,3 +1,9 @@
+#Project related
+Arxiv-data-store/info408/**
+Arxiv-data-store/arxiv-metadata-oai-snapshot.json
+Arxiv-data-store/.vscode/**
+Arxiv-data-store/*.pdf
+Arxiv-data-store/*.png
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
