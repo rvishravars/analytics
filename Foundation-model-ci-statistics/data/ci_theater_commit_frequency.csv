@@ -1,0 +1,25 @@
+name,Total Commits (90d),Avg Commits/Weekday,Infrequent (<2.36/day)
+t5,2,0.03,Yes
+Qwen,4,0.06,Yes
+Qwen3,32,0.49,Yes
+RWKV-LM,24,0.37,Yes
+gpt-neox,9,0.14,Yes
+OpenAI-CLIP,0,0.0,Yes
+Yalm,0,0.0,Yes
+Dbrx,0,0.0,Yes
+Yi,0,0.0,Yes
+Deepseek-V3,10,0.15,Yes
+Deepseek-Janus,0,0.0,Yes
+YuE,17,0.26,Yes
+ChronosForecasting,4,0.06,Yes
+InternVideo,7,0.11,Yes
+lag-llama,0,0.0,Yes
+Otter,0,0.0,Yes
+Clay-foundation-model,3,0.05,Yes
+whisper,4,0.06,Yes
+microsoft-industrial-foundation-models,0,0.0,Yes
+microsoft-BioGPT,0,0.0,Yes
+RadFM,6,0.09,Yes
+roberta_zh,0,0.0,Yes
+Ernie,0,0.0,Yes
+ChatGlm-6B,0,0.0,Yes
