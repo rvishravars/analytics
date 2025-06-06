@@ -1,7 +1,7 @@
 name,SLOC,Category,Languages
 t5,11459,Medium,"Python (8552), Text (2086), Markdown (443), Jupyter Notebook (343), YAML (32), INI (2), JSON (1)"
 Qwen,15590,Medium,"Markdown (7996), Python (5764), Jupyter Notebook (825), Bourne Shell (536), YAML (187), JSON (106), Dockerfile (89), Text (77), Jinja Template (5), Properties (5)"
-Qwen3,9134,Small,"Markdown (4467), PO File (2646), Python (763), reStructuredText (479), YAML (405), Bourne Shell (102), Jinja Template (86), CSS (71), JavaScript (62), DOS Batch (26), Text (18), make (9)"
+Qwen3,9199,Small,"Markdown (4473), PO File (2650), Python (763), reStructuredText (534), YAML (405), Bourne Shell (102), Jinja Template (86), CSS (71), JavaScript (62), DOS Batch (26), Text (18), make (9)"
 RWKV-LM,250310,Large,"Text (131061), JSON (105974), Python (10946), CUDA (1372), Markdown (646), C++ (168), Bourne Shell (142), YAML (1)"
 gpt-neox,131201,Large,"JSON (100598), Python (19941), YAML (4463), Markdown (2595), C/C++ Header (1634), C++ (818), CUDA (640), TOML (175), Text (142), Windows Module Definition (64), Bourne Shell (55), Dockerfile (50), INI (19), make (7)"
 OpenAI-CLIP,4789,Small,"Markdown (3492), Jupyter Notebook (631), Python (627), YAML (33), Text (6)"
@@ -23,3 +23,4 @@ RadFM,64542,Medium,"JSON (29263), Text (28921), Python (6176), Markdown (137), C
 roberta_zh,23670,Medium,"Text (21128), Python (2335), Markdown (199), Bourne Shell (8)"
 Ernie,95949,Medium,"Text (71245), Python (16392), JSON (4870), Markdown (2879), CSV (349), Bourne Shell (132), YAML (82)"
 ChatGlm-6B,5119,Small,"Python (3818), Markdown (967), JSON (121), Bourne Shell (115), YAML (90), Text (8)"
+Hibiki,836,Very Small,"Rust (470), Markdown (192), YAML (114), TOML (59), Python (1)"

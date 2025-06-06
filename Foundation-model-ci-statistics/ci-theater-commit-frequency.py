@@ -29,17 +29,30 @@ projects = [
     {"name": "RadFM", "owner": "chaoyi-wu", "repo": "RadFM"},
     {"name": "roberta_zh", "owner": "brightmart", "repo": "roberta_zh"},
     {"name": "Ernie", "owner": "PaddlePaddle", "repo": "ERNIE"},
-    {"name": "ChatGlm-6B", "owner": "THUDM", "repo": "ChatGLM-6B"}
+    {"name": "ChatGlm-6B", "owner": "THUDM", "repo": "ChatGLM-6B"},
+    {"name": "R1-Omni", "owner": "HumanMLLM", "repo": "R1-Omni"},
+    {"name": "Hibiki", "owner": "kyutai-labs", "repo": "hibiki"}
 ]
 
 def get_commit_frequency(repo_path, branch="main"):
     repo = Repo(repo_path)
-    # Try fallback to master if main is missing
-    if branch not in repo.refs:
-        branch = "master" if "master" in repo.refs else repo.head.reference.name
 
-    since = datetime.now() - timedelta(days=90)
-    commits = list(repo.iter_commits(branch, since=since.isoformat()))
+    # Fallback to another branch if needed
+    if branch not in repo.refs:
+        if "master" in repo.refs:
+            branch = "master"
+        else:
+            branch = repo.head.reference.name
+
+    # Determine last commit date
+    last_commit = next(repo.iter_commits(branch, max_count=1), None)
+    if not last_commit:
+        return 0, 0.0, {}, "Unknown"
+
+    last_date = datetime.fromtimestamp(last_commit.committed_date)
+    since = last_date - timedelta(days=90)
+
+    commits = list(repo.iter_commits(branch, since=since.isoformat(), until=last_date.isoformat()))
 
     weekday_counts = defaultdict(int)
     for commit in commits:
@@ -47,9 +60,9 @@ def get_commit_frequency(repo_path, branch="main"):
         weekday_counts[day] += 1
 
     total_commits = len(commits)
-    avg_per_weekday = total_commits / 65.0  # ~13 weeks * 5 weekdays
+    avg_per_weekday = total_commits / 65.0  # 13 weeks × 5 weekdays
 
-    return total_commits, round(avg_per_weekday, 2), weekday_counts
+    return total_commits, round(avg_per_weekday, 2), weekday_counts, last_date.strftime("%Y-%m-%d")
 
 results = []
 workspace = "ci_projects_commits"
@@ -65,10 +78,11 @@ for project in projects:
             print(f"Cloning {name}...")
             Repo.clone_from(url, local_path)
 
-        total, avg, dist = get_commit_frequency(local_path)
+        total, avg, dist, last_date = get_commit_frequency(local_path)
         results.append({
             "name": name,
-            "Total Commits (90d)": total,
+            "Last Commit Date": last_date,
+            "Total Commits (Last 90d)": total,
             "Avg Commits/Weekday": avg,
             "Infrequent (<2.36/day)": "Yes" if avg < 2.36 else "No"
         })
@@ -76,7 +90,8 @@ for project in projects:
         print(f"Failed {name}: {e}")
         results.append({
             "name": name,
-            "Total Commits (90d)": "Error",
+            "Last Commit Date": "Error",
+            "Total Commits (Last 90d)": "Error",
             "Avg Commits/Weekday": "Error",
             "Infrequent (<2.36/day)": "Error"
         })
@@ -87,7 +102,7 @@ print(tabulate(results, headers="keys", tablefmt="grid"))
 # Write to CSV
 csv_path = "ci_theater_commit_frequency.csv"
 with open(csv_path, "w", newline="", encoding="utf-8") as csvfile:
-    fieldnames = ["name", "Total Commits (90d)", "Avg Commits/Weekday", "Infrequent (<2.36/day)"]
+    fieldnames = ["name", "Last Commit Date", "Total Commits (Last 90d)", "Avg Commits/Weekday", "Infrequent (<2.36/day)"]
     writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
     writer.writeheader()
     for row in results:

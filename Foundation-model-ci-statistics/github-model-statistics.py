@@ -2,7 +2,6 @@ import os
 import requests
 import csv
 from datetime import datetime
-from urllib.parse import urlparse
 from dotenv import load_dotenv
 
 projects = [
@@ -29,12 +28,15 @@ projects = [
     {"name": "RadFM", "owner": "chaoyi-wu", "repo": "RadFM"},
     {"name": "roberta_zh", "owner": "brightmart", "repo": "roberta_zh"},
     {"name": "Ernie", "owner": "PaddlePaddle", "repo": "ERNIE"},
-    {"name": "ChatGlm-6B", "owner": "THUDM", "repo": "ChatGLM-6B"}
+    {"name": "ChatGlm-6B", "owner": "THUDM", "repo": "ChatGLM-6B"},
+    {"name": "R1-Omni", "owner": "HumanMLLM", "repo": "R1-Omni"},
+    {"name": "Hibiki", "owner": "kyutai-labs", "repo": "hibiki"}
+
 ]
 
 load_dotenv()
 GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
-HEADERS = {"Authorization": f"token {GITHUB_TOKEN}"} if GITHUB_TOKEN else {}
+headers = {"Authorization": f"token {GITHUB_TOKEN}"} if GITHUB_TOKEN else {}
 
 def paginate_count(url):
     count = 0
@@ -146,10 +148,10 @@ for p in projects:
 
 # Write to CSV
 if all_stats:
-    with open("llm_project_workflow_stats.csv", "w", newline="") as csvfile:
+    with open("github_projects_stats.csv", "w", newline="") as csvfile:
         writer = csv.DictWriter(csvfile, fieldnames=all_stats[0].keys())
         writer.writeheader()
         writer.writerows(all_stats)
-    print("✅ CSV export complete: llm_project_workflow_stats.csv")
+    print("✅ CSV export complete: github_project_stats.csv")
 else:
     print("⚠️ No data written.")

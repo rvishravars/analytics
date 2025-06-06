@@ -1,0 +1,27 @@
+Project,Repo URL,Active Period (Months),Total PRs,Total Issues,Contributors,Workflows Used,Months to First Workflow Run,Workflow Runs (Success),Workflow Runs (Failure)
+t5,https://github.com/google-research/text-to-text-transfer-transformer,67,592,997,61,Yes,54,71,21
+Qwen,https://github.com/QwenLM/Qwen,22,146,1255,33,Yes,9,404,1
+Qwen3,https://github.com/QwenLM/Qwen3,16,109,1157,46,Yes,5,344,1
+RWKV-LM,https://github.com/BlinkDL/RWKV-LM,46,45,293,5,No,,0,0
+gpt-neox,https://github.com/EleutherAI/gpt-neox,53,829,1287,134,Yes,40,0,1100
+OpenAI-CLIP,https://github.com/openai/CLIP,53,68,488,21,Yes,42,3,1
+Yalm,https://github.com/yandex/YaLM-100B,35,5,33,3,No,,0,0
+Dbrx,https://github.com/databricks/dbrx,14,10,34,6,No,,0,0
+Yi,https://github.com/01-ai/Yi,19,269,561,50,Yes,5,279,19
+Deepseek-V3,https://github.com/deepseek-ai/DeepSeek-V3,5,153,686,24,Yes,1,112,0
+Deepseek-Janus,https://github.com/deepseek-ai/Janus,7,33,212,10,No,,0,0
+YuE,https://github.com/multimodal-art-projection/YuE,4,8,121,8,No,,0,0
+ChronosForecasting,https://github.com/amazon-science/chronos-forecasting,15,97,193,12,Yes,2,678,40
+InternVideo,https://github.com/OpenGVLab/InternVideo,30,24,288,24,No,,0,0
+lag-llama,https://github.com/time-series-foundation-models/lag-llama,16,11,129,6,No,,0,0
+Otter,https://github.com/EvolvingLMMs-Lab/Otter,26,181,345,11,No,,0,0
+Clay-foundation-model,https://github.com/Clay-foundation/model,20,166,299,20,Yes,6,410,9
+whisper,https://github.com/openai/whisper,32,304,303,74,Yes,23,73,17
+microsoft-industrial-foundation-models,https://github.com/microsoft/Industrial-Foundation-Models,14,3,10,3,No,,0,0
+microsoft-BioGPT,https://github.com/microsoft/BioGPT,33,24,117,8,Yes,20,63,0
+RadFM,https://github.com/chaoyi-wu/RadFM,22,0,41,2,No,,0,0
+roberta_zh,https://github.com/brightmart/roberta_zh,69,5,100,2,No,,0,0
+Ernie,https://github.com/PaddlePaddle/ERNIE,75,243,905,46,No,,0,0
+ChatGlm-6B,https://github.com/THUDM/ChatGLM-6B,27,121,1427,49,No,,0,0
+R1-Omni,https://github.com/HumanMLLM/R1-Omni,3,4,35,1,No,,0,0
+Hibiki,https://github.com/kyutai-labs/hibiki,4,7,17,3,Yes,0,13,0
