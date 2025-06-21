@@ -1,0 +1,27 @@
+Project,Repo URL,Rust Project,Has Tests,CI Workflows Used,Tests in Workflow,Test Tools,Coverage Tools,Test Config Files,Extra Test Tools,Coverage Config Found,Coverage Badges
+t5,https://github.com/google-research/text-to-text-transfer-transformer,No,No,Yes,Yes,pytest,None,None,None,No,github.com/google-research/text-to-text-transfer-transformer/workflows/build/badge.svg)](https://github.com/google-research/text-to-text-transfer-transformer/actions
+Qwen,https://github.com/QwenLM/Qwen,No,Yes,Yes,No,None,None,None,None,No,None
+Qwen3,https://github.com/QwenLM/Qwen3,No,No,Yes,No,None,None,None,None,No,None
+RWKV-LM,https://github.com/BlinkDL/RWKV-LM,No,No,No,No,None,None,None,None,No,None
+gpt-neox,https://github.com/EleutherAI/gpt-neox,No,Yes,Yes,Yes,pytest,None,None,None,No,None
+OpenAI-CLIP,https://github.com/openai/CLIP,No,Yes,Yes,Yes,pytest,None,None,None,No,None
+Yalm,https://github.com/yandex/YaLM-100B,No,Yes,No,No,None,None,None,None,No,None
+Dbrx,https://github.com/databricks/dbrx,No,No,No,No,None,None,None,None,No,None
+Yi,https://github.com/01-ai/Yi,No,No,Yes,No,None,None,pyproject.toml,None,No,github.com/01-ai/yi/actions
+Deepseek-V3,https://github.com/deepseek-ai/DeepSeek-V3,No,No,Yes,No,None,None,None,None,No,None
+Deepseek-Janus,https://github.com/deepseek-ai/Janus,No,No,No,No,None,None,"Makefile, pyproject.toml","coverage, pytest",No,None
+YuE,https://github.com/multimodal-art-projection/YuE,No,No,No,No,None,None,None,None,No,None
+ChronosForecasting,https://github.com/amazon-science/chronos-forecasting,No,Yes,Yes,Yes,pytest,None,pyproject.toml,pytest,No,None
+InternVideo,https://github.com/OpenGVLab/InternVideo,No,Yes,No,No,None,None,None,None,No,None
+lag-llama,https://github.com/time-series-foundation-models/lag-llama,No,No,No,No,None,None,pyproject.toml,None,No,None
+Otter,https://github.com/EvolvingLMMs-Lab/Otter,No,No,Yes,No,None,None,pyproject.toml,None,No,None
+Clay-foundation-model,https://github.com/Clay-foundation/model,No,No,Yes,No,None,None,None,None,No,github.com/clay-foundation/model/actions/workflows/deploy-docs.yml/badge.svg)](https://github.com/clay-foundation/model/actions
+whisper,https://github.com/openai/whisper,No,Yes,Yes,Yes,pytest,None,pyproject.toml,pytest,No,None
+microsoft-industrial-foundation-models,https://github.com/microsoft/Industrial-Foundation-Models,No,No,No,No,None,None,None,None,No,None
+microsoft-BioGPT,https://github.com/microsoft/BioGPT,No,Yes,Yes,No,None,None,None,None,No,None
+RadFM,https://github.com/chaoyi-wu/RadFM,No,No,No,No,None,None,None,None,No,None
+roberta_zh,https://github.com/brightmart/roberta_zh,No,No,No,No,None,None,None,None,No,None
+Ernie,https://github.com/PaddlePaddle/ERNIE,No,Yes,Yes,No,None,None,None,None,No,None
+ChatGlm-6B,https://github.com/THUDM/ChatGLM-6B,No,No,No,No,None,None,None,None,No,None
+R1-Omni,https://github.com/HumanMLLM/R1-Omni,No,No,No,No,None,None,None,None,No,None
+Hibiki,https://github.com/kyutai-labs/hibiki,Yes,No,Yes,Yes,"cargo test, go test",None,pyproject.toml,None,No,None

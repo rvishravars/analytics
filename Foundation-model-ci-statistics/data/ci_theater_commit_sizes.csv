@@ -1,0 +1,27 @@
+name,Total Commits,Avg Commit Size,Max Commit Size,Min Commit Size,Std Dev
+t5,2,3,4,2,1.41
+Qwen,6,0,0,0,0.0
+Qwen3,36,1410.83,17559,0,4128.99
+RWKV-LM,27,128.3,2033,2,394.58
+gpt-neox,7,414.43,2020,2,722.12
+OpenAI-CLIP,1,9,9,9,0
+Yalm,1,14,14,14,0
+Dbrx,9,346.78,3054,2,1015.22
+Yi,60,1.57,10,0,2.48
+Deepseek-V3,7,3.86,13,2,4.1
+Deepseek-Janus,8,437.5,3006,0,1051.27
+YuE,23,478921.7,5499185,1,1584092.47
+ChronosForecasting,9,116.78,1021,2,339.11
+InternVideo,9,25.33,190,1,61.94
+lag-llama,1,6,6,6,0
+Otter,17,30.24,286,1,70.72
+Clay-foundation-model,3,57.67,133,4,67.17
+whisper,4,7.25,13,4,3.95
+microsoft-industrial-foundation-models,10,7850.2,78122,1,24691.06
+microsoft-BioGPT,1,18,18,18,0
+RadFM,6,390.67,2213,2,894.02
+roberta_zh,2,2.5,3,2,0.71
+Ernie,8,199.5,698,1,281.64
+ChatGlm-6B,3,67.33,100,2,56.58
+R1-Omni,24,1459.5,27304,1,5665.82
+Hibiki,33,181.45,3476,0,620.45

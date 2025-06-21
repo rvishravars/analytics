@@ -6,6 +6,8 @@ from git import Repo
 from pathlib import Path
 from tempfile import TemporaryDirectory
 
+from ci_foundation_projects import projects
+
 # Known indicators
 TEST_KEYWORDS = ["pytest", "unittest", "nose", "mocha", "jest", "go test", "cargo test", "ctest"]
 COVERAGE_KEYWORDS = ["coverage", "--cov", "lcov", "gcov", "codecov", "coveralls", "nyc", "pytest-cov"]
@@ -15,34 +17,6 @@ TEST_DIR_NAMES = {"test", "tests"}
 WORKFLOW_DIR = ".github/workflows"
 
 README_BADGE_PATTERN = re.compile(r"(codecov|coveralls|github\.com/.+/actions)")
-
-projects = [
-    {"name": "t5", "owner": "google-research", "repo": "text-to-text-transfer-transformer"},
-    {"name": "Qwen", "owner": "QwenLM", "repo": "Qwen"},
-    {"name": "Qwen3", "owner": "QwenLM", "repo": "Qwen3"},
-    {"name": "RWKV-LM", "owner": "BlinkDL", "repo": "RWKV-LM"},
-    {"name": "gpt-neox", "owner": "EleutherAI", "repo": "gpt-neox"},
-    {"name": "OpenAI-CLIP", "owner": "openai", "repo": "CLIP"},
-    {"name": "Yalm", "owner": "yandex", "repo": "YaLM-100B"},
-    {"name": "Dbrx", "owner": "databricks", "repo": "dbrx"},
-    {"name": "Yi", "owner": "01-ai", "repo": "Yi"},
-    {"name": "Deepseek-V3", "owner": "deepseek-ai", "repo": "DeepSeek-V3"},
-    {"name": "Deepseek-Janus", "owner": "deepseek-ai", "repo": "Janus"},
-    {"name": "YuE", "owner": "multimodal-art-projection", "repo": "YuE"},
-    {"name": "ChronosForecasting", "owner": "amazon-science", "repo": "chronos-forecasting"},
-    {"name": "InternVideo", "owner": "OpenGVLab", "repo": "InternVideo"},
-    {"name": "lag-llama", "owner": "time-series-foundation-models", "repo": "lag-llama"},
-    {"name": "Otter", "owner": "EvolvingLMMs-Lab", "repo": "Otter"},
-    {"name": "Clay-foundation-model", "owner": "Clay-foundation", "repo": "model"},
-    {"name": "whisper", "owner": "openai", "repo": "whisper"},
-    {"name": "microsoft-industrial-foundation-models", "owner": "microsoft", "repo": "Industrial-Foundation-Models"},
-    {"name": "microsoft-BioGPT", "owner": "microsoft", "repo": "BioGPT"},
-    {"name": "RadFM", "owner": "chaoyi-wu", "repo": "RadFM"},
-    {"name": "roberta_zh", "owner": "brightmart", "repo": "roberta_zh"},
-    {"name": "Ernie", "owner": "PaddlePaddle", "repo": "ERNIE"},
-    {"name": "ChatGlm-6B", "owner": "THUDM", "repo": "ChatGLM-6B"},
-    {"name": "Hibiki", "owner": "kyutai-labs", "repo": "hibiki"}
-]
 
 # Detection keywords
 TEST_KEYWORDS = ["pytest", "unittest", "nose", "mocha", "jest", "go test", "cargo test", "ctest"]

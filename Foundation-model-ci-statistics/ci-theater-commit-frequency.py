@@ -5,53 +5,24 @@ from datetime import datetime, timedelta
 from collections import defaultdict
 from tabulate import tabulate
 
-projects = [
-    {"name": "t5", "owner": "google-research", "repo": "text-to-text-transfer-transformer"},
-    {"name": "Qwen", "owner": "QwenLM", "repo": "Qwen"},
-    {"name": "Qwen3", "owner": "QwenLM", "repo": "Qwen3"},
-    {"name": "RWKV-LM", "owner": "BlinkDL", "repo": "RWKV-LM"},
-    {"name": "gpt-neox", "owner": "EleutherAI", "repo": "gpt-neox"},
-    {"name": "OpenAI-CLIP", "owner": "openai", "repo": "CLIP"},
-    {"name": "Yalm", "owner": "yandex", "repo": "YaLM-100B"},
-    {"name": "Dbrx", "owner": "databricks", "repo": "dbrx"},
-    {"name": "Yi", "owner": "01-ai", "repo": "Yi"},
-    {"name": "Deepseek-V3", "owner": "deepseek-ai", "repo": "DeepSeek-V3"},
-    {"name": "Deepseek-Janus", "owner": "deepseek-ai", "repo": "Janus"},
-    {"name": "YuE", "owner": "multimodal-art-projection", "repo": "YuE"},
-    {"name": "ChronosForecasting", "owner": "amazon-science", "repo": "chronos-forecasting"},
-    {"name": "InternVideo", "owner": "OpenGVLab", "repo": "InternVideo"},
-    {"name": "lag-llama", "owner": "time-series-foundation-models", "repo": "lag-llama"},
-    {"name": "Otter", "owner": "EvolvingLMMs-Lab", "repo": "Otter"},
-    {"name": "Clay-foundation-model", "owner": "Clay-foundation", "repo": "model"},
-    {"name": "whisper", "owner": "openai", "repo": "whisper"},
-    {"name": "microsoft-industrial-foundation-models", "owner": "microsoft", "repo": "Industrial-Foundation-Models"},
-    {"name": "microsoft-BioGPT", "owner": "microsoft", "repo": "BioGPT"},
-    {"name": "RadFM", "owner": "chaoyi-wu", "repo": "RadFM"},
-    {"name": "roberta_zh", "owner": "brightmart", "repo": "roberta_zh"},
-    {"name": "Ernie", "owner": "PaddlePaddle", "repo": "ERNIE"},
-    {"name": "ChatGlm-6B", "owner": "THUDM", "repo": "ChatGLM-6B"},
-    {"name": "R1-Omni", "owner": "HumanMLLM", "repo": "R1-Omni"},
-    {"name": "Hibiki", "owner": "kyutai-labs", "repo": "hibiki"}
-]
+from ci_foundation_projects import projects
 
 def get_commit_frequency(repo_path, branch="main"):
     repo = Repo(repo_path)
 
-    # Fallback to another branch if needed
+    # Fallback branch if 'main' not available
     if branch not in repo.refs:
         if "master" in repo.refs:
             branch = "master"
         else:
             branch = repo.head.reference.name
 
-    # Determine last commit date
     last_commit = next(repo.iter_commits(branch, max_count=1), None)
     if not last_commit:
-        return 0, 0.0, {}, "Unknown"
+        return 0, 0.0, 0.0, {}, "Unknown"
 
     last_date = datetime.fromtimestamp(last_commit.committed_date)
     since = last_date - timedelta(days=90)
-
     commits = list(repo.iter_commits(branch, since=since.isoformat(), until=last_date.isoformat()))
 
     weekday_counts = defaultdict(int)
@@ -60,10 +31,13 @@ def get_commit_frequency(repo_path, branch="main"):
         weekday_counts[day] += 1
 
     total_commits = len(commits)
-    avg_per_weekday = total_commits / 65.0  # 13 weeks × 5 weekdays
+    avg_weekday = total_commits / 65.0  # 13 weeks × 5 weekdays
+    avg_all_days = total_commits / 90.0
 
-    return total_commits, round(avg_per_weekday, 2), weekday_counts, last_date.strftime("%Y-%m-%d")
+    return total_commits, round(avg_weekday, 2), round(avg_all_days, 2), weekday_counts, last_date.strftime("%Y-%m-%d")
 
+
+# Run for all projects
 results = []
 workspace = "ci_projects_commits"
 os.makedirs(workspace, exist_ok=True)
@@ -78,31 +52,44 @@ for project in projects:
             print(f"Cloning {name}...")
             Repo.clone_from(url, local_path)
 
-        total, avg, dist, last_date = get_commit_frequency(local_path)
+        total, avg_weekday, avg_all, dist, last_date = get_commit_frequency(local_path)
+
+        infrequent = "Yes" if avg_weekday < 2.36 or avg_all < 2.36 else "No"
+
         results.append({
             "name": name,
             "Last Commit Date": last_date,
             "Total Commits (Last 90d)": total,
-            "Avg Commits/Weekday": avg,
-            "Infrequent (<2.36/day)": "Yes" if avg < 2.36 else "No"
+            "Avg Commits/Weekday (Mon–Fri)": avg_weekday,
+            "Avg Commits/Day (All Days)": avg_all,
+            "Infrequent (<2.36)": infrequent
         })
+
     except Exception as e:
         print(f"Failed {name}: {e}")
         results.append({
             "name": name,
             "Last Commit Date": "Error",
             "Total Commits (Last 90d)": "Error",
-            "Avg Commits/Weekday": "Error",
-            "Infrequent (<2.36/day)": "Error"
+            "Avg Commits/Weekday (Mon–Fri)": "Error",
+            "Avg Commits/Day (All Days)": "Error",
+            "Infrequent (<2.36)": "Error"
         })
 
-# Print table
+# Display table
 print(tabulate(results, headers="keys", tablefmt="grid"))
 
-# Write to CSV
-csv_path = "ci_theater_commit_frequency.csv"
+# Save to CSV
+csv_path = "../ci_theater_commit_frequency.csv"
 with open(csv_path, "w", newline="", encoding="utf-8") as csvfile:
-    fieldnames = ["name", "Last Commit Date", "Total Commits (Last 90d)", "Avg Commits/Weekday", "Infrequent (<2.36/day)"]
+    fieldnames = [
+        "name",
+        "Last Commit Date",
+        "Total Commits (Last 90d)",
+        "Avg Commits/Weekday (Mon–Fri)",
+        "Avg Commits/Day (All Days)",
+        "Infrequent (<2.36)"
+    ]
     writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
     writer.writeheader()
     for row in results:

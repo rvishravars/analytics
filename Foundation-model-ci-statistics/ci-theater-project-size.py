@@ -6,37 +6,7 @@ from git import Repo
 from tempfile import TemporaryDirectory
 from tabulate import tabulate
 
-"""projects = [
-    {"name": "t5", "owner": "google-research", "repo": "text-to-text-transfer-transformer"},
-    {"name": "Qwen", "owner": "QwenLM", "repo": "Qwen"},
-    {"name": "Qwen3", "owner": "QwenLM", "repo": "Qwen3"},
-    {"name": "RWKV-LM", "owner": "BlinkDL", "repo": "RWKV-LM"},
-    {"name": "gpt-neox", "owner": "EleutherAI", "repo": "gpt-neox"},
-    {"name": "OpenAI-CLIP", "owner": "openai", "repo": "CLIP"},
-    {"name": "Yalm", "owner": "yandex", "repo": "YaLM-100B"},
-    {"name": "Dbrx", "owner": "databricks", "repo": "dbrx"},
-    {"name": "Yi", "owner": "01-ai", "repo": "Yi"},
-    {"name": "Deepseek-V3", "owner": "deepseek-ai", "repo": "DeepSeek-V3"},
-    {"name": "Deepseek-Janus", "owner": "deepseek-ai", "repo": "Janus"},
-    {"name": "YuE", "owner": "multimodal-art-projection", "repo": "YuE"},
-    {"name": "ChronosForecasting", "owner": "amazon-science", "repo": "chronos-forecasting"},
-    {"name": "InternVideo", "owner": "OpenGVLab", "repo": "InternVideo"},
-    {"name": "lag-llama", "owner": "time-series-foundation-models", "repo": "lag-llama"},
-    {"name": "Otter", "owner": "EvolvingLMMs-Lab", "repo": "Otter"},
-    {"name": "Clay-foundation-model", "owner": "Clay-foundation", "repo": "model"},
-    {"name": "whisper", "owner": "openai", "repo": "whisper"},
-    {"name": "microsoft-industrial-foundation-models", "owner": "microsoft", "repo": "Industrial-Foundation-Models"},
-    {"name": "microsoft-BioGPT", "owner": "microsoft", "repo": "BioGPT"},
-    {"name": "RadFM", "owner": "chaoyi-wu", "repo": "RadFM"},
-    {"name": "roberta_zh", "owner": "brightmart", "repo": "roberta_zh"},
-    {"name": "Ernie", "owner": "PaddlePaddle", "repo": "ERNIE"},
-    {"name": "ChatGlm-6B", "owner": "THUDM", "repo": "ChatGLM-6B"},
-    {"name": "Hibiki", "owner": "kyutai-labs", "repo": "hibiki"}
-]"""
-
-projects = [
-    {"name": "Yi", "owner": "01-ai", "repo": "Yi"}
-]
+from ci_foundation_projects import projects
 
 def categorize_project(sloc):
     if sloc < 1000:
@@ -63,7 +33,7 @@ with TemporaryDirectory() as tmpdir:
             output = subprocess.check_output(["cloc", "--json", dest], text=True)
             cloc_data = json.loads(output)
 
-            #IGNORED_LANGS = {"Text", "Markdown", "HTML", "JSON", "YAML", "TOML"}
+            #IGNORED_LANGS = {"Text", "Markdown", "HTML", "JSON", "YAML", "TOML", "CSV", "XML", "CSS", "Jupyter Notebook", "INI", "SVG", ""}
             IGNORED_LANGS = {}
 
             sloc = sum(lang.get("code", 0)
@@ -95,7 +65,7 @@ with TemporaryDirectory() as tmpdir:
 print(tabulate(results, headers="keys", tablefmt="grid"))
 
 # Write to CSV
-with open("ci_theater_project_sizes.csv", "w", newline="", encoding="utf-8") as csvfile:
+with open("../ci_theater_project_sizes.csv", "w", newline="", encoding="utf-8") as csvfile:
     fieldnames = ["name", "SLOC", "Category", "Languages"]
     writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
 

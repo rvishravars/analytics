@@ -1,0 +1,581 @@
+project,commit_hash,author,date,message
+t5,e081111ccd,Hana Joo,2025-04-29,"No public description
+
+PiperOrigin-RevId: 752360861"
+t5,2c2c0d52f0,Yang Chen,2025-02-28,"Migrate `tf.data.experimental.RandomDataset` to `tf.data.Dataset.random`.
+
+PiperOrigin-RevId: 731853332"
+Qwen,528817ac8e,Yang An,2025-06-16,Add files via upload
+Qwen,1c282d421c,Yang An,2025-06-16,Delete assets/wechat.png
+Qwen,df5866f1be,Yang An,2025-04-29,Add files via upload
+Qwen,1ac436a15d,Yang An,2025-04-29,Delete assets/wechat.png
+Qwen,ee455c98bf,Yang An,2025-03-28,Add files via upload
+Qwen,698e35f0c1,Yang An,2025-03-28,Delete assets/wechat.png
+Qwen3,83fbf07d6e,Bihan Rana,2025-06-13,"Add deployment doc with dstack (#1) (#1492)
+
+* Add deployment doc with dstack
+
+* Resolve Review Comments
+
+* Update See also section
+
+---------
+
+Co-authored-by: Bihan  Rana <bihan@Bihans-MacBook-Pro.local>"
+Qwen3,ac8c783d12,Ren Xuancheng,2025-06-13,"[doc] thinking_budget and other minor updates (#1495)
+
+* [doc] thinking_budget and other minor updates
+
+* [doc] format training related"
+Qwen3,0eea76c126,Jianhong Tu,2025-06-09,"update function calling doc (#1488)
+
+* update qwen-agent doc for qwen3
+
+* update qwen-agent doc
+
+* fix parameter
+
+* update qwen-agent doc
+
+* split config example
+
+* update function calling doc"
+Qwen3,8b3807a089,THU-LIJX,2025-06-05,docs: Add thinking budget example
+Qwen3,7302765080,NanoCode012,2025-05-29,"[axolotl] feat(doc): add qwen3 training doc with axolotl (#1428)
+
+* feat: add qwen3 training doc with axolotl
+
+* feat: add axolotl rst to tree
+
+* fix: qwen3 model name"
+Qwen3,52fa975d80,Ren Xuancheng,2025-05-29,[doc] update on yarn and fp8
+Qwen3,2a23ce01c8,Bo Li,2025-05-22,Update README.md for TensorRT-LLM. (#1432)
+Qwen3,c7f51a1a1c,Ren Xuancheng,2025-05-20,update doc
+Qwen3,ac7272455d,Ren Xuancheng,2025-05-16,[doc] update speed benchmark
+Qwen3,728493158d,Ren Xuancheng,2025-05-14,Update Qwen3_Technical_Report.pdf
+Qwen3,72e3c9fe33,Ren Xuancheng,2025-05-14,Update README.md
+Qwen3,c3132b7711,Jack,2025-05-14,Add ExecuTorch example to readme (#1397)
+Qwen3,8dd7dfd880,Ren Xuancheng,2025-05-14,Add Qwen3 Technical Report
+Qwen3,714df5bce8,Ren Xuancheng,2025-05-09,Update README.md
+Qwen3,1d87faccb5,renxuancheng.rxc,2025-05-07,update docs
+Qwen3,0263b5c84e,Jianhong Tu,2025-05-07,"update qwen-agent doc (#1375)
+
+* update qwen-agent doc for qwen3
+
+* update qwen-agent doc
+
+* fix parameter
+
+* update qwen-agent doc
+
+* split config example"
+Qwen3,91ff7a4281,BearBiscuit,2025-05-07,"[verl] add verl support for Qwen3 (#1362)
+
+* update for verl
+
+* update
+
+* add verl info in qwen3 doc
+
+* add more info about resource"
+Qwen3,8925421aba,donghee choi,2025-05-06,"Update transformers.md (#1353)
+
+{""generated_text""} is not working; changed into [""generated_text""]"
+Qwen3,d0a53038f2,Jintao,2025-05-06,"[docs] Update ms-swift docs to support Qwen3 (#1358)
+
+* Update ms-swift documentation to support Qwen3
+
+* update docs
+
+* fix grpo"
+Qwen3,644d4c1765,Jianhong Tu,2025-05-06,"update qwen-agent doc for qwen3 (#1351)
+
+* update qwen-agent doc for qwen3
+
+* update qwen-agent doc
+
+* fix parameter"
+Qwen3,2af51e0e5c,Ren Xuancheng,2025-04-30,Update README.md
+Qwen3,8e4e4f5a94,Ren Xuancheng,2025-04-29,Update README.md
+Qwen3,2b4515c1c7,Ren Xuancheng,2025-04-29,Update vllm.md
+Qwen3,9a7f8e7524,Ren Xuancheng,2025-04-29,Update README.md
+Qwen3,2b567c638f,Ren Xuancheng,2025-04-29,"Update qwen3 (#1308)
+
+* update qwen3
+
+* update issue template
+
+---------
+
+Co-authored-by: renxuancheng.rxc <renxuancheng.rxc@alibaba-inc.com>"
+Qwen3,320861c7c7,jojomanar,2025-04-29,"Update quickstart.po, remove invalid '>' (#1284)"
+Qwen3,a7048e574d,Kaiyu Shi,2025-04-29,Fix vLLM enable-reasoning argument (#1292)
+Qwen3,e5cde02890,Ren Xuancheng,2025-04-29,Update README.md
+Qwen3,4a65ffa4f3,Ren Xuancheng,2025-04-29,Update README.md
+Qwen3,7091d4aae2,renxuancheng.rxc,2025-04-29,add modelers
+Qwen3,c5d7280d48,renxuancheng.rxc,2025-04-29,update
+Qwen3,a905f63066,renxuancheng.rxc,2025-04-29,update mlx-lm
+Qwen3,f4d356cb55,renxuancheng.rxc,2025-04-29,add qwen3
+Qwen3,2abc0f3243,jinghanhu,2025-04-22,"Doc: add ms-swift doc (#1266)
+
+* init
+
+* polish'
+
+* zh init
+
+* update
+
+* fix
+
+* fix
+
+* polish
+
+* polish
+
+* rm
+
+* polish
+
+* done
+
+* fix
+
+* memory
+
+---------
+
+Co-authored-by: hjh <hjh@U-413PHRX2-2043.local>"
+RWKV-LM,49cfc1e5dd,PENG Bo,2025-06-18,Update README.md
+RWKV-LM,247ce631e3,PENG Bo,2025-06-11,Update README.md
+RWKV-LM,ad3a763020,PENG Bo,2025-06-11,Create README.md
+RWKV-LM,c718c5dd2a,PENG Bo,2025-06-06,Update README.md
+RWKV-LM,8ca1efff00,Bo,2025-05-26,v8 rc00
+RWKV-LM,a08ab8e5da,PENG Bo,2025-05-23,Update README.md
+RWKV-LM,8fb8a703b4,PENG Bo,2025-05-23,Update README.md
+RWKV-LM,b9b5e645b9,Bo,2025-05-22,.
+RWKV-LM,768ba99261,PENG Bo,2025-05-17,Update README.md
+RWKV-LM,150be29143,Bo,2025-05-17,.
+RWKV-LM,7c583e96a2,PENG Bo,2025-05-14,Delete RWKV-v7/train_temp/demo.jsonl
+RWKV-LM,c7aedaa943,PENG Bo,2025-05-14,Delete RWKV-v7/train_temp/make_data.py
+RWKV-LM,6bf7ac334f,PENG Bo,2025-05-08,Update README.md
+RWKV-LM,b3b4d056d0,Bo,2025-05-07,better rwkv7 init
+RWKV-LM,f42cff34e2,PENG Bo,2025-04-30,Update README.md
+RWKV-LM,63bc8d0f9a,PENG Bo,2025-04-30,Update README.md
+RWKV-LM,1bd0951f34,PENG Bo,2025-04-30,Update README.md
+RWKV-LM,58d7405763,PENG Bo,2025-04-30,Update README.md
+RWKV-LM,38d86384ce,PENG Bo,2025-04-23,Update README.md
+RWKV-LM,4091ba141b,PENG Bo,2025-04-23,Update README.md
+RWKV-LM,59ed0d2b32,PENG Bo,2025-04-23,Update README.md
+RWKV-LM,d6a1efc06c,PENG Bo,2025-04-07,Update README.md
+RWKV-LM,6d0e322434,PENG Bo,2025-04-07,Update README.md
+RWKV-LM,f8214aa017,Bo,2025-04-07,better
+RWKV-LM,082f2689e4,PENG Bo,2025-04-07,Update README.md
+RWKV-LM,d07df1ccf1,Bo,2025-04-07,cleanup v7 train code
+RWKV-LM,c199da8564,PENG Bo,2025-03-21,Update README.md
+gpt-neox,d12c771198,Quentin Anthony,2025-06-10,"update and unify copyrights (#1360)
+
+* update copyrights
+
+* update remaining copyrights"
+gpt-neox,f543cbd13b,Emmanuel Ferdman,2025-05-15,"Fix neoxargs consume without config dir test (#1357)
+
+Signed-off-by: Emmanuel Ferdman <emmanuelferdman@gmail.com>"
+gpt-neox,d11df96140,DayOfThePenguin,2025-05-10,"Dmoe integration (#1210)
+
+* feat: ensure only the right architectures get built vs all of them for 11.x
+
+* feat: clean up megablocks-based DMoE implementation
+
+* feat: update args, configs, and requirements
+
+* Update NeoXArgs docs automatically
+
+* Update NeoXArgs docs automatically
+
+* feat: Update readme and example config
+
+* Update NeoXArgs docs automatically
+
+* Update NeoXArgs docs automatically
+
+* - Updated sinkhorn initialization and add max_iter argument.
+- Removed mp assertion for moe
+- Removed mlp_type checks in moe code
+- Added Bf16 conversion to dmoe_gather
+
+* - Updated dmoe config
+    - Fixed merge issues
+    - Fixed moe sequence parallelism bug
+    - Added assertions for zero stages 2 and 3 with moe
+    - Updated moe requirements
+
+* - Updated transformer_engine requirments
+- Import megablocks only if num_experts > 1
+
+* - Disable torch.compile explicitly when using TE
+
+---------
+
+Co-authored-by: github-actions <github-actions@github.com>
+Co-authored-by: Quentin Anthony <qganthony@yahoo.com>
+Co-authored-by: aurelion-source <nonnawras@gmail.com>"
+gpt-neox,4c9f10816d,Aurelion,2025-05-10,"Fix issues with Llama HF->NeoX conversion (#1345)
+
+* - Fixes Hf llama -> neox conversion by simply concatenating q,k,b
+  instead of splitting by heads first for GQA
+- Fixes RMSNorm implementation by adding epsilon to the varience
+  instead of adding it directly to RMS
+
+* - Remove RMSNorm extra argument
+
+* Fixes qkv projections for neox->hf conversion
+
+* Fixes qkv projections for neox->hf conversion
+
+* precommit
+
+---------
+
+Co-authored-by: Quentin Anthony <qganthony@yahoo.com>"
+gpt-neox,ce65b363b0,Aurelion,2025-05-10,"NeoX+TE --> HF Conversion  (#1355)
+
+* - Removes redundant post_attention_layernorm initialization when using te_lnmlp
+- Adds correct mapping for neox_te -> hf conversion
+
+* NeoX+TE --> HF Conversion
+- Removes redundant post_attention_layernorm initialization when using te_lnmlp
+- Adds correct mapping for neox_te -> hf conversion
+
+* Set default rotary-emb-base to 10000"
+gpt-neox,21fa24f9c7,Aurelion,2025-05-10,"Resolve Transformer Engine SwiGLU Issue (#1352)
+
+* Fix SwiGLU Activation Handling in Transformer Engine
+
+* precommit
+
+---------
+
+Co-authored-by: Quentin Anthony <qganthony@yahoo.com>"
+gpt-neox,facb280d99,Quentin Anthony,2025-04-18,add apptainer file and docs (#1351)
+OpenAI-CLIP,dcba3cb2e2,tminer,2024-06-05,"import packaging to be compatible with setuptools==70.0.0 (#449)
+
+* import packaging to be compatible with setuptools==70.0.0
+
+* importing the version module
+
+---------
+
+Co-authored-by: Jamie <Jamie@Alexandras-MacBook-Pro.local>
+Co-authored-by: Jong Wook Kim <jongwook@nyu.edu>"
+Yalm,14fa94df2e,Vasilev Ruslan,2023-01-25,CITATION.cff
+Dbrx,a3200393e6,Tess,2024-04-20,"doc - Fixed doc formatting: Added code documentation (#19)
+
+Corrected Text formatting"
+Dbrx,ac732b3d87,Denny Lee,2024-04-20,"Include llama.cpp and llama_index example (#30)
+
+Added `llama.cpp` and `llama_index` example."
+Dbrx,c94b65ea34,Hanlin Tang,2024-04-02,"Bump torch to 2.1.0 (#22)
+
+Our `modeling_dbrx.py` uses `nn.LayerNorm(... bias=False)` , e.g.
+https://huggingface.co/databricks/dbrx-instruct/blob/main/modeling_dbrx.py#L642
+
+This was introduced in Torch 2.1 (e.g. missing from [torch 2.0
+docs](https://pytorch.org/docs/2.0/generated/torch.nn.LayerNorm.html?highlight=layernorm#torch.nn.LayerNorm)),
+so bumping the minimum requirements here to torch 2.1."
+Dbrx,8c8ff96911,Ikko Eltociear Ashimine,2024-03-31,"Update README.md (#17)
+
+HuggingFace -> Hugging Face"
+Dbrx,c145ef8397,Hanlin Tang,2024-03-30,"Add finetuning yaml links (#13)
+
+This PR adds links to the hard-to-find dbrx finetuning yamls in LLM
+Foundry.
+
+---------
+
+Co-authored-by: Daniel King <43149077+dakinggg@users.noreply.github.com>"
+Dbrx,c55c7c381f,bandish-shah,2024-03-28,Update vLLM instructions (#4)
+Dbrx,8ddfd58efa,Addison Snelling,2024-03-28,"fix typo in quick start (#2)
+
+Change
+
+```Bash
+pip install -e requirements.txt
+```
+
+to
+
+```Bash
+pip install -r requirements.txt
+```"
+Dbrx,5d4bb8fd7a,Megha Agarwal,2024-03-28,Update PR links for inference libraries (#1)
+Dbrx,7cbcf4ece5,Bandish Shah,2024-03-28,Initial commit
+Yi,8cb87023ef,Mia-xia,2024-11-27,Update README.md
+Yi,899869be5b,Yu,2024-11-11,Update README.md
+Yi,8673eeaf48,Haijian Wang,2024-11-05,Update README.md
+Yi,18afd95985,Haijian Wang,2024-09-24,Update README.md
+Yi,47d888bfbd,nlmlml,2024-09-24,Update README.md
+Yi,9a3cebabe9,Haijian Wang,2024-09-24,Update README.md
+Yi,988e439477,Haijian Wang,2024-09-24,Update README.md
+Yi,a9cc28834d,Haijian Wang,2024-09-24,Update README.md
+Yi,bfb13b9e97,Haijian Wang,2024-09-24,Update README.md
+Yi,211e9f4634,Haijian Wang,2024-09-23,Update README.md
+Yi,99233f4f9e,Haijian Wang,2024-09-23,Update README_cn.md
+Yi,1753148be6,Haijian Wang,2024-09-23,Update README.md
+Yi,8b372f2f61,Haijian Wang,2024-09-23,Update README_cn.md
+Yi,bd247ccdd3,Haijian Wang,2024-09-23,Update README.md
+Yi,f0571c883e,Haijian Wang,2024-09-19,Update README.md
+Yi,3623a24e21,Haijian Wang,2024-09-06,Add files via upload
+Yi,aab988f405,nlmlml,2024-09-05,Add files via upload
+Yi,461545b79b,Mia-xia,2024-09-04,Add files via upload
+Yi,90a93603f0,Mia-xia,2024-09-04,Delete assets/img/coder/yi-coder-9b-calculator-demo.gif
+Yi,ffd96437b7,Mia-xia,2024-09-04,Add files via upload
+Yi,8900424b8f,Mia-xia,2024-09-04,Add files via upload
+Yi,ca7bede54c,Mia-xia,2024-09-04,Add files via upload
+Yi,90183b52c4,Mia-xia,2024-09-04,Delete assets/img/coder/download1.png
+Yi,3f59ec04ad,Mia-xia,2024-09-04,Delete assets/img/coder/b1.jpg
+Yi,288a36ae5d,Mia-xia,2024-09-04,Delete assets/img/coder/bench1.png
+Yi,f9096f3643,Mia-xia,2024-09-04,Delete assets/img/coder/bench1.png
+Yi,d99343eb02,Mia-xia,2024-09-04,Add files via upload
+Yi,a71e035e65,Mia-xia,2024-09-04,Add files via upload
+Yi,398349dc5a,Mia-xia,2024-09-03,Add files via upload
+Yi,34a47cf39d,Mia-xia,2024-09-03,Create test
+Deepseek-V3,e975062c42,yixing1992,2025-06-16,Update README.md for Huawei Ascend NPU support modes
+Deepseek-V3,a5d2ad229e,Shixian Sheng,2025-03-27,Update README.md
+Deepseek-Janus,1daa72fa40,charlescxk,2025-02-01,update citation
+Deepseek-Janus,a74a59f8a9,charlescxk,2025-01-28,fix typos
+Deepseek-Janus,a42ad6dab3,charlescxk,2025-01-28,add Janus-Pro technical report
+Deepseek-Janus,481f4213b9,charlescxk,2025-01-28,add Janus-Pro
+Deepseek-Janus,95bde087ba,charlescxk,2025-01-28,add Janus-Pro
+Deepseek-Janus,146668eafe,Xingchao Liu,2024-11-13,fix errors
+Deepseek-Janus,f887e7270e,Xingchao Liu,2024-11-13,fix errors
+Deepseek-Janus,b01013575f,Xingchao Liu,2024-11-13,add janusflow
+YuE,9f1394bae1,Ruibin Yuan,2025-06-05,Update README.md
+YuE,fa72c55eec,Ruibin Yuan,2025-06-04,Update README.md
+YuE,8dfeb29415,Ruibin Yuan,2025-06-04,Update README.md
+YuE,6586fdda31,Skrill2001,2025-05-19,update run_fintune.sh
+YuE,0b4fae4d01,Skrill2001,2025-05-19,update finetune
+YuE,4aa5bc46b5,hf-lin,2025-05-15,release LoRa finetune code
+YuE,5cef082e80,Ruibin Yuan,2025-05-15,Update README.md
+YuE,7700f05c28,yongyizang,2025-03-29,Add script to extract raw pitch values separate from RMVPE
+YuE,135b48596b,yongyizang,2025-03-29,Add vocal range reproduction scripts
+YuE,04acb89ef7,DJ Magar,2025-03-14,"Update w/ Vector Logo + DarkMode
+
+Updated to use the SVG logo and display darkmode variant on supported platforms"
+YuE,e65f8f75a8,DJ Magar,2025-03-14,"Add HD Vector Logos
+
+Added high-quality vector versions of the YuE logo for both light and dark backgrounds.
+
+新增高质量的 YuE 标志矢量版本，适用于浅色和深色背景。"
+YuE,6be769e0ff,Ruibin Yuan,2025-03-12,Update README.md
+YuE,87ee6392f6,Ruibin Yuan,2025-03-12,Update README.md
+YuE,f2286a8ac6,Ruibin Yuan,2025-03-12,Update README.md
+YuE,58db1cdc69,Ruibin Yuan,2025-03-12,Update README.md
+YuE,ba87f247d4,Ruibin Yuan,2025-03-12,Update README.md
+YuE,f5769852c0,Ruibin Yuan,2025-03-11,Update README.md
+YuE,98f540a9b4,Ruibin Yuan,2025-03-11,Update README.md
+YuE,416782dc5a,Ruibin Yuan,2025-03-08,Update README.md
+ChronosForecasting,eec771e339,Abdul Fatir,2025-04-07,Fix scaling that affects constant series (#294)
+InternVideo,4b0b701512,Yi Wang,2025-06-16,Update README.md
+InternVideo,d2481a52dd,Yi Wang,2025-06-16,Update README.md
+InternVideo,421f6d2361,Yi Wang,2025-05-25,Update README.md
+InternVideo,3eb479cd2f,qingy1337,2025-05-15,Fixed some errors in the single_modality docs
+InternVideo,961ba75378,qingy1337,2025-05-15,"Update DEMO_USAGE_GUIDE.md
+
+Changed the title to ""Demo Usage Guide"""
+InternVideo,20b9aee465,Xinhao Li,2025-04-26,Update DEMO_USAGE_GUIDE.md
+InternVideo,fd5dbe7357,Chenting Wang,2025-04-09,[Upload] code for distillation
+InternVideo,8ecd7b4ee1,Xinhao Li,2025-04-09,Update README.md
+lag-llama,df7531a83a,Arjun Ashok,2025-06-07,Remove emails
+Otter,1e7eb9a6fb,Li Bo,2024-03-06,Update README.md
+Otter,ec89e38869,Li Bo,2024-03-06,Update README.md
+Otter,a79def30a6,Li Bo,2024-03-06,Update README.md
+Otter,a87e8f0574,Li Bo,2024-01-18,Update mimicit_dataset.py
+Otter,366a09d18c,Li Bo,2023-12-30,Update modeling_persimmon.py
+Otter,488c59a5c7,Li Bo,2023-12-24,Update requirements.txt
+Otter,e5c67b2966,Li Bo,2023-12-24,Update modeling_otter.py
+Otter,50cacb9903,Li Bo,2023-12-24,Update requirements.txt
+Otter,16167d1fec,Li Bo,2023-12-23,Update credits.md
+Otter,68273dd9bf,Li Bo,2023-12-23,Update README.md
+Otter,38593e6473,Li Bo,2023-12-23,Create credits.md
+Otter,8b386816ec,Li Bo,2023-12-11,Update mimicit_dataset.py
+Otter,3a746889cb,Li Bo,2023-12-11,Update mimicit_dataset.py
+Otter,5a7d017bb7,Li Bo,2023-12-10,Update mimicit_format.md
+Otter,c0d851dc76,Li Bo,2023-12-10,Add files via upload
+Otter,dbe276e82d,Li Bo,2023-12-09,Update README.md
+Otter,f6606c9cf1,Li Bo,2023-12-07,[Train] Avoid skipping data
+Clay-foundation-model,b817be2dcf,Aimee Barciauskas,2025-05-26,"fix-table-formatting (#354)
+
+Cleans up some characters leftover from a merge conflict"
+Clay-foundation-model,58646dcf4b,Bruno Sánchez-Andrade Nuño,2025-05-20,"Fix deprecated version of `actions/upload-artifact: v3` (#352)
+
+pin artifact"
+Clay-foundation-model,8a2d50fbaa,Bruno Sánchez-Andrade Nuño,2025-05-20,"Update licensing information in documentation to Apache (#351)
+
+Update licensing information in documentation to reflect Apache 2.0 for both source code and model weights
+
+Update docs/release-notes/specification.md
+
+Co-authored-by: Copilot <175728472+Copilot@users.noreply.github.com>
+
+Update license information in documentation to reflect Apache 2.0"
+whisper,dd985ac4b9,dependabot[bot],2025-05-14,"Bump the github-actions group with 3 updates (#2592)
+
+Bumps the github-actions group with 3 updates: [actions/checkout](https://github.com/actions/checkout), [actions/setup-python](https://github.com/actions/setup-python) and [softprops/action-gh-release](https://github.com/softprops/action-gh-release).
+
+
+Updates `actions/checkout` from 3 to 4
+- [Release notes](https://github.com/actions/checkout/releases)
+- [Changelog](https://github.com/actions/checkout/blob/main/CHANGELOG.md)
+- [Commits](https://github.com/actions/checkout/compare/v3...v4)
+
+Updates `actions/setup-python` from 4 to 5
+- [Release notes](https://github.com/actions/setup-python/releases)
+- [Commits](https://github.com/actions/setup-python/compare/v4...v5)
+
+Updates `softprops/action-gh-release` from 1 to 2
+- [Release notes](https://github.com/softprops/action-gh-release/releases)
+- [Changelog](https://github.com/softprops/action-gh-release/blob/master/CHANGELOG.md)
+- [Commits](https://github.com/softprops/action-gh-release/compare/v1...v2)
+
+---
+updated-dependencies:
+- dependency-name: actions/checkout
+  dependency-version: '4'
+  dependency-type: direct:production
+  update-type: version-update:semver-major
+  dependency-group: github-actions
+- dependency-name: actions/setup-python
+  dependency-version: '5'
+  dependency-type: direct:production
+  update-type: version-update:semver-major
+  dependency-group: github-actions
+- dependency-name: softprops/action-gh-release
+  dependency-version: '2'
+  dependency-type: direct:production
+  update-type: version-update:semver-major
+  dependency-group: github-actions
+...
+
+Signed-off-by: dependabot[bot] <support@github.com>
+Co-authored-by: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>"
+whisper,e6a5fc0ff0,Christian Clauss,2025-05-14,pre-commit: Upgrade black v25.1.0 and isort v6.0.0 (#2514)
+whisper,13907bed90,Christian Clauss,2025-05-13,"GitHub Actions: Add Python 3.13 to the testing (#2487)
+
+* GitHub Actions: Add Python 3.13 to the testing
+
+* GitHub Actions: Add Python 3.13 to the testing
+
+* numba==0.61.0rc2; python_version=='3.13'
+
+* triton>=2; python_version<'3.13'
+
+* fail-fast: false
+
+* Numba v0.61.0 is released
+
+https://github.com/numba/numba/releases
+
+* Update pyproject.toml"
+microsoft-industrial-foundation-models,40f5244bd2,Shun Zheng,2024-08-19,update the IFM figure
+microsoft-industrial-foundation-models,b966c64ea1,Shun Zheng,2024-08-16,"Update README.md
+
+change ""data knowledge"" to ""data intelligence"","
+microsoft-industrial-foundation-models,e9eadeb433,xumengwen,2024-08-15,update acknowledgements
+microsoft-industrial-foundation-models,1fbe51ddce,xumengwen,2024-08-15,"add license and acknowledgements
+
+update ignore files"
+microsoft-industrial-foundation-models,77a8ff91f5,Shun Zheng,2024-08-15,"Update README.md
+
+add acknowledgements"
+microsoft-industrial-foundation-models,3ba5c1c001,Shun Zheng,2024-08-15,"Update README.md
+
+Add some explanations to the model checkpoint preparation"
+microsoft-industrial-foundation-models,f16a326a0e,xumengwen,2024-08-14,add license
+microsoft-industrial-foundation-models,1c34039ba3,xumengwen,2024-08-14,first commit
+microsoft-BioGPT,648f7d6503,Renqian Luo,2023-11-14,update checkpoint links
+RadFM,9efba84cce,chaoyi-wu,2025-05-06,add comments
+RadFM,02df9b7a80,chaoyi-wu,2025-05-06,change
+RadFM,41c3b92150,chaoyi-wu,2025-05-06,change
+RadFM,f666c7549a,chaoyi-wu,2025-05-06,change
+RadFM,94da8ebe62,chaoyi-wu,2025-05-06,Change Readme
+RadFM,1ea4b197dc,chaoyi-wu,2025-04-27,Update README.md
+roberta_zh,438476f7da,brightmart,2022-06-15,Update README.md
+roberta_zh,e095348cb1,brightmart,2022-06-02,Update README.md
+Ernie,03d886406f,Xintong Yu,2023-03-28,Update README.md
+Ernie,620ee3df7f,Xintong Yu,2023-03-28,Rename ViLG-300.csv
+Ernie,999fd2390a,Xintong Yu,2023-03-25,Update README.md
+Ernie,86f75faa5f,Xintong Yu,2023-03-25,Update README.md
+Ernie,d440cd55b2,Xintong Yu,2023-03-25,add ERNIE-ViLG2 page
+Ernie,70bad885f4,Kennycao123,2023-01-31,Update readme_en.md
+Ernie,bbc9a6fa27,Kennycao123,2023-01-31,Update readme.md
+ChatGlm-6B,6727b17479,zR,2024-06-27,fix
+ChatGlm-6B,21dba5bd0b,zR,2024-06-27,GLM-4更新
+R1-Omni,17cafcae0b,Jiaxing-star,2025-03-24,Update README.md
+R1-Omni,dc5dedd71c,Jiaxing-star,2025-03-21,Update README.md
+R1-Omni,e0e9706d5e,Jiaxing-star,2025-03-21,add_user_policy
+R1-Omni,f1c326a721,Jiaxing-star,2025-03-13,Update README.md
+R1-Omni,c1df6163ad,Jiaxing-star,2025-03-12,Update README.md
+R1-Omni,80946b4cb2,Jiaxing-star,2025-03-12,edit_sh
+R1-Omni,ca69e30b3a,Jiaxing-star,2025-03-12,update_trainer
+R1-Omni,27dc53ede7,Jiaxing-star,2025-03-12,Update README.md
+R1-Omni,0b5e6ab13d,Jiaxing-star,2025-03-12,integrate_humanomni
+R1-Omni,45c6a36945,Jiaxing-star,2025-03-12,Update README.md
+R1-Omni,d5ec71f954,Jiaxing-star,2025-03-11,Update README.md
+R1-Omni,2c7d356ebf,Jiaxing-star,2025-03-11,Update README.md
+R1-Omni,1b40b6ef07,Jiaxing-star,2025-03-10,release_v1
+R1-Omni,2c977f86f4,Jiaxing-star,2025-03-10,Update README.md
+R1-Omni,8da7be2ccf,Jiaxing-star,2025-03-10,Update README.md
+R1-Omni,fc716ffcd1,Jiaxing-star,2025-03-10,Update README.md
+R1-Omni,f419601284,Jiaxing-star,2025-03-10,Update README.md
+R1-Omni,d83686725e,Jiaxing-star,2025-03-10,Update README.md
+R1-Omni,b413077b90,Jiaxing-star,2025-03-10,update_readme
+R1-Omni,851bd0041b,Jiaxing-star,2025-03-10,release_v1
+R1-Omni,0020f5a5f6,Jiaxing-star,2025-03-10,release_v1
+Hibiki,f1cf9293e3,Laurent Mazare,2025-04-15,Include the cargo lock file. (#16)
+Hibiki,1876807560,Laurent,2025-04-04,Add some mentions of the real-time frontend for MLX.
+Hibiki,19b4d2b9c1,Laurent Mazare,2025-02-10,"Support for hibiki-2b in the rust implementation. (#11)
+
+* Support for hibiki-2b in the rust implementation.
+
+* And bump the crate version."
+Hibiki,eb2d85871a,Laurent Mazare,2025-02-09,Add a readme for the rust version. (#9)
+Hibiki,1a89e13ad4,Laurent Mazare,2025-02-09,"Adapt the contributing guide + PR template. (#8)
+
+* Adapt the contributing guide + PR template.
+
+* Typo."
+Hibiki,e0213db8cf,Laurent Mazare,2025-02-09,"Bump the version of the moshi dependency. (#7)
+
+* Bump the version of the moshi dependency.
+
+* Setup some rust ci."
+Hibiki,bde3f3fb10,Laurent,2025-02-07,Add some indications for hibiki-rs.
+Hibiki,435ce6ff01,Laurent,2025-02-07,Stream the text output.
+Hibiki,f5c8f0358e,Laurent,2025-02-07,Simplify the command line arguments.
+Hibiki,cc66d441de,Laurent,2025-02-07,Add hibiki-rs.
+Hibiki,75daf4c701,Alexandre Défossez,2025-02-07,Update README.md
+Hibiki,e71fb9bd5e,Alexandre Défossez,2025-02-07,Update README.md
+Hibiki,a269323301,Alexandre Défossez,2025-02-07,plop
+Hibiki,f1f14089ca,Alexandre Défossez,2025-02-07,adding model links
+Hibiki,7bda8668b8,Alexandre Défossez,2025-02-07,"Update README.md
+
+fix colab"
+Hibiki,63c136c773,Alexandre Défossez,2025-02-07,Update README.md
+Hibiki,81e0626591,Neil Zeghidour,2025-02-07,Update README.md
+Hibiki,ab17b9a0c8,Alexandre Défossez,2025-02-07,Update README.md
+Hibiki,56418e7f5f,Neil Zeghidour,2025-02-07,plop
+Hibiki,4ff6ec03d2,Neil Zeghidour,2025-02-07,plop
+Hibiki,91232aa900,laurent,2025-02-06,Add moshi-swift.
+Hibiki,58f5958730,laurent,2025-02-06,Fix.
+Hibiki,80689ea249,laurent,2025-02-06,Update the readme.
+Hibiki,4711b8575b,laurent,2025-02-06,Fix the repo name.
+Hibiki,b8c3378ec1,laurent,2025-02-06,Tweaks.
+Hibiki,248ee27465,laurent,2025-02-06,Correct the title.
+Hibiki,e62e027b68,laurent,2025-02-06,More readme.
+Hibiki,c537453aa2,laurent,2025-02-06,Add to the readme.
+Hibiki,d5114247bb,Alexandre Défossez,2025-02-06,adding toml etc
+Hibiki,587114e536,Alexandre Défossez,2025-02-06,adding some files
+Hibiki,7984f3b979,laurent,2025-02-04,Licenses.
+Hibiki,c9d59d9ac7,Laurent Mazare,2025-02-04,Initial commit
