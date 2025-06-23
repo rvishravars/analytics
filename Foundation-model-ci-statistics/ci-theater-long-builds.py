@@ -79,7 +79,7 @@ for p in projects:
 print(tabulate(results, headers="keys", tablefmt="grid"))
 
 # Write to CSV
-csv_file = "ci_theater_long_builds.csv"
+csv_file = "data/ci_theater_long_builds.csv"
 with open(csv_file, "w", newline="", encoding="utf-8") as f:
     writer = csv.DictWriter(f, fieldnames=results[0].keys())
     writer.writeheader()

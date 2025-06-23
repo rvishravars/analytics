@@ -32,9 +32,8 @@ def get_commit_frequency(repo_path, branch="main"):
 
     total_commits = len(commits)
     avg_weekday = total_commits / 65.0  # 13 weeks × 5 weekdays
-    avg_all_days = total_commits / 90.0
 
-    return total_commits, round(avg_weekday, 2), round(avg_all_days, 2), weekday_counts, last_date.strftime("%Y-%m-%d")
+    return total_commits, round(avg_weekday, 2), weekday_counts, last_date.strftime("%Y-%m-%d")
 
 
 # Run for all projects
@@ -52,16 +51,15 @@ for project in projects:
             print(f"Cloning {name}...")
             Repo.clone_from(url, local_path)
 
-        total, avg_weekday, avg_all, dist, last_date = get_commit_frequency(local_path)
+        total, avg_weekday, dist, last_date = get_commit_frequency(local_path)
 
-        infrequent = "Yes" if avg_weekday < 2.36 or avg_all < 2.36 else "No"
+        infrequent = "Yes" if avg_weekday < 2.36 else "No"
 
         results.append({
             "name": name,
             "Last Commit Date": last_date,
             "Total Commits (Last 90d)": total,
             "Avg Commits/Weekday (Mon–Fri)": avg_weekday,
-            "Avg Commits/Day (All Days)": avg_all,
             "Infrequent (<2.36)": infrequent
         })
 
@@ -72,7 +70,6 @@ for project in projects:
             "Last Commit Date": "Error",
             "Total Commits (Last 90d)": "Error",
             "Avg Commits/Weekday (Mon–Fri)": "Error",
-            "Avg Commits/Day (All Days)": "Error",
             "Infrequent (<2.36)": "Error"
         })
 
@@ -80,14 +77,13 @@ for project in projects:
 print(tabulate(results, headers="keys", tablefmt="grid"))
 
 # Save to CSV
-csv_path = "../ci_theater_commit_frequency.csv"
+csv_path = "data/ci_theater_commit_frequency.csv"
 with open(csv_path, "w", newline="", encoding="utf-8") as csvfile:
     fieldnames = [
         "name",
         "Last Commit Date",
         "Total Commits (Last 90d)",
         "Avg Commits/Weekday (Mon–Fri)",
-        "Avg Commits/Day (All Days)",
         "Infrequent (<2.36)"
     ]
     writer = csv.DictWriter(csvfile, fieldnames=fieldnames)

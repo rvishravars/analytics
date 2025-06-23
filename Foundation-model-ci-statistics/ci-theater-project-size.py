@@ -65,7 +65,7 @@ with TemporaryDirectory() as tmpdir:
 print(tabulate(results, headers="keys", tablefmt="grid"))
 
 # Write to CSV
-with open("../ci_theater_project_sizes.csv", "w", newline="", encoding="utf-8") as csvfile:
+with open("data/ci_theater_project_sizes.csv", "w", newline="", encoding="utf-8") as csvfile:
     fieldnames = ["name", "SLOC", "Category", "Languages"]
     writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
 

@@ -74,7 +74,7 @@ for project in projects:
         })
 
 # Write to CSV
-csv_path = "../ci_theater_commit_sizes.csv"
+csv_path = "data/ci_theater_commit_sizes.csv"
 with open(csv_path, "w", newline="", encoding="utf-8") as csvfile:
     fieldnames = ["name", "Total Commits", "Avg Commit Size", "Max Commit Size", "Min Commit Size", "Std Dev"]
     writer = csv.DictWriter(csvfile, fieldnames=fieldnames)

@@ -124,7 +124,7 @@ for p in projects:
 
 # Write to CSV
 if all_stats:
-    with open("../github_projects_stats.csv", "w", newline="") as csvfile:
+    with open("data/github_projects_stats.csv", "w", newline="") as csvfile:
         writer = csv.DictWriter(csvfile, fieldnames=all_stats[0].keys())
         writer.writeheader()
         writer.writerows(all_stats)
