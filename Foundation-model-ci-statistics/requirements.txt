@@ -1,3 +1,10 @@
 gitpython
 tabulate
 dotenv
+pandas
+seaborn
+matplotlib
+pytorch
+tensorflow
+flax
+transformers

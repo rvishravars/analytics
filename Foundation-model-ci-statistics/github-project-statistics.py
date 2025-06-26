@@ -2,39 +2,13 @@ import os
 import requests
 import csv
 from datetime import datetime
-from urllib.parse import urlparse
 from dotenv import load_dotenv
 
-projects = [
-    {"name": "t5", "owner": "google-research", "repo": "text-to-text-transfer-transformer"},
-    {"name": "Qwen", "owner": "QwenLM", "repo": "Qwen"},
-    {"name": "Qwen3", "owner": "QwenLM", "repo": "Qwen3"},
-    {"name": "RWKV-LM", "owner": "BlinkDL", "repo": "RWKV-LM"},
-    {"name": "gpt-neox", "owner": "EleutherAI", "repo": "gpt-neox"},
-    {"name": "OpenAI-CLIP", "owner": "openai", "repo": "CLIP"},
-    {"name": "Yalm", "owner": "yandex", "repo": "YaLM-100B"},
-    {"name": "Dbrx", "owner": "databricks", "repo": "dbrx"},
-    {"name": "Yi", "owner": "01-ai", "repo": "Yi"},
-    {"name": "Deepseek-V3", "owner": "deepseek-ai", "repo": "DeepSeek-V3"},
-    {"name": "Deepseek-Janus", "owner": "deepseek-ai", "repo": "Janus"},
-    {"name": "YuE", "owner": "multimodal-art-projection", "repo": "YuE"},
-    {"name": "ChronosForecasting", "owner": "amazon-science", "repo": "chronos-forecasting"},
-    {"name": "InternVideo", "owner": "OpenGVLab", "repo": "InternVideo"},
-    {"name": "lag-llama", "owner": "time-series-foundation-models", "repo": "lag-llama"},
-    {"name": "Otter", "owner": "EvolvingLMMs-Lab", "repo": "Otter"},
-    {"name": "Clay-foundation-model", "owner": "Clay-foundation", "repo": "model"},
-    {"name": "whisper", "owner": "openai", "repo": "whisper"},
-    {"name": "microsoft-industrial-foundation-models", "owner": "microsoft", "repo": "Industrial-Foundation-Models"},
-    {"name": "microsoft-BioGPT", "owner": "microsoft", "repo": "BioGPT"},
-    {"name": "RadFM", "owner": "chaoyi-wu", "repo": "RadFM"},
-    {"name": "roberta_zh", "owner": "brightmart", "repo": "roberta_zh"},
-    {"name": "Ernie", "owner": "PaddlePaddle", "repo": "ERNIE"},
-    {"name": "ChatGlm-6B", "owner": "THUDM", "repo": "ChatGLM-6B"}
-]
+from ci_foundation_projects import projects
 
 load_dotenv()
 GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
-HEADERS = {"Authorization": f"token {GITHUB_TOKEN}"} if GITHUB_TOKEN else {}
+headers = {"Authorization": f"token {GITHUB_TOKEN}"} if GITHUB_TOKEN else {}
 
 def paginate_count(url):
     count = 0
@@ -114,9 +88,11 @@ def get_repo_stats(owner, repo, name):
 
     first_workflow_run_at = get_first_workflow_run_date(owner, repo)
     months_to_first_workflow = ""
+    first_ci_date_str = ""
     if repo_created_at and first_workflow_run_at:
         delta = first_workflow_run_at - repo_created_at
         months_to_first_workflow = round(delta.days / 30.44)
+        first_ci_date_str = first_workflow_run_at.strftime("%Y-%m-%d")
 
     issues_url = f"{base_url}/issues?state=all&per_page=100"
     prs_url = f"{base_url}/pulls?state=all&per_page=100"
@@ -127,12 +103,14 @@ def get_repo_stats(owner, repo, name):
     return {
         "Project": name,
         "Repo URL": f"https://github.com/{owner}/{repo}",
-        "Active Period (Months)": active_period_months,
+        "Created At": repo_created_at_str,
+        "First CI Run Date": first_ci_date_str,
+        "Time to First CI (months)": months_to_first_workflow,
+        "Active Period (months)": active_period_months,
         "Total PRs": paginate_count(prs_url),
         "Total Issues": paginate_count(issues_url),
         "Contributors": paginate_count(contributors_url),
         "Workflows Used": "Yes" if (success_runs + failed_runs) > 0 else "No",
-        "Months to First Workflow Run": months_to_first_workflow,
         "Workflow Runs (Success)": success_runs,
         "Workflow Runs (Failure)": failed_runs
     }
@@ -146,10 +124,10 @@ for p in projects:
 
 # Write to CSV
 if all_stats:
-    with open("llm_project_workflow_stats.csv", "w", newline="") as csvfile:
+    with open("data/github_projects_stats.csv", "w", newline="") as csvfile:
         writer = csv.DictWriter(csvfile, fieldnames=all_stats[0].keys())
         writer.writeheader()
         writer.writerows(all_stats)
-    print("✅ CSV export complete: llm_project_workflow_stats.csv")
+    print("✅ CSV export complete: github_project_stats.csv")
 else:
     print("⚠️ No data written.")

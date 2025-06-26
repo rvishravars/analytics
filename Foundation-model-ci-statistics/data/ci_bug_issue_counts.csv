@@ -1,0 +1,17 @@
+Project,Repo,Total Bug Issues,Bug Issues Before CI,Bug Issues After CI
+t5,google-research/text-to-text-transfer-transformer,0,0,0
+EleutherAI-gpt-neox,EleutherAI/gpt-neox,210,185,25
+Qwen,QwenLM/Qwen,27,27,0
+OpenAI-CLIP,openai/CLIP,0,0,0
+Yi,01-ai/Yi,13,12,1
+Deepseek-V3,deepseek-ai/DeepSeek-V3,0,0,0
+ChronosForecasting,amazon-science/chronos-forecasting,18,0,18
+Clay-foundation-model,Clay-foundation/model,7,7,0
+whisper,openai/whisper,0,0,0
+microsoft-BioGPT,microsoft/BioGPT,0,0,0
+seamless_communication,facebookresearch/seamless_communication,1,1,0
+timesfm,google-research/timesfm,0,0,0
+TabPFN,PriorLabs/TabPFN,33,7,26
+microsoft-aurora,microsoft/aurora,1,0,1
+helicalAI-helical,helicalAI/helical,0,0,0
+bowang-lab-BioReason,bowang-lab/BioReason,4,0,4
