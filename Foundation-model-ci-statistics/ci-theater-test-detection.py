@@ -6,17 +6,7 @@ from git import Repo
 from pathlib import Path
 from tempfile import TemporaryDirectory
 
-from ci_foundation_projects import projects
-
-# Known indicators
-TEST_KEYWORDS = ["pytest", "unittest", "nose", "mocha", "jest", "go test", "cargo test", "ctest"]
-COVERAGE_KEYWORDS = ["coverage", "--cov", "lcov", "gcov", "codecov", "coveralls", "nyc", "pytest-cov"]
-
-CONFIG_FILES = [".coveragerc", ".codecov.yml", ".coveralls.yml", "coverage.xml", "lcov.info"]
-TEST_DIR_NAMES = {"test", "tests"}
-WORKFLOW_DIR = ".github/workflows"
-
-README_BADGE_PATTERN = re.compile(r"(codecov|coveralls|github\.com/.+/actions)")
+from ci_foundation_projects import projects  # Assumes you have a 'projects' list with 'owner', 'repo', 'name'
 
 # Detection keywords
 TEST_KEYWORDS = ["pytest", "unittest", "nose", "mocha", "jest", "go test", "cargo test", "ctest"]
@@ -24,6 +14,7 @@ COVERAGE_KEYWORDS = ["coverage", "--cov", "lcov", "gcov", "codecov", "coveralls"
 CONFIG_FILES = [".coveragerc", ".codecov.yml", ".coveralls.yml", "coverage.xml", "lcov.info"]
 TEST_CONFIG_FILES = ["Makefile", "tox.ini", "setup.cfg", "pyproject.toml", "package.json", "Cargo.toml"]
 README_BADGE_PATTERN = re.compile(r"(codecov|coveralls|github\.com/.+/actions)")
+TEST_DIR_NAMES = {"test", "tests"}
 
 def extract_keywords_from_file(file_path, keywords):
     found = set()
@@ -52,19 +43,19 @@ def analyze_repo(path):
     results = {
         "Has Tests": "No",
         "CI Workflows Used": "No",
+        "CI System": "None",
         "Tests in Workflow": "No",
         "Test Tools": set(),
         "Coverage Tools": set(),
         "Test Config Files": set(),
         "Extra Test Tools": set(),
         "Coverage Config Found": "No",
-        "Coverage Badges": [],
-        "Rust Project": "Yes" if list(Path(path).rglob("Cargo.toml")) else "No"
+        "Coverage Badges": []
     }
 
     # Check for test folders
     for subdir in Path(path).rglob("*"):
-        if subdir.is_dir() and subdir.name.lower() in {"test", "tests"}:
+        if subdir.is_dir() and subdir.name.lower() in TEST_DIR_NAMES:
             results["Has Tests"] = "Yes"
             break
 
@@ -81,15 +72,50 @@ def analyze_repo(path):
             results["Test Config Files"].add(file_name)
             results["Extra Test Tools"].update(extract_keywords_from_file(file_path, TEST_KEYWORDS + COVERAGE_KEYWORDS))
 
-    # Check GitHub Actions workflows
+    ci_detected = []
+
+    # GitHub Actions
     workflow_path = Path(path) / ".github" / "workflows"
     if workflow_path.exists():
+        ci_detected.append("GitHub Actions")
         results["CI Workflows Used"] = "Yes"
         for wf_file in workflow_path.glob("*.yml"):
             results["Test Tools"].update(extract_keywords_from_file(wf_file, TEST_KEYWORDS))
             results["Coverage Tools"].update(extract_keywords_from_file(wf_file, COVERAGE_KEYWORDS))
         if results["Test Tools"]:
             results["Tests in Workflow"] = "Yes"
+
+    # Travis CI
+    travis_file = Path(path) / ".travis.yml"
+    if travis_file.exists():
+        ci_detected.append("Travis CI")
+        results["CI Workflows Used"] = "Yes"
+        results["Test Tools"].update(extract_keywords_from_file(travis_file, TEST_KEYWORDS))
+        results["Coverage Tools"].update(extract_keywords_from_file(travis_file, COVERAGE_KEYWORDS))
+        if results["Test Tools"]:
+            results["Tests in Workflow"] = "Yes"
+
+    # CircleCI
+    circleci_config = Path(path) / ".circleci" / "config.yml"
+    if circleci_config.exists():
+        ci_detected.append("CircleCI")
+        results["CI Workflows Used"] = "Yes"
+        results["Test Tools"].update(extract_keywords_from_file(circleci_config, TEST_KEYWORDS))
+        results["Coverage Tools"].update(extract_keywords_from_file(circleci_config, COVERAGE_KEYWORDS))
+        if results["Test Tools"]:
+            results["Tests in Workflow"] = "Yes"
+
+    # GitLab CI
+    gitlab_ci_file = Path(path) / ".gitlab-ci.yml"
+    if gitlab_ci_file.exists():
+        ci_detected.append("GitLab CI")
+        results["CI Workflows Used"] = "Yes"
+        results["Test Tools"].update(extract_keywords_from_file(gitlab_ci_file, TEST_KEYWORDS))
+        results["Coverage Tools"].update(extract_keywords_from_file(gitlab_ci_file, COVERAGE_KEYWORDS))
+        if results["Test Tools"]:
+            results["Tests in Workflow"] = "Yes"
+
+    results["CI System"] = " + ".join(ci_detected) if ci_detected else "None"
 
     # README badge detection
     results["Coverage Badges"] = check_readme_for_badges(path)
@@ -108,9 +134,9 @@ with TemporaryDirectory() as tmpdir:
             summary.append({
                 "Project": p["name"],
                 "Repo URL": f"https://github.com/{p['owner']}/{p['repo']}",
-                "Rust Project": analysis["Rust Project"],
                 "Has Tests": analysis["Has Tests"],
                 "CI Workflows Used": analysis["CI Workflows Used"],
+                "CI System": analysis["CI System"],
                 "Tests in Workflow": analysis["Tests in Workflow"],
                 "Test Tools": ", ".join(analysis["Test Tools"]) or "None",
                 "Coverage Tools": ", ".join(analysis["Coverage Tools"]) or "None",
@@ -124,9 +150,9 @@ with TemporaryDirectory() as tmpdir:
             summary.append({
                 "Project": p["name"],
                 "Repo URL": url,
-                "Rust Project": "Error",
                 "Has Tests": "Error",
                 "CI Workflows Used": "Error",
+                "CI System": "Error",
                 "Tests in Workflow": "Error",
                 "Test Tools": "Error",
                 "Coverage Tools": "Error",
@@ -137,9 +163,11 @@ with TemporaryDirectory() as tmpdir:
             })
 
 # Save to CSV
-with open("ci_theater_test_tool_detection_report.csv", "w", newline="", encoding="utf-8") as f:
+output_path = "data/ci_theater_test_tool_detection_report.csv"
+os.makedirs("data", exist_ok=True)
+with open(output_path, "w", newline="", encoding="utf-8") as f:
     writer = csv.DictWriter(f, fieldnames=summary[0].keys())
     writer.writeheader()
     writer.writerows(summary)
 
-print("\n✅ Rust-aware test report saved to ci_theater_test_tool_detection_report.csv")
+print(f"\n✅ Report saved to {output_path}")
