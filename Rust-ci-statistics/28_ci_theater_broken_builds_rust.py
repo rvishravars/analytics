@@ -1,0 +1,285 @@
+#!/usr/bin/env python3
+import os
+import time
+import csv
+import math
+import random
+from datetime import datetime, timezone
+from concurrent.futures import ThreadPoolExecutor, as_completed
+
+import requests
+from requests.adapters import HTTPAdapter
+from urllib3.util.retry import Retry
+from dotenv import load_dotenv
+from tabulate import tabulate
+
+from ci_rust_projects import projects  # [{"owner": "...", "name": "..."}]
+
+# --------------------------
+# Config
+# --------------------------
+MAX_WORKERS = 4
+PER_PAGE = 100
+MAX_RUNS_PER_REPO = 100
+BASE_BACKOFF = 1.0          # seconds
+MAX_BACKOFF = 60.0          # seconds
+PER_REQUEST_PAUSE = 0.2     # gentle pacing between requests
+USER_AGENT = "ci-theater-broken-builds/1.0"
+
+# --------------------------
+# Auth & session
+# --------------------------
+load_dotenv()
+GITHUB_TOKEN = os.getenv("GITHUB_TOKEN", "").strip()
+if not GITHUB_TOKEN:
+    print("⚠️  No GITHUB_TOKEN found. You will be heavily rate limited by GitHub.")
+HEADERS = {
+    "Authorization": f"token {GITHUB_TOKEN}" if GITHUB_TOKEN else "",
+    "Accept": "application/vnd.github+json",
+    "User-Agent": USER_AGENT,
+}
+
+session = requests.Session()
+# Robust retry for transient errors (NOT for 403 rate-limit)
+retry = Retry(
+    total=5,
+    read=5,
+    connect=5,
+    backoff_factor=0.8,
+    status_forcelist=(429, 500, 502, 503, 504),
+    allowed_methods=frozenset(["GET"]),
+    raise_on_status=False,
+)
+adapter = HTTPAdapter(max_retries=retry, pool_connections=MAX_WORKERS, pool_maxsize=MAX_WORKERS)
+session.mount("https://", adapter)
+session.mount("http://", adapter)
+
+# --------------------------
+# Helpers
+# --------------------------
+def _sleep_with_jitter(seconds: float):
+    # Add small jitter to avoid synchronized hammering
+    jitter = seconds * 0.1 * random.random()
+    time.sleep(seconds + jitter)
+
+def _handle_rate_limit(resp: requests.Response, attempt: int) -> bool:
+    """
+    Returns True if caller should retry after sleeping, False if not handled here.
+    Handles:
+      - Primary rate limit (X-RateLimit-Remaining == 0) with X-RateLimit-Reset
+      - Secondary/abuse rate limits (403 with message hints)
+      - 429 Too Many Requests with Retry-After
+    """
+    status = resp.status_code
+    # 429: respect Retry-After if present
+    if status == 429:
+        retry_after = resp.headers.get("Retry-After")
+        if retry_after:
+            try:
+                wait = float(retry_after)
+            except ValueError:
+                wait = min(MAX_BACKOFF, BASE_BACKOFF * (2 ** attempt))
+        else:
+            wait = min(MAX_BACKOFF, BASE_BACKOFF * (2 ** attempt))
+        print(f"🕒 429 Too Many Requests. Sleeping {wait:.1f}s…")
+        _sleep_with_jitter(wait)
+        return True
+
+    if status == 403:
+        remaining = resp.headers.get("X-RateLimit-Remaining")
+        reset = resp.headers.get("X-RateLimit-Reset")
+        # Primary rate limit exhausted
+        if remaining == "0" and reset:
+            try:
+                reset_epoch = int(reset)
+            except ValueError:
+                reset_epoch = math.ceil(time.time()) + int(min(MAX_BACKOFF, BASE_BACKOFF * (2 ** attempt)))
+            now = math.ceil(time.time())
+            wait = max(1, reset_epoch - now) + 1  # add 1s cushion
+            # Cap the sleep to avoid excessively long pauses; still informative
+            capped = min(wait, 120)
+            print(f"🕒 Primary rate limit hit. Reset in ~{wait}s. Sleeping {capped}s…")
+            _sleep_with_jitter(capped)
+            return True
+
+        # Secondary/abuse rate limit (GitHub returns 403 with specific message)
+        try:
+            msg = resp.json().get("message", "").lower()
+        except Exception:
+            msg = ""
+        if "abuse detection" in msg or "secondary rate limit" in msg:
+            wait = min(MAX_BACKOFF, BASE_BACKOFF * (2 ** (attempt + 1)))
+            print(f"🛡️  Secondary/abuse limit. Backing off {wait:.1f}s…")
+            _sleep_with_jitter(wait)
+            return True
+
+    return False  # not handled here
+
+def github_get(url: str, params=None, max_attempts: int = 8):
+    """
+    GET with robust handling for rate limits and transient errors.
+    Returns JSON on success; raises on non-retryable failure.
+    """
+    attempt = 0
+    while True:
+        attempt += 1
+        try:
+            resp = session.get(url, headers=HEADERS, params=params, timeout=30)
+        except requests.RequestException as e:
+            if attempt >= max_attempts:
+                raise
+            wait = min(MAX_BACKOFF, BASE_BACKOFF * (2 ** attempt))
+            print(f"🌐 Network error {e}. Retry {attempt}/{max_attempts} in {wait:.1f}s…")
+            _sleep_with_jitter(wait)
+            continue
+
+        # Successful
+        if 200 <= resp.status_code < 300:
+            _sleep_with_jitter(PER_REQUEST_PAUSE)
+            return resp.json()
+
+        # Rate limit handler may sleep & retry
+        if _handle_rate_limit(resp, attempt) and attempt < max_attempts:
+            continue
+
+        # If still here and retriable status, do backoff
+        if resp.status_code in (500, 502, 503, 504):
+            if attempt < max_attempts:
+                wait = min(MAX_BACKOFF, BASE_BACKOFF * (2 ** attempt))
+                print(f"🔁 {resp.status_code} from GitHub. Retry {attempt}/{max_attempts} in {wait:.1f}s…")
+                _sleep_with_jitter(wait)
+                continue
+
+        # Not retriable / maxed out
+        try:
+            detail = resp.json()
+        except Exception:
+            detail = resp.text
+        raise requests.HTTPError(f"GitHub GET failed: {resp.status_code} {detail}")
+
+# --------------------------
+# Core logic
+# --------------------------
+def fetch_runs(owner: str, name: str, max_runs: int = MAX_RUNS_PER_REPO):
+    all_runs = []
+    page = 1
+    while len(all_runs) < max_runs:
+        url = f"https://api.github.com/repos/{owner}/{name}/actions/runs"
+        params = {"per_page": PER_PAGE, "page": page}
+        try:
+            data = github_get(url, params=params)
+        except Exception as e:
+            print(f"❌ Error fetching {owner}/{name}: {e}")
+            break
+
+        runs = data.get("workflow_runs", []) or []
+        if not runs:
+            break
+        all_runs.extend(runs)
+        if len(runs) < PER_PAGE:
+            break
+        page += 1
+    return all_runs[:max_runs]
+
+def compute_broken_stretches(runs):
+    # Sort by creation time ascending
+    runs = sorted(
+        runs,
+        key=lambda r: r.get("created_at") or ""
+    )
+    broken_periods = []
+    broken_since = None
+
+    for run in runs:
+        status = run.get("conclusion")  # success|failure|neutral|cancelled|timed_out|null
+        created_str = run.get("created_at")
+        if not created_str:
+            continue
+        created = datetime.fromisoformat(created_str.replace("Z", "+00:00"))
+
+        if status == "failure":
+            if broken_since is None:
+                broken_since = created
+        elif status == "success":
+            if broken_since:
+                delta_days = (created - broken_since).days
+                broken_periods.append(delta_days)
+                broken_since = None
+        else:
+            # ignore non-terminal or neutral states for streak logic
+            pass
+
+    # If still broken at the end
+    if broken_since:
+        now = datetime.now(timezone.utc)
+        trailing_days = (now - broken_since).days
+        broken_periods.append(trailing_days)
+
+    broken_gt_2 = sum(1 for d in broken_periods if d > 2)
+    max_broken_days = max(broken_periods) if broken_periods else 0
+    return broken_gt_2, max_broken_days
+
+def process_project(p):
+    owner, name = p["owner"], p["name"]
+    print(f"🔎 Checking {owner}/{name}…")
+    runs = fetch_runs(owner, name, max_runs=MAX_RUNS_PER_REPO)
+    if not runs:
+        return {
+            "name": name,
+            "Runs Analyzed": 0,
+            "Broken >2 Days": "",
+            "Max Broken Days": ""
+        }
+    gt2, max_days = compute_broken_stretches(runs)
+    return {
+        "name": name,
+        "Runs Analyzed": len(runs),
+        "Broken >2 Days": gt2,
+        "Max Broken Days": max_days
+    }
+
+# --------------------------
+# Parallel execution (4 workers)
+# --------------------------
+def main():
+    results = []
+    # Run in parallel with exactly 4 threads
+    with ThreadPoolExecutor(max_workers=MAX_WORKERS) as executor:
+        future_map = {executor.submit(process_project, p): p for p in projects}
+        for fut in as_completed(future_map):
+            p = future_map[fut]
+            try:
+                res = fut.result()
+            except Exception as e:
+                print(f"❌ Unhandled error on {p['owner']}/{p['name']}: {e}")
+                res = {
+                    "name": p["name"],
+                    "Runs Analyzed": 0,
+                    "Broken >2 Days": "",
+                    "Max Broken Days": ""
+                }
+            results.append(res)
+
+    # Keep output stable: sort by repo name
+    results.sort(key=lambda r: r["name"])
+
+    # Display table
+    if results:
+        print(tabulate(results, headers="keys", tablefmt="grid"))
+    else:
+        print("No results to display.")
+
+    # Save to CSV
+    os.makedirs("data", exist_ok=True)
+    out_path = "data/28_ci_theater_broken_builds_rust.csv"
+    if results:
+        with open(out_path, "w", newline="", encoding="utf-8") as f:
+            writer = csv.DictWriter(f, fieldnames=results[0].keys())
+            writer.writeheader()
+            writer.writerows(results)
+        print(f"\n✅ Results saved to {out_path}")
+    else:
+        print(f"\n⚠️ No rows written (no results).")
+
+if __name__ == "__main__":
+    main()
