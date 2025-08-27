@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """
 Analyze polyglot Rust repos (from polyglot_rust_repo_summary.csv).
-Generates summary statistics and visualizations for scientific reporting,
-including Rust vs. co-language pair analysis.
+Generates summary statistics, aggregate SLOC, Rust vs co-language pair analysis,
+and splits results into Rust-majority vs Rust-minority projects.
 """
 
 import pandas as pd
@@ -59,14 +59,14 @@ plt.savefig(os.path.join(OUT_DIR, "rust_share_hist.png"))
 # ------------------- Scatterplots ---------------------
 plt.figure(figsize=(8, 6))
 plt.scatter(df["total_sloc"], df["rust_share_pct"], alpha=0.5)
-plt.xscale("log")  # log scale for sloc
+plt.xscale("log")
 plt.title("Rust Share vs. Project Size")
 plt.xlabel("Total SLOC (log scale)")
 plt.ylabel("Rust Share (%)")
 plt.tight_layout()
 plt.savefig(os.path.join(OUT_DIR, "rust_share_vs_size.png"))
 
-# ---------------- Top co-languages --------------------
+# ---------------- Explode Languages -------------------
 rows = []
 for _, r in df.iterrows():
     if pd.isna(r["languages_json"]):
@@ -79,14 +79,15 @@ for _, r in df.iterrows():
                     "repo": r["repo"],
                     "rust_share_pct": r["rust_share_pct"],
                     "language": lang,
-                    "sloc": sloc
+                    "sloc": sloc,
+                    "is_majority": r["rust_share_pct"] > 50
                 })
     except Exception:
         pass
 
 langs_df = pd.DataFrame(rows)
 
-# Count frequency of languages across repos
+# ---------------- Co-language frequency ----------------
 top_co = langs_df["language"].value_counts().head(15)
 plt.figure(figsize=(10, 6))
 top_co.plot(kind="bar")
@@ -98,7 +99,6 @@ plt.savefig(os.path.join(OUT_DIR, "top_co_languages.png"))
 
 # ---------------- Aggregate SLOC per language ----------------
 agg_lang_sloc = langs_df.groupby("language")["sloc"].sum().sort_values(ascending=False)
-
 agg_csv = os.path.join(OUT_DIR, "aggregate_language_sloc.csv")
 agg_lang_sloc.to_csv(agg_csv, header=["total_sloc"])
 print(f"\nAggregate SLOC per language saved to {agg_csv}")
@@ -117,19 +117,50 @@ pair_stats = (
     .agg(["count", "mean", "median"])
     .sort_values("count", ascending=False)
 )
-
 pair_csv = os.path.join(OUT_DIR, "rust_vs_colanguage_pairs.csv")
 pair_stats.to_csv(pair_csv)
 print(f"Rust vs. co-language pair stats saved to {pair_csv}")
 
-# Plot top-N co-languages by avg Rust share
-topN = 12
 plt.figure(figsize=(10, 6))
-pair_stats.head(topN).sort_values("mean", ascending=False)["mean"].plot(kind="barh")
-plt.title(f"Average Rust Share (%) in Rust+X Projects (Top {topN} by repo count)")
+pair_stats.head(12).sort_values("mean", ascending=False)["mean"].plot(kind="barh")
+plt.title("Average Rust Share (%) in Rust+X Projects (Top 12 by repo count)")
 plt.xlabel("Average Rust Share (%)")
 plt.ylabel("Language")
 plt.tight_layout()
 plt.savefig(os.path.join(OUT_DIR, "rust_share_by_colanguage.png"))
+
+# ---------------- Split: Majority vs Minority ----------------
+maj = langs_df[langs_df["is_majority"]]
+minn = langs_df[~langs_df["is_majority"]]
+
+maj_stats = (
+    maj.groupby("language")["rust_share_pct"]
+    .agg(["count", "mean", "median"])
+    .sort_values("count", ascending=False)
+)
+min_stats = (
+    minn.groupby("language")["rust_share_pct"]
+    .agg(["count", "mean", "median"])
+    .sort_values("count", ascending=False)
+)
+
+maj_csv = os.path.join(OUT_DIR, "rust_majority_colanguage_stats.csv")
+min_csv = os.path.join(OUT_DIR, "rust_minority_colanguage_stats.csv")
+maj_stats.to_csv(maj_csv)
+min_stats.to_csv(min_csv)
+
+print(f"Rust-majority co-language stats saved to {maj_csv}")
+print(f"Rust-minority co-language stats saved to {min_csv}")
+
+# Plots: compare top co-languages in majority vs minority
+plt.figure(figsize=(10, 6))
+maj_stats.head(10)["count"].plot(kind="bar", alpha=0.7, label="Rust-majority")
+min_stats.head(10)["count"].plot(kind="bar", alpha=0.7, label="Rust-minority", color="orange")
+plt.title("Top Co-languages in Majority vs Minority Rust Projects")
+plt.xlabel("Language")
+plt.ylabel("Number of Repos")
+plt.legend()
+plt.tight_layout()
+plt.savefig(os.path.join(OUT_DIR, "colanguage_counts_majority_vs_minority.png"))
 
 print(f"\nFigures + CSVs saved in {OUT_DIR}/")
