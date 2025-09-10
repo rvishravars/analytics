@@ -60,7 +60,46 @@ HEADERS = {
 }
 
 # Project list: [{"owner": "org_or_user", "name": "repo"}]
-from ci_rust_projects import projects
+from rust_repos_100_percent import projects as _slug_projects
+
+# --- Adapter for flat slugs ---
+def _parse_slug(slug: str) -> tuple[str, str]:
+    """
+    Validate and normalize an 'owner/repo' slug.
+    Returns (owner, repo_name).
+    """
+    s = slug.strip().strip("/")
+    if "/" not in s:
+        raise ValueError(f"Invalid repo slug '{slug}'. Expected 'owner/repo'.")
+    owner, repo = s.split("/", 1)
+    owner = owner.strip()
+    repo = repo.strip()
+    if not owner or not repo:
+        raise ValueError(f"Invalid repo slug '{slug}'. Expected 'owner/repo'.")
+    return owner, repo
+
+def _to_project_dicts(slugs: list[str]) -> list[dict]:
+    """
+    Convert flat 'owner/repo' strings into dicts compatible with this script:
+    { "owner": <owner>, "name": <repo> }
+    """
+    seen = set()
+    out = []
+    for slug in slugs:
+        try:
+            owner, repo = _parse_slug(slug)
+            full = f"{owner}/{repo}"
+            key = full.lower()
+            if key in seen:
+                continue
+            seen.add(key)
+            out.append({"owner": owner, "name": repo})
+        except ValueError as e:
+            print(f"[warn] Skipping invalid slug: {e}")
+    return out
+
+# Build the adapted projects list once
+projects = _to_project_dicts(_slug_projects)
 
 # Tunables (kept conservative to avoid rate limits)
 WORKERS       = 4            # concurrent repos (raise slowly if stable)
@@ -902,6 +941,33 @@ def main():
     total = len(projects)
     print(f"📊 Processing {total} repos with {WORKERS} workers…")
     ordered: List[Optional[Dict]] = [None] * total
+    processed_count = 0
+
+    # Define fieldnames early for use in periodic writese
+    fieldnames = [
+        "name",
+        "Has Tests (static)",
+        "Tests in CI (configured)",
+        "Tests in CI (recent runs)",
+        "Coverage in CI (configured)",
+        "Coverage Tool (configured)",
+        "Test Tool (guess)",
+        "Test Evidence",
+        "Coverage Latest (%)",
+        "Coverage Mean (%)",
+        "Coverage Best (%)",
+        "Coverage Samples",
+        "Method",
+        "Latest Run ID",
+        "Latest Run Date",
+    ]
+
+    def write_results_to_csv(rows_to_write):
+        with open(CSV_FILE, "w", newline="", encoding="utf-8") as f:
+            writer = csv.DictWriter(f, fieldnames=fieldnames)
+            writer.writeheader()
+            for r in rows_to_write:
+                writer.writerow({k: r.get(k, "") for k in fieldnames})
 
     start = time.time()
     with ThreadPoolExecutor(max_workers=WORKERS) as ex:
@@ -912,6 +978,13 @@ def main():
         for fut in as_completed(futures):
             idx, row = fut.result()
             ordered[idx - 1] = row
+            processed_count += 1
+
+            # Write to CSV every 5 repos
+            if processed_count % 5 == 0 or processed_count == total:
+                current_results = [r for r in ordered if r is not None]
+                write_results_to_csv(current_results)
+                print(f"  [checkpoint] Wrote {len(current_results)}/{processed_count} results to {CSV_FILE}")
 
     results = [r for r in ordered if r is not None]
 
@@ -922,29 +995,8 @@ def main():
         except Exception:
             pass
 
-        # Ordered columns
-        fieldnames = [
-            "name",
-            "Has Tests (static)",
-            "Tests in CI (configured)",
-            "Tests in CI (recent runs)",
-            "Coverage in CI (configured)",      # ← NEW
-            "Coverage Tool (configured)",       # ← NEW
-            "Test Tool (guess)",
-            "Test Evidence",
-            "Coverage Latest (%)",
-            "Coverage Mean (%)",
-            "Coverage Best (%)",
-            "Coverage Samples",
-            "Method",
-            "Latest Run ID",
-            "Latest Run Date",
-        ]
-        with open(CSV_FILE, "w", newline="", encoding="utf-8") as f:
-            writer = csv.DictWriter(f, fieldnames=fieldnames)
-            writer.writeheader()
-            for r in results:
-                writer.writerow({k: r.get(k, "") for k in fieldnames})
+        # Final write to ensure all results are saved
+        write_results_to_csv(results)
         dur = round(time.time() - start, 1)
         print(f"\n✅ Results saved to {CSV_FILE} in {dur}s")
     else:

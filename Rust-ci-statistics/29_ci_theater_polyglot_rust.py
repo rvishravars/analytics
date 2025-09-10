@@ -1,22 +1,25 @@
 #!/usr/bin/env python3
 """
-Polyglot analysis for Rust projects using a similar framework to your prior script.
-
-What it does
+Extended analyzer for Rust repositories:
 - Clones each repo (shallow, depth=1)
-- Runs `cloc --json` across the whole repo
-- Filters out non-programming/aux filetypes (config, docs, data) via IGNORED_LANGS
-- Keeps ONLY repos that are BOTH:
-    * Rust-present (Rust SLOC > 0)
-    * Polyglot in programming languages (>=2 languages after filtering)
-- Produces:
-    1) Console table summary
-    2) CSV: per-repo summary (name, total_sloc, rust_sloc, num_langs, top_langs)
-    3) CSV: long format per-repo per-language breakdown
+- Runs `cloc --json` on the whole repo
+- Filters non-programming/aux types via IGNORED_LANGS
+- Produces BOTH:
+    1) ALL Rust repos (Rust detected at all)
+    2) Polyglot Rust repos (Rust + >=1 other language)
+    3) Monoglot Rust repos (Rust only after filtering)
+- Writes summary CSVs for each, plus long per-language breakdowns
+- Prints a quick console table for the polyglot subset
 
-Notes
-- Adjust IGNORED_LANGS below as you prefer.
-- Requires: cloc, GitPython, tabulate
+Outputs (in ./data):
+- rust_all_repo_summary.csv                (all Rust repos)
+- rust_all_repo_by_language.csv           (long format)
+- polyglot_rust_repo_summary.csv          (Rust + >=1 other lang)
+- polyglot_rust_repo_by_language.csv      (long format)
+- rust_monoglot_repo_summary.csv          (Rust only)
+- rust_monoglot_repo_by_language.csv      (long format; will just be Rust rows)
+
+Requires: cloc, GitPython, tabulate
 """
 import os
 import re
@@ -24,7 +27,6 @@ import json
 import csv
 import time
 import subprocess
-from collections import defaultdict
 from tempfile import TemporaryDirectory
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
@@ -73,13 +75,17 @@ def run_cloc(path: str, timeout=CLOC_TIMEOUT_SEC) -> dict:
         out = e.output
 
     s = out.strip()
-    i = s.find("{")
-    if i > 0:
-        s = s[i:]
+    start_idx = s.find("{")
+    end_idx = s.rfind("}")
+
+    if start_idx == -1 or end_idx == -1 or end_idx < start_idx:
+        raise RuntimeError(f"Could not find a valid JSON object in cloc output.\n--- preview ---\n{s[:1000]}\n--------------")
+
+    json_str = s[start_idx : end_idx + 1]
     try:
-        return json.loads(s)
+        return json.loads(json_str)
     except json.JSONDecodeError as je:
-        preview = "\n".join(s.splitlines()[:20])
+        preview = "".join(json_str.splitlines()[:20])
         raise RuntimeError(f"cloc JSON parse error: {je}\n--- preview ---\n{preview}\n--------------")
 
 
@@ -99,8 +105,12 @@ def extract_lang_sloc(cloc_data: dict) -> dict:
     return lang_sloc
 
 
-def is_polyglot_rust(lang_sloc: dict) -> bool:
-    return (lang_sloc.get("Rust", 0) > 0) and (len(lang_sloc) >= 2)
+def is_rust_present(lang_sloc: dict) -> bool:
+    return lang_sloc.get("Rust", 0) > 0
+
+
+def is_polyglot(lang_sloc: dict) -> bool:
+    return len(lang_sloc) >= 2
 
 
 def shallow_clone(url: str, dest: str) -> None:
@@ -117,17 +127,19 @@ def summarize_top_langs(lang_sloc: dict, n: int = TOP_LANGS_N) -> str:
     return ", ".join([f"{k} ({v})" for k, v in items])
 
 
-def categorize_project(total_sloc: int) -> str:
-    if total_sloc < 1_000:
-        return "Very Small"
-    elif total_sloc < 10_000:
-        return "Small"
-    elif total_sloc < 100_000:
-        return "Medium"
-    elif total_sloc < 1_000_000:
-        return "Large"
-    else:
-        return "Very Large"
+def summarize_row(name: str, repo_full: str, lang_sloc: dict) -> dict:
+    total = sum(lang_sloc.values())
+    rust = lang_sloc.get("Rust", 0)
+    return {
+        "name": name,
+        "repo": repo_full,
+        "total_sloc": total,
+        "rust_sloc": rust,
+        "rust_share_pct": round(100.0 * rust / total, 2) if total else 0.0,
+        "num_langs": len(lang_sloc),
+        "top_langs": summarize_top_langs(lang_sloc, TOP_LANGS_N),
+        "languages_json": json.dumps(lang_sloc, sort_keys=True),
+    }
 
 
 def process_one(project: dict, base_tmpdir: str) -> dict | None:
@@ -144,32 +156,24 @@ def process_one(project: dict, base_tmpdir: str) -> dict | None:
             cloc_data = run_cloc(dest)
             lang_sloc = extract_lang_sloc(cloc_data)
 
-            if not is_polyglot_rust(lang_sloc):
-                return None  # drop non-Rust or mono-language repos
+            if not is_rust_present(lang_sloc):
+                return None  # drop repos with no Rust detected
 
-            total = sum(lang_sloc.values())
-            rust = lang_sloc.get("Rust", 0)
-
-            return {
-                "name": name,
-                "repo": repo_full,
-                "total_sloc": total,
-                "rust_sloc": rust,
-                "rust_share_pct": round(100.0 * rust / total, 2) if total else 0.0,
-                "num_langs": len(lang_sloc),
-                "top_langs": summarize_top_langs(lang_sloc, TOP_LANGS_N),
-                "languages_json": json.dumps(lang_sloc, sort_keys=True),
-            }
+            row = summarize_row(name, repo_full, lang_sloc)
+            # also return exploded language rows
+            long_rows = [
+                {"name": name, "repo": repo_full, "language": lang, "sloc": sloc}
+                for lang, sloc in lang_sloc.items()
+            ]
+            return {"summary": row, "long": long_rows}
 
     except Exception as e:
         print(f"[error] {name}: {e}")
         return None
 
-
-# ---------------------- Main flow ---------------------
 def main():
-    repo_rows = []
-    long_rows = []  # repo, language, sloc
+    summaries = []          # all Rust repos
+    long_all = []           # per-language for all
 
     with TemporaryDirectory() as base_tmpdir:
         with ThreadPoolExecutor(max_workers=MAX_WORKERS) as pool:
@@ -177,50 +181,69 @@ def main():
             for fut in as_completed(futs):
                 r = fut.result()
                 if r:
-                    repo_rows.append(r)
-                    # explode the json per language for the long CSV
-                    lang_sloc = json.loads(r["languages_json"]) if r.get("languages_json") else {}
-                    for lang, sloc in lang_sloc.items():
-                        long_rows.append({
-                            "name": r["name"],
-                            "repo": r["repo"],
-                            "language": lang,
-                            "sloc": sloc,
-                        })
+                    summaries.append(r["summary"])
+                    long_all.extend(r["long"])
 
-    # Sort by total_sloc desc
-    repo_rows.sort(key=lambda x: (-int(x["total_sloc"]), x["name"]))
-
-    # Console table
-    if repo_rows:
-        print(tabulate(repo_rows, headers="keys", tablefmt="grid"))
-    else:
-        print("No polyglot Rust repos found under current filters.")
+    # Nothing found
+    if not summaries:
+        print("No repositories with Rust detected.")
+        return
 
     # Ensure data dir exists
     os.makedirs("data", exist_ok=True)
 
-    # Write summary CSV
-    out_csv_summary = "data/polyglot_rust_repo_summary.csv"
-    with open(out_csv_summary, "w", newline="", encoding="utf-8") as f:
-        writer = csv.DictWriter(
-            f,
-            fieldnames=[
-                "name", "repo", "total_sloc", "rust_sloc", "rust_share_pct",
-                "num_langs", "top_langs", "languages_json"
-            ],
-        )
-        writer.writeheader()
-        writer.writerows(repo_rows)
+    # --- Data partitions ---
+    # All Rust repos
+    all_rows = summaries
+    # Polyglot: Rust + >=1 other language
+    poly_rows = [row for row in summaries if row["num_langs"] >= 2]
+    # Monoglot: Rust only
+    mono_rows = [row for row in summaries if row["num_langs"] == 1]
 
-    # Write long/melted CSV
-    #out_csv_long = "data/29_ci_theater_polyglot_rust.csv"
-    #with open(out_csv_long, "w", newline="", encoding="utf-8") as f:
-    #    writer = csv.DictWriter(f, fieldnames=["name", "repo", "language", "sloc"])
-    #    writer.writeheader()
-    #    writer.writerows(long_rows)
+    # Build long-format partitions
+    def filter_long(rows_subset):
+        repos = set(row["repo"] for row in rows_subset)
+        return [r for r in long_all if r["repo"] in repos]
 
-    #print(f"\nWrote:\n - {out_csv_summary}\n - {out_csv_long}")
+    long_poly = filter_long(poly_rows)
+    long_mono = filter_long(mono_rows)
+
+    # --- Write CSVs ---
+    def write_summary_csv(path, rows):
+        with open(path, "w", newline="", encoding="utf-8") as f:
+            writer = csv.DictWriter(
+                f,
+                fieldnames=[
+                    "name", "repo", "total_sloc", "rust_sloc", "rust_share_pct",
+                    "num_langs", "top_langs", "languages_json"
+                ],
+            )
+            writer.writeheader()
+            writer.writerows(rows)
+
+    def write_long_csv(path, rows):
+        with open(path, "w", newline="", encoding="utf-8") as f:
+            writer = csv.DictWriter(f, fieldnames=["name", "repo", "language", "sloc"])
+            writer.writeheader()
+            writer.writerows(rows)
+
+    write_summary_csv("data/rust_all_repo_summary.csv", all_rows)
+    write_long_csv("data/rust_all_repo_by_language.csv", long_all)
+
+    write_summary_csv("data/polyglot_rust_repo_summary.csv", poly_rows)
+    write_long_csv("data/polyglot_rust_repo_by_language.csv", long_poly)
+
+    write_summary_csv("data/rust_monoglot_repo_summary.csv", mono_rows)
+    write_long_csv("data/rust_monoglot_repo_by_language.csv", long_mono)
+
+    # --- Console table: quick look at polyglot subset ---
+    if poly_rows:
+        print("Polyglot Rust repos (Rust + >=1 other language):")
+        # Sort by total_sloc desc for display
+        poly_rows_sorted = sorted(poly_rows, key=lambda x: (-int(x["total_sloc"]), x["name"]))
+        print(tabulate(poly_rows_sorted[:25], headers="keys", tablefmt="grid"))
+    else:
+        print("No polyglot Rust repos under current filters.")
 
 
 if __name__ == "__main__":

@@ -13,7 +13,44 @@ from urllib3.util.retry import Retry
 from dotenv import load_dotenv
 from tabulate import tabulate
 
-from ci_rust_projects import projects  # [{"owner": "...", "name": "..."}]
+# Import flat list of "owner/repo" slugs
+from rust_repos_100_percent import projects as _slug_projects
+
+# --- Adapter for flat slugs ---
+def _parse_slug(slug: str) -> tuple[str, str]:
+    """
+    Validate and normalize an 'owner/repo' slug.
+    Returns (owner, repo_name).
+    """
+    s = slug.strip().strip("/")
+    if "/" not in s:
+        raise ValueError(f"Invalid repo slug '{slug}'. Expected 'owner/repo'.")
+    owner, repo = s.split("/", 1)
+    owner = owner.strip()
+    repo = repo.strip()
+    if not owner or not repo:
+        raise ValueError(f"Invalid repo slug '{slug}'. Expected 'owner/repo'.")
+    return owner, repo
+
+def _to_project_dicts(slugs: list[str]) -> list[dict]:
+    """
+    Convert flat 'owner/repo' strings into dicts compatible with this script:
+    { "owner": <owner>, "name": <repo> }
+    """
+    seen = set()
+    out = []
+    for slug in slugs:
+        try:
+            owner, repo = _parse_slug(slug)
+            full = f"{owner}/{repo}"
+            key = full.lower()
+            if key in seen:
+                continue
+            seen.add(key)
+            out.append({"owner": owner, "name": repo})
+        except ValueError as e:
+            print(f"[warn] Skipping invalid slug: {e}")
+    return out
 
 # --------------------------
 # Config
@@ -38,6 +75,9 @@ HEADERS = {
     "Accept": "application/vnd.github+json",
     "User-Agent": USER_AGENT,
 }
+
+# Build the adapted projects list once
+projects = _to_project_dicts(_slug_projects)
 
 session = requests.Session()
 # Robust retry for transient errors (NOT for 403 rate-limit)
@@ -162,6 +202,7 @@ def github_get(url: str, params=None, max_attempts: int = 8):
 # --------------------------
 def fetch_runs(owner: str, name: str, max_runs: int = MAX_RUNS_PER_REPO):
     all_runs = []
+    full_slug = f"{owner}/{name}"
     page = 1
     while len(all_runs) < max_runs:
         url = f"https://api.github.com/repos/{owner}/{name}/actions/runs"
@@ -169,7 +210,7 @@ def fetch_runs(owner: str, name: str, max_runs: int = MAX_RUNS_PER_REPO):
         try:
             data = github_get(url, params=params)
         except Exception as e:
-            print(f"❌ Error fetching {owner}/{name}: {e}")
+            print(f"❌ Error fetching {full_slug}: {e}")
             break
 
         runs = data.get("workflow_runs", []) or []
@@ -221,18 +262,19 @@ def compute_broken_stretches(runs):
 
 def process_project(p):
     owner, name = p["owner"], p["name"]
-    print(f"🔎 Checking {owner}/{name}…")
+    full_slug = f"{owner}/{name}"
+    print(f"🔎 Checking {full_slug}…")
     runs = fetch_runs(owner, name, max_runs=MAX_RUNS_PER_REPO)
     if not runs:
         return {
-            "name": name,
+            "name": full_slug,
             "Runs Analyzed": 0,
             "Broken >2 Days": "",
             "Max Broken Days": ""
         }
     gt2, max_days = compute_broken_stretches(runs)
     return {
-        "name": name,
+        "name": full_slug,
         "Runs Analyzed": len(runs),
         "Broken >2 Days": gt2,
         "Max Broken Days": max_days
@@ -251,9 +293,10 @@ def main():
             try:
                 res = fut.result()
             except Exception as e:
-                print(f"❌ Unhandled error on {p['owner']}/{p['name']}: {e}")
+                full_slug = f"{p['owner']}/{p['name']}"
+                print(f"❌ Unhandled error on {full_slug}: {e}")
                 res = {
-                    "name": p["name"],
+                    "name": full_slug,
                     "Runs Analyzed": 0,
                     "Broken >2 Days": "",
                     "Max Broken Days": ""

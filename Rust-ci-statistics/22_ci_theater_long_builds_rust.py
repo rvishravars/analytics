@@ -3,6 +3,7 @@ import os
 import csv
 import time
 import math
+import re
 from datetime import datetime, timezone, timedelta
 
 import requests
@@ -19,9 +20,47 @@ if not GITHUB_TOKEN:
     )
 HEADERS = {"Authorization": f"token {GITHUB_TOKEN}"}
 
-# Your project list module should provide a list like:
-# projects = [{"owner": "org_or_user", "name": "repo_name"}, ...]
-from ci_rust_projects import projects  # keep as in your original code
+# Import flat list of "owner/repo" slugs
+from rust_repos_100_percent import projects as _slug_projects
+
+# --- Adapter for flat slugs ---
+def _parse_slug(slug: str) -> tuple[str, str]:
+    """
+    Validate and normalize an 'owner/repo' slug.
+    Returns (owner, repo_name).
+    """
+    s = slug.strip().strip("/")
+    if "/" not in s:
+        raise ValueError(f"Invalid repo slug '{slug}'. Expected 'owner/repo'.")
+    owner, repo = s.split("/", 1)
+    owner = owner.strip()
+    repo = repo.strip()
+    if not owner or not repo:
+        raise ValueError(f"Invalid repo slug '{slug}'. Expected 'owner/repo'.")
+    return owner, repo
+
+def _to_project_dicts(slugs: list[str]) -> list[dict]:
+    """
+    Convert flat 'owner/repo' strings into dicts compatible with this script:
+    { "owner": <owner>, "name": <repo> }
+    """
+    seen = set()
+    out = []
+    for slug in slugs:
+        try:
+            owner, repo = _parse_slug(slug)
+            full = f"{owner}/{repo}"
+            key = full.lower()
+            if key in seen:
+                continue
+            seen.add(key)
+            out.append({"owner": owner, "name": repo})
+        except ValueError as e:
+            print(f"[warn] Skipping invalid slug: {e}")
+    return out
+
+# Build the adapted projects list once
+projects = _to_project_dicts(_slug_projects)
 
 # --- Tunables for ~2-day runtime target ---
 PER_PAGE     = 50              # GitHub max per_page
@@ -152,7 +191,8 @@ def main():
         owner, name = p["owner"], p["name"]
         print(f"[{i}/{total}] Checking {owner}/{name}…")
         durations, run_count = get_workflow_durations(owner, name)
-        row = summarize_durations(name, durations)
+        full_slug = f"{owner}/{name}"
+        row = summarize_durations(full_slug, durations)
         results.append(row)
 
     # Display results in table format

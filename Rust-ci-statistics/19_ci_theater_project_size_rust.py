@@ -11,7 +11,9 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from git import Repo, GitCommandError
 from tabulate import tabulate
 
-from ci_rust_projects import projects  # expects projects = [{name, owner, repo}, ...]
+# --- NEW: import flat list of "owner/repo" slugs ---
+# rust_repos_100_percent.py must define: projects = ["owner/repo", ...]
+from rust_repos_100_percent import projects as _slug_projects
 
 # ----------------------- Config -----------------------
 MAX_WORKERS = 5
@@ -75,12 +77,59 @@ def shallow_clone(url: str, dest: str) -> None:
     try:
         Repo.clone_from(url, dest, multi_options=["--depth=1", "--no-tags"])
         return
-    except GitCommandError as e:
+    except GitCommandError:
         # Retry once after small delay
         time.sleep(1.5)
         Repo.clone_from(url, dest, multi_options=["--depth=1", "--no-tags"])
 
-def process_one(project: dict, base_tmpdir: str) -> dict:
+# ----------------- NEW: adapter for flat slugs -----------------
+def _parse_slug(slug: str) -> tuple[str, str]:
+    """
+    Validate and normalize an 'owner/repo' slug.
+    Returns (owner, repo_name).
+    """
+    s = slug.strip().strip("/")
+    if "/" not in s:
+        raise ValueError(f"Invalid repo slug '{slug}'. Expected 'owner/repo'.")
+    owner, repo = s.split("/", 1)
+    owner = owner.strip()
+    repo = repo.strip()
+    if not owner or not repo:
+        raise ValueError(f"Invalid repo slug '{slug}'. Expected 'owner/repo'.")
+    return owner, repo
+
+def _to_project_dicts(slugs: list[str]) -> list[dict]:
+    """
+    Convert flat 'owner/repo' strings into dicts compatible with the old code:
+    { "name": <owner/repo>, "repo": <owner/repo> }
+    (We no longer have separate owner/name fields in the input.)
+    Also de-duplicates case-insensitively.
+    """
+    seen = set()
+    out = []
+    for slug in slugs:
+        owner, repo = _parse_slug(slug)
+        full = f"{owner}/{repo}"
+        key = full.lower()
+        if key in seen:
+            continue
+        seen.add(key)
+        out.append({
+            "name": full,   # keep column 'name' readable
+            "repo": full,   # used below to construct the URL
+        })
+    return out
+
+# Build the adapted projects list once
+projects = _to_project_dicts(_slug_projects)
+
+# --------------------- Processing ---------------------
+def process_one(project: dict, base_tmpdir: str) -> dict | None:
+    """
+    project dict expects:
+      - project["name"]: display name (we'll use 'owner/repo')
+      - project["repo"]: 'owner/repo' slug
+    """
     name = project["name"]
     repo_full = project["repo"]
     url = f"https://github.com/{repo_full}"
@@ -110,6 +159,10 @@ def process_one(project: dict, base_tmpdir: str) -> dict:
 
 # ---------------------- Main flow ---------------------
 def main():
+    if not projects:
+        print("No repositories found. Ensure rust_repos_100_percent.py defines 'projects = [\"owner/repo\", ...]'.")
+        return
+
     results = []
 
     with TemporaryDirectory() as tmpdir:

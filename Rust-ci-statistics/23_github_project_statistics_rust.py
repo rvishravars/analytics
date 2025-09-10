@@ -9,8 +9,49 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 import requests
 from requests.utils import parse_header_links
 from dotenv import load_dotenv
+import re
 
-from ci_rust_projects import projects
+# Import flat list of "owner/repo" slugs
+from rust_repos_100_percent import projects as _slug_projects
+
+# --- Adapter for flat slugs ---
+def _parse_slug(slug: str) -> tuple[str, str]:
+    """
+    Validate and normalize an 'owner/repo' slug.
+    Returns (owner, repo_name).
+    """
+    s = slug.strip().strip("/")
+    if "/" not in s:
+        raise ValueError(f"Invalid repo slug '{slug}'. Expected 'owner/repo'.")
+    owner, repo = s.split("/", 1)
+    owner = owner.strip()
+    repo = repo.strip()
+    if not owner or not repo:
+        raise ValueError(f"Invalid repo slug '{slug}'. Expected 'owner/repo'.")
+    return owner, repo
+
+def _to_project_dicts(slugs: list[str]) -> list[dict]:
+    """
+    Convert flat 'owner/repo' strings into dicts compatible with this script:
+    { "owner": <owner>, "name": <repo_name>, "repo": <owner/repo_slug> }
+    """
+    seen = set()
+    out = []
+    for slug in slugs:
+        try:
+            owner, repo_name = _parse_slug(slug)
+            full_slug = f"{owner}/{repo_name}"
+            key = full_slug.lower()
+            if key in seen:
+                continue
+            seen.add(key)
+            out.append({"owner": owner, "name": repo_name, "repo": full_slug})
+        except ValueError as e:
+            print(f"[warn] Skipping invalid slug: {e}")
+    return out
+
+# Build the adapted projects list once
+projects = _to_project_dicts(_slug_projects)
 
 # =========================
 # Setup
@@ -401,7 +442,7 @@ def main() -> None:
                 continue
 
             row = assemble_row(
-                name=g["name"],
+                name=p["repo"],
                 owner=owner,
                 repo=name,
                 created_at_iso=g["createdAt"],

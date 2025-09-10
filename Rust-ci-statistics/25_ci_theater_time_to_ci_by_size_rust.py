@@ -10,22 +10,23 @@ print("Sizes CSV columns:", sizes_df.columns.tolist())
 
 # Merge based on project name
 df = pd.merge(stats_df, sizes_df[["name", "Category"]], left_on="Project", right_on="name", how="inner")
-df = df.rename(columns={
-    "Time to First CI (months)": "Time_To_First_CI",
-})
-df = df.drop(columns=["name"])  # Remove duplicate name column
 
 # Rename for clarity
 df = df.rename(columns={
-    "name": "Project",
-    "ci_start_delay_months": "Time_To_First_CI",
-    "Category": "Size"
+    "Time to First CI (months)": "Time_To_First_CI",
+    "Category": "Size",
 })
+df = df.drop(columns=["name"])  # Remove redundant 'name' column from the merge
 
-# Drop missing or invalid values
-df = df[df["Time_To_First_CI"].notna()]
-df["Time_To_First_CI"] = pd.to_numeric(df["Time_To_First_CI"], errors="coerce")
+# Convert 'Time_To_First_CI' to a numeric type, coercing errors into NaN
+df["Time_To_First_CI"] = pd.to_numeric(df["Time_To_First_CI"], errors='coerce')
 
+# Drop rows where 'Time_To_First_CI' is missing, as they cannot be plotted
+df.dropna(subset=["Time_To_First_CI"], inplace=True)
+
+if df.empty:
+    print("\nError: No valid data to plot after merging and cleaning.")
+    exit()
 
 # Plot: Boxplot of time to first CI grouped by project size
 plt.figure(figsize=(8, 5))

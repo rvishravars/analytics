@@ -10,17 +10,53 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from git import Repo, GitCommandError
 from tabulate import tabulate
 
-from ci_rust_projects import projects  # expects projects = [{name, owner, repo}, ...]
+# Import flat list of "owner/repo" slugs
+from rust_repos_100_percent import projects as _slug_projects
 
 # ---------------------- Config ----------------------
 MAX_WORKERS = 3
-DAYS_WINDOW = 90
-INFREQUENT_THRESHOLD = 2.36  # avg commits/weekday threshold
 
 # -------------------- Helpers -----------------------
 def safe_dirname(s: str) -> str:
     s = s.strip().replace(" ", "_")
     return re.sub(r"[^A-Za-z0-9._-]", "_", s)
+
+
+# --- Adapter for flat slugs ---
+def _parse_slug(slug: str) -> tuple[str, str]:
+    """
+    Validate and normalize an 'owner/repo' slug.
+    Returns (owner, repo_name).
+    """
+    s = slug.strip().strip("/")
+    if "/" not in s:
+        raise ValueError(f"Invalid repo slug '{slug}'. Expected 'owner/repo'.")
+    owner, repo = s.split("/", 1)
+    owner = owner.strip()
+    repo = repo.strip()
+    if not owner or not repo:
+        raise ValueError(f"Invalid repo slug '{slug}'. Expected 'owner/repo'.")
+    return owner, repo
+
+def _to_project_dicts(slugs: list[str]) -> list[dict]:
+    """
+    Convert flat 'owner/repo' strings into dicts compatible with the old code:
+    { "name": <owner/repo>, "repo": <owner/repo> }
+    """
+    seen = set()
+    out = []
+    for slug in slugs:
+        owner, repo = _parse_slug(slug)
+        full = f"{owner}/{repo}"
+        key = full.lower()
+        if key in seen:
+            continue
+        seen.add(key)
+        out.append({"name": full, "repo": full})
+    return out
+
+# Build the adapted projects list once
+projects = _to_project_dicts(_slug_projects)
 
 def detect_default_branch(repo: Repo) -> str:
     """
@@ -49,7 +85,7 @@ def detect_default_branch(repo: Repo) -> str:
     except Exception:
         return "HEAD"
 
-def get_commit_frequency(repo_path: str, branch: str | None = None):
+def get_commit_frequency(repo_path: str, branch: str | None = None) -> tuple[int, float, str]:
     repo = Repo(repo_path)
 
     # pick branch if not supplied
@@ -70,49 +106,53 @@ def get_commit_frequency(repo_path: str, branch: str | None = None):
 
     if not chosen:
         # nothing workable
-        return 0, 0.0, {}, "Unknown"
+        return 0, 0.0, "Unknown"
 
-    # Time window
-    now = datetime.now(timezone.utc)
-    since_dt = now - timedelta(days=DAYS_WINDOW)
+    # Get all commits from the chosen branch
+    commits = list(repo.iter_commits(chosen))
 
-    # GitPython accepts ISO8601 strings for since/until
-    since_iso = since_dt.isoformat()
-    until_iso = now.isoformat()
+    if not commits:
+        return 0, 0.0, "Unknown"
 
-    commits = list(repo.iter_commits(chosen, since=since_iso, until=until_iso))
+    # Last commit is the first in the list from iter_commits
+    last_commit = commits[0]
+    last_date_str = datetime.fromtimestamp(last_commit.committed_date, tz=timezone.utc).strftime("%Y-%m-%d")
 
-    weekday_counts = defaultdict(int)
+    # First commit is the last in the list
+    first_commit = commits[-1]
+    first_commit_dt = datetime.fromtimestamp(first_commit.committed_date, tz=timezone.utc)
+    last_commit_dt = datetime.fromtimestamp(last_commit.committed_date, tz=timezone.utc)
+
+    # Calculate project age in days between first and last commit
+    project_age_days = (last_commit_dt - first_commit_dt).days
+
+    # Count only weekday commits
+    weekday_commits = 0
     for c in commits:
-        # committed_date is POSIX timestamp (UTC)
-        day = datetime.fromtimestamp(c.committed_date, tz=timezone.utc).strftime("%A")
-        weekday_counts[day] += 1
+        commit_dt = datetime.fromtimestamp(c.committed_date, tz=timezone.utc)
+        if commit_dt.weekday() < 5:  # Monday is 0, Sunday is 6
+            weekday_commits += 1
+
+    # Estimate number of weekdays in the project's life.
+    num_weeks = project_age_days / 7.0 if project_age_days > 0 else 0
+    # Ensure at least one weekday to avoid division by zero for very short-lived projects
+    num_weekdays = max(1.0, num_weeks * 5.0)
 
     total_commits = len(commits)
-    # 13 weeks × 5 weekdays = 65 weekdays
-    avg_weekday = round(total_commits / 65.0, 2)
+    avg_weekday = round(weekday_commits / num_weekdays, 2)
 
-    # last commit on that branch (may be older than window)
-    last_commit = next(repo.iter_commits(chosen, max_count=1), None)
-    last_date_str = (
-        datetime.fromtimestamp(last_commit.committed_date, tz=timezone.utc).strftime("%Y-%m-%d")
-        if last_commit else "Unknown"
-    )
-
-    return total_commits, avg_weekday, dict(weekday_counts), last_date_str
+    return total_commits, avg_weekday, last_date_str
 
 def shallow_clone_for_history(repo_full: str, dest: str):
     url = f"https://github.com/{repo_full}"
-    since_dt = datetime.utcnow() - timedelta(days=DAYS_WINDOW + 10)
-    shallow_since = since_dt.strftime("%Y-%m-%d")
-
-    opts = ["--filter=blob:none", f"--shallow-since={shallow_since}"]
+    # --filter=blob:none clones history without file content, which is what we need.
+    # This is much more efficient than a full clone for history analysis.
+    opts = ["--filter=blob:none", "--no-tags"]
     try:
         Repo.clone_from(url, dest, multi_options=opts)
-    except GitCommandError:
-        # fallback: just get tip commit
-        print(f"[warn] shallow-since failed for {repo_full}, falling back to --depth=1")
-        Repo.clone_from(url, dest, multi_options=["--depth=1", "--no-tags"])
+    except GitCommandError as e:
+        print(f"[error] Clone failed for {repo_full}: {e}. This may happen for empty repos.")
+        raise
 
 def process_one(project: dict, base_tmpdir: str) -> dict:  # base_tmpdir kept for API compatibility; not used
     name = project["name"]
@@ -127,16 +167,13 @@ def process_one(project: dict, base_tmpdir: str) -> dict:  # base_tmpdir kept fo
             shallow_clone_for_history(repo_full, dest)
 
             # Analyse commit frequency over the last window
-            total, avg_weekday, dist, last_date = get_commit_frequency(dest)
-
-            infrequent = "Yes" if avg_weekday < INFREQUENT_THRESHOLD else "No"
+            total, avg_weekday, last_date = get_commit_frequency(dest)
 
             return {
                 "name": name,
                 "Last Commit Date": last_date,
-                "Total Commits (Last 90d)": total,
+                "Total Commits (since inception)": total,
                 "Avg Commits/Weekday (Mon–Fri)": avg_weekday,
-                "Infrequent (<2.36)": infrequent,
             }
 
     except Exception as e:
@@ -144,20 +181,26 @@ def process_one(project: dict, base_tmpdir: str) -> dict:  # base_tmpdir kept fo
         return {
             "name": name,
             "Last Commit Date": "Error",
-            "Total Commits (Last 90d)": "Error",
+            "Total Commits (since inception)": "Error",
             "Avg Commits/Weekday (Mon–Fri)": "Error",
-            "Infrequent (<2.36)": "Error",
         }
 
 # ---------------------- Main ------------------------
 def main():
     results = []
+    total_projects = len(projects)
+    processed_count = 0
+    print(f"Analyzing commit frequency for {total_projects} projects...")
 
     with TemporaryDirectory() as tmpdir:
         with ThreadPoolExecutor(max_workers=MAX_WORKERS) as pool:
             futs = [pool.submit(process_one, proj, tmpdir) for proj in projects]
             for fut in as_completed(futs):
                 results.append(fut.result())
+                processed_count += 1
+                # Print progress every 10 projects or on the last one
+                if processed_count % 10 == 0 or processed_count == total_projects:
+                    print(f"  Progress: {processed_count}/{total_projects} projects processed.")
 
     # Sort by date (errors at bottom)
     def sort_key(r):
@@ -173,9 +216,8 @@ def main():
     fieldnames = [
         "name",
         "Last Commit Date",
-        "Total Commits (Last 90d)",
+        "Total Commits (since inception)",
         "Avg Commits/Weekday (Mon–Fri)",
-        "Infrequent (<2.36)",
     ]
     with open(csv_path, "w", newline="", encoding="utf-8") as csvfile:
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)

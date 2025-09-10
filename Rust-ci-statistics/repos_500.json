@@ -1,4 +1,4 @@
-projects = [
+[
     {
         "name": "select.rs",
         "owner": "utkarshkukreti",
