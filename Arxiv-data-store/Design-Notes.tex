@@ -1,0 +1,398 @@
+% Created 2025-05-21 Wed 11:32
+% Intended LaTeX compiler: pdflatex
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\usepackage[margin=2.5cm]{geometry}
+\renewcommand{\contentsname}{Table of Contents}
+\author{Vishravars Ramasubramanian}
+\date{17/05/2025}
+\title{Big Data Store for ArXiv with Semantic Retrieval}
+\hypersetup{
+ pdfauthor={Vishravars Ramasubramanian},
+ pdftitle={Big Data Store for ArXiv with Semantic Retrieval},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 28.2 (Org mode 9.7.22)}, 
+ pdflang={English}}
+\begin{document}
+
+\maketitle
+\section{Dataset Overview}
+\label{sec:org6ac2baa}
+The selected dataset is the ArXiv Metadata Snapshot, publicly available on \href{https://www.kaggle.com/datasets/Cornell-University/arxiv/data}{Kaggle}, and maintained by the Cornell University Library. This dataset contains metadata for approximately 2.3 million scientific publications covering and not limited to diverse fields such as physics, mathematics and computer science.
+
+Each entry in the dataset is formatted as a JSON line (JSONL). They include fields such as \texttt{id}, \texttt{title}, \texttt{abstract}, \texttt{authors}, \texttt{categories}, \texttt{submitter}, and \texttt{update\_date}. The data is semi-structured, with some fields (like \texttt{authors} and \texttt{categories}) supporting multi-valued entries. The full compressed dataset is around 1.6 GB. For ingestion and query, data less than 2GB was used.
+
+Key aspects that make this dataset suitable for building a big data vector based semantic recommendation engine include:
+
+\begin{itemize}
+\item \emph{Relevance with paper Abstracts}: The \texttt{abstract} field captures dense, domain-specific text useful for high-dimensional vector embeddings.
+\item \emph{Scale}: The dataset represents a large case for storage and retrieval of science data.
+\item \emph{Ingestion Challenge}: Generating high-dimensional semantic embeddings from unstructured abstracts using transformer models, followed by efficient normalization, batching, and storage in a vector-enabled database.
+\item \emph{Categorical}: Metadata includes timestamps and subject codes useful for filtering and analysis.
+\end{itemize}
+
+This dataset also satisfies key Big Data characteristics:
+\begin{itemize}
+\item \emph{Volume}: Contains over 2.3 million records with rich text fields, totaling \textasciitilde{}1.6 GB uncompressed.
+\item \emph{Variety}: Comprises structured data (e.g., dates, IDs), semi-structured lists (e.g., authors, category tags), and unstructured text (e.g., abstracts), enabling multidimensional semantic and statistical analysis.
+\end{itemize}
+\section{SingleStore Cloud with Vector Support}
+\label{sec:orge62bf38}
+The project uses SingleStore Cloud as the underlying database management system, leveraging support for hybrid analytical workloads and built-in vector search features.
+
+Key reasons for selecting SingleStore Cloud include:
+
+\begin{itemize}
+\item \emph{Native Vector Type}: Direct support for \texttt{VECTOR(d)} column types (e.g., \texttt{VECTOR(768)}), suitable for storing dense semantic embeddings.
+\item \emph{Similarity Search}: Supports fast computation of \texttt{DOT\_PRODUCT}, \texttt{COSINE\_DISTANCE}, and \texttt{L2\_DISTANCE} between query vectors and stored embeddings.
+\item \emph{Indexing}: Supports ANN indexes such as \texttt{IVF\_PQFS} and \texttt{HNSW}, enabling scalable top-k vector similarity queries.
+\item \emph{SQL Compatibility}: Fully supports standard SQL for expressive queries combining structured and unstructured data.
+\item \emph{Cloud-Native Deployment}: Easily deployable with access control, and multi-zone failover.
+\item \emph{Scalability and Performance}: Distributed architecture supports ingestion, query execution, and horizontal scaling.
+\item \emph{Python Integration}: The \texttt{singlestoredb} Python client simplifies connectivity for ETL and inference pipelines.
+\end{itemize}
+
+This DBMS is suited for data-driven applications that require both structured storage and real-time vector-based retrieval. This setup is suitable for a scientific paper recommendation engine.
+\section{Ingestion and Query Flow}
+\label{sec:org2906ddc}
+
+\begin{center}
+\includegraphics[width=.9\linewidth]{arxiv-ingest-query.png}
+\label{}
+\end{center}
+\section{Database Design and Schema}
+\label{sec:org9e10c21}
+
+The schema supports semantic search across scientific paper abstracts. Each paper is stored as a structured record with key metadata fields and associated high-dimensional embedding.
+
+The core of the schema is the \texttt{abstract\_vector} column and defined as \texttt{VECTOR(768)}. This stores a dense vector representation of the papers abstract which enables approximate nearest neighbor (ANN) search (semantic similarity).
+
+The 768-dimensional vector size is chosen to match the output dimensionality of the \texttt{all-mpnet-base-v2} model from the Sentence Transformers library. This model is trained on a large corpus of academic and general-domain text. The resulting vectors are normalized and capture relationships between concepts across papers.
+
+\begin{verbatim}
+CREATE TABLE arxiv_papers (
+    paper_id TEXT PRIMARY KEY,
+    title TEXT,
+    abstract TEXT,
+    abstract_vector VECTOR(768),
+    category TEXT,
+    updated DATE
+);
+\end{verbatim}
+
+Each field has a specific purpose:
+\begin{itemize}
+\item \texttt{paper\_id}: Identifier for the paper
+\item \texttt{title}: Title used in display and matching
+\item \texttt{abstract}: Source text for embedding
+\item \texttt{abstract\_vector}: 768-dimensional embedding generated from the abstract
+\item \texttt{category}: ArXiv subject tags
+\item \texttt{updated}: Last updated date (useful for temporal filtering)
+\end{itemize}
+
+To support efficient top-k vector search, a dedicated vector index is created using SingleStore's \texttt{IVF\_PQFS} index type with \texttt{DOT\_PRODUCT} as the similarity metric. This allows fast similarity search over millions of vectors.
+
+\begin{verbatim}
+ALTER TABLE arxiv_papers
+ADD VECTOR INDEX abstract_vector_index(abstract_vector)
+INDEX_OPTIONS '{"index_type":"IVF_PQFS", "metric_type":"DOT_PRODUCT"}';
+\end{verbatim}
+\section{ETL and Embedding Ingestion Pipeline}
+\label{sec:org73f69aa}
+
+\begin{verbatim}
+import json
+from datetime import datetime
+from sentence_transformers import SentenceTransformer
+import singlestoredb as s2
+from tqdm import tqdm
+from dotenv import load_dotenv
+import os
+
+# === Load environment variables ===
+load_dotenv()
+
+conn = s2.connect(
+    host=os.getenv("S2_HOST"),
+    port=int(os.getenv("S2_PORT")),
+    user=os.getenv("S2_USER"),
+    password=os.getenv("S2_PASSWORD"),
+    database=os.getenv("S2_DATABASE")
+)
+cursor = conn.cursor()
+
+# === Load embedding model ===
+model = SentenceTransformer('all-mpnet-base-v2')
+
+# === Batch settings ===
+batch = []
+batch_size = 50
+
+# === Count total lines for progress bar ===
+with open("arxiv-sample-500.json", "r") as f:
+    total_lines = sum(1 for _ in f)
+
+# === Process ===
+with open("arxiv-sample-500.json", "r") as f, tqdm(total=total_lines, desc="Processing Papers") as pbar:
+    for i, line in enumerate(f):
+        paper = json.loads(line)
+        paper_id = paper.get("id")
+        title = paper.get("title", "").strip()
+        abstract = paper.get("abstract", "").replace("\n", " ").strip()
+        category = paper.get("categories", "")
+        date = paper.get("update_date", None)
+
+        if not abstract or not paper_id:
+            pbar.update(1)
+            continue
+
+        try:
+            embedding   = model.encode(abstract, normalize_embeddings=True)
+            vector_str  = str(embedding.tolist())
+            update_date = datetime.strptime(date, "%Y-%m-%d").date() if date else None
+
+            batch.append((paper_id, title, abstract, vector_str, category, update_date))
+
+            if len(batch) >= batch_size:
+                cursor.executemany("""
+                    INSERT INTO arxiv_papers (paper_id, title, abstract, abstract_vector, category, updated)
+                    VALUES (%s, %s, %s, %s, %s, %s)
+                """, batch)
+                conn.commit()
+                print(f"Inserted batch of {len(batch)}")
+                batch.clear()
+
+        except Exception as e:
+            print(f"Skipping  {paper_id}: {e}")
+
+        pbar.update(1)
+
+if batch:
+    cursor.executemany("""
+        INSERT INTO arxiv_papers (
+            paper_id, title, abstract, abstract_vector, category, updated
+        )
+        VALUES (%s, %s, %s, %s, %s, %s)
+    """, batch)
+    conn.commit()
+    print(f"✅ Inserted final batch of {len(batch)}")
+
+cursor.close()
+conn.close()
+
+\end{verbatim}
+\section{Semantic Search Query}
+\label{sec:org1f12cf8}
+
+\begin{verbatim}
+
+import os
+import singlestoredb as s2
+from sentence_transformers import SentenceTransformer
+from dotenv import load_dotenv
+
+# === Load environment variables ===
+load_dotenv()
+
+# === Load model once ===
+model = SentenceTransformer('all-mpnet-base-v2')
+
+# === Connect to SingleStore Cloud ===
+conn = s2.connect(
+    host=os.getenv("S2_HOST"),
+    port=int(os.getenv("S2_PORT")),
+    user=os.getenv("S2_USER"),
+    password=os.getenv("S2_PASSWORD"),
+    database=os.getenv("S2_DATABASE")
+)
+cursor = conn.cursor()
+
+# === Prompt for user query ===
+query_text = input("Enter your paper query or abstract: ").strip()
+
+# === Embed the query ===
+embedding = model.encode(query_text, normalize_embeddings=True)
+vector_str = str(embedding.tolist())
+
+# === Perform vector search ===
+search_sql = """
+SELECT paper_id, title, DOT_PRODUCT(abstract_vector, %s) AS score
+FROM arxiv_papers
+ORDER BY score DESC
+LIMIT 5;
+"""
+cursor.execute(search_sql, (vector_str,))
+results = cursor.fetchall()
+
+print("\n Top matching papers:")
+for paper_id, title, score in results:
+    if score < 0.1:
+        break
+    print(f"- [{paper_id}] {title}  (score: {score:.4f})")
+
+# === Clean up ===
+cursor.close()
+conn.close()
+
+\end{verbatim}
+\section{Code access}
+\label{sec:org4097a3c}
+
+For the complete code, please visit \href{https://github.com/rvishravars/analytics/tree/main/Arxiv-data-store}{GitHub: Arxiv-data-store Project}
+\section{Deployment}
+\label{sec:org2342d67}
+
+SingleStore offers a Free Tier that allows developers and researchers to build and test database-powered applications without cost. It is ideal for use cases like this project, where we want to experiment with vector storage, similarity search, and large-scale ingestion.
+
+\textbf{\textbf{Steps to Set Up SingleStore Free Tier}}
+
+\begin{enumerate}
+\item Visit the following link to get started:
+\url{https://www.singlestore.com/blog/announcing-memsql-free-tier/}
+
+\item Create a free account using email or sign in with Google/GitHub.
+
+\item After logging in, create a new \textbf{Workspace}. Choose a region (e.g., AWS Virginia).
+
+\item Once the workspace is provisioned, \texttt{Connect} to view connection details such as:
+\begin{itemize}
+\item Host
+\item Port
+\item User
+\item Password
+\item Database name
+\end{itemize}
+\end{enumerate}
+
+\textbf{\textbf{Running the SQL Scripts}}
+
+Once the workspace is running:
+
+\begin{enumerate}
+\item Connect using a MySQL-compatible client (e.g., MySQL CLI, DBeaver) or use \url{https://portal.singlestore.com}
+
+\item Paste and run \texttt{CREATE TABLE} statement in the SQL editor.
+
+\item Then run \texttt{ALTER TABLE ...  ADD VECTOR INDEX} statement to setup the ANN index.
+
+\item Clone or download the ETL script:
+\begin{itemize}
+\item Ensure Python 3.8+, and install the dependencies:
+\begin{verbatim}
+     pip install singlestoredb sentence-transformers tqdm python-dotenv
+\end{verbatim}
+\end{itemize}
+
+\item Set connection details in the ETL script (\texttt{etl.py}):
+\begin{itemize}
+\item Host, user, password, port, and database name
+\end{itemize}
+
+\item Run the ETL script:
+\begin{verbatim}
+   python etl.py
+   python query.py
+\end{verbatim}
+\end{enumerate}
+
+This script will:
+\begin{itemize}
+\item Read and parse the ArXiv metadata JSON file
+\item Embed each paper abstract using a transformer model (\texttt{all-mpnet-base-v2})
+\item Insert the paper metadata and vector into SingleStore Cloud database in batches
+\end{itemize}
+
+Can monitor the progress with the built-in tqdm progress bar.
+
+The Free Shared Tier includes:
+\begin{itemize}
+\item \texttt{1 GB of compressed storage} (suits tens of thousands of papers)
+\item Support for vector indexes and SQL-based ANN search
+\item All operations performed over an HTTPS/SSL-secured connection
+\end{itemize}
+
+This setup is ideal for rapid experimentation with semantic search and scalable vector workflows.
+\section{Replication}
+\label{sec:org21af4f3}
+
+By default, SingleStore Cloud workspaces are created with no replication (Single-AZ) unless high availability is explicitly enabled. We can enable replication in the Portal during workspace creation by selecting High Availability under the Redundancy section. This activates Multi-AZ replication and the point to note is that replication is set at the workspace level, not at the table level.
+\section{Scalability and Big Data Processing}
+\label{sec:org59baf8b}
+
+SingleStore Cloud is designed to handle large amounts of data efficiently, which makes it a strong choice for projects that work with big datasets—such as scientific papers, metadata, and vector-based search. It is built to support fast processing and storage, even when dealing with millions of records or complex vector operations.
+
+One of the key benefits of SingleStore is that it automatically splits (shards) data across multiple servers. This setup helps speed up tasks like adding new records, updating data, or running similarity searches.
+
+The database also supports special vector indexes that are optimized for speed and accuracy. These indexes help it quickly find the similar vectors, even when the vectors are long and high-dimensional (768-length embeddings).
+
+Another useful feature is that SingleStore can handle new data coming in while users are still searching. This makes it possible to update the system in real time without causing delays. It also uses a smart memory design: frequently used data stays in memory for speed, and less-used data is stored on disk to save space.
+
+Finally, SingleStore is hosted in the cloud, so it can be scaled up easily as the project grows. Since the system supports both standard SQL queries and vector operations together, it makes development easier and reduces the need for tools.
+\section{Understanding Indexing and Sharding from STATISTICS Table}
+\label{sec:orgf23a0f1}
+
+SingleStore provides a system table called \texttt{STATISTICS} that shows how a table is indexed and how the data is distributed (sharded). For our \texttt{arxiv\_papers} table, the statistics reveal three important parts: the primary key index, the shard key, and the vector index.
+
+\begin{itemize}
+\item The table is sharded on paper\_id. This means the data is split across multiple servers using the paper's ID. This helps scale the database and allows it to process many records in parallel.
+\item The primary index is also on `paper\_id` and uses a columnstore hash format. This makes it fast to look up records and works well with large datasets.
+\item The vector index is defined on the abstract\_vector column. It uses the IVF\_PQFS indexing and DOT\_PRODUCT as the similarity metric.
+\end{itemize}
+
+These indexes show that the system is well optimized for large-scale, vector-based search. The database can efficiently store millions of papers and quickly find semantically similar ones using the vector index.
+\section{Future Scope}
+\label{sec:org694d9e9}
+
+The current system focuses on metadata and abstract-based semantic retrieval and future enhancements could extend the architecture to include full paper content stored as BLOBs directly in SingleStore. This would enable unified storage and retrieval, eliminating dependence on external storage systems for files.
+\subsection{Full Paper Storage}
+\label{sec:org82b56e6}
+
+SingleStore supports `BLOB` columns, making it possible to store full PDF content as part of the same schema. A possible schema extension:
+
+PDF files could be stored as `BLOB`:
+
+\begin{verbatim}
+ALTER TABLE arxiv_papers
+ADD COLUMN pdf_blob BLOB;
+\end{verbatim}
+\subsection{Integration with Other Research Paper Repositories}
+\label{sec:orgb054fe9}
+
+This project currently focuses on the ArXiv dataset and the architecture is also designed to be extensible and adaptable to other data sources. Future work can include integrating additional open-access repositories such as:
+
+\begin{itemize}
+\item \textbf{PubMed Open Access}: for biomedical and life sciences literature.
+\item \textbf{CORE}: aggregating millions of open-access papers from institutional repositories.
+\end{itemize}
+
+These datasets vary in structure and licensing terms, but typically provide abstracts, authorship metadata, and in some cases, full-text content.
+
+A pluggable ETL pipeline can be built to accommodate new data sources by:
+
+\begin{itemize}
+\item Normalizing metadata schemas into the existing arxiv\_papers table or a generalized papers table.
+\item Generating semantic embeddings for abstracts and/or full text using the same SentenceTransformer model.
+\item Adding source-specific fields (e.g., DOI, journal name) with schema extensions.
+\end{itemize}
+
+Such an integration would help enable a unified search across multiple domains and repositories.
+\section{Conclusion}
+\label{sec:org5c3e6bb}
+
+This project demonstrates a big data semantic search system using SingleStore Cloud and sentence-transformer embeddings. It is scalable, fast, and supports both human and programmatic querying across millions of scientific articles. Built on a distributed OLAP engine, the system enables efficient analytical querying and real-time semantic retrieval in a unified architecture.
+\section{LLM Disclosure}
+\label{sec:org1063030}
+
+Used Google's LLM to find Research Similarity Model used in Vector embeddings and report spellcheck.
+\end{document}

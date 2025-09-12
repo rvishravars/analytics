@@ -30,6 +30,12 @@ projects = [
         "huggingface": "openai/clip-vit-base-patch32"
     },
     {
+        "name": "openai-gpt-oss",
+        "owner": "openai",
+        "repo": "gpt-oss",
+        "huggingface": "openai/gpt-oss-120b"
+    },
+    {
         "name": "Yalm",
         "owner": "yandex",
         "repo": "YaLM-100B",

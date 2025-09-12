@@ -1,3 +1,0 @@
-Repo,Training Dependencies,Has FineTune Folder/File,Has Training Signal
-helicalAI/helical,"megatron, flash_attn, accelerate, torch, gin, apex, torch.nn, jax, transformers",No,Yes
-bowang-lab/BioReason,"torch, deepspeed, transformers, accelerate, trl",No,Yes

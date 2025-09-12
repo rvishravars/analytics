@@ -1,0 +1,2902 @@
+projects = [
+    {
+        "name": "cicada",
+        "owner": "mitnk",
+        "repo": "mitnk/cicada"
+    },
+    {
+        "name": "ipc-channel",
+        "owner": "servo",
+        "repo": "servo/ipc-channel"
+    },
+    {
+        "name": "portable-simd",
+        "owner": "rust-lang",
+        "repo": "rust-lang/portable-simd"
+    },
+    {
+        "name": "riscv",
+        "owner": "rust-embedded",
+        "repo": "rust-embedded/riscv"
+    },
+    {
+        "name": "elfcat",
+        "owner": "rbakbashev",
+        "repo": "rbakbashev/elfcat"
+    },
+    {
+        "name": "lodestone",
+        "owner": "Lodestone-Team",
+        "repo": "Lodestone-Team/lodestone"
+    },
+    {
+        "name": "lingua-rs",
+        "owner": "pemistahl",
+        "repo": "pemistahl/lingua-rs"
+    },
+    {
+        "name": "build-your-own-jira-with-rust",
+        "owner": "LukeMathWalker",
+        "repo": "LukeMathWalker/build-your-own-jira-with-rust"
+    },
+    {
+        "name": "kati",
+        "owner": "google",
+        "repo": "google/kati"
+    },
+    {
+        "name": "onetun",
+        "owner": "aramperes",
+        "repo": "aramperes/onetun"
+    },
+    {
+        "name": "hydro",
+        "owner": "hydro-project",
+        "repo": "hydro-project/hydro"
+    },
+    {
+        "name": "alloy",
+        "owner": "alloy-rs",
+        "repo": "alloy-rs/alloy"
+    },
+    {
+        "name": "avml",
+        "owner": "microsoft",
+        "repo": "microsoft/avml"
+    },
+    {
+        "name": "lemurs",
+        "owner": "coastalwhite",
+        "repo": "coastalwhite/lemurs"
+    },
+    {
+        "name": "kunai",
+        "owner": "kunai-project",
+        "repo": "kunai-project/kunai"
+    },
+    {
+        "name": "pwninit",
+        "owner": "io12",
+        "repo": "io12/pwninit"
+    },
+    {
+        "name": "Fomos",
+        "owner": "Ruddle",
+        "repo": "Ruddle/Fomos"
+    },
+    {
+        "name": "trow",
+        "owner": "Trow-Registry",
+        "repo": "Trow-Registry/trow"
+    },
+    {
+        "name": "rhit",
+        "owner": "Canop",
+        "repo": "Canop/rhit"
+    },
+    {
+        "name": "serie",
+        "owner": "lusingander",
+        "repo": "lusingander/serie"
+    },
+    {
+        "name": "crabviz",
+        "owner": "chanhx",
+        "repo": "chanhx/crabviz"
+    },
+    {
+        "name": "kira",
+        "owner": "tesselode",
+        "repo": "tesselode/kira"
+    },
+    {
+        "name": "tun2proxy",
+        "owner": "tun2proxy",
+        "repo": "tun2proxy/tun2proxy"
+    },
+    {
+        "name": "telegram-bot",
+        "owner": "telegram-rs",
+        "repo": "telegram-rs/telegram-bot"
+    },
+    {
+        "name": "neolink",
+        "owner": "thirtythreeforty",
+        "repo": "thirtythreeforty/neolink"
+    },
+    {
+        "name": "sentry-cli",
+        "owner": "getsentry",
+        "repo": "getsentry/sentry-cli"
+    },
+    {
+        "name": "madsim",
+        "owner": "madsim-rs",
+        "repo": "madsim-rs/madsim"
+    },
+    {
+        "name": "book",
+        "owner": "rust-cli",
+        "repo": "rust-cli/book"
+    },
+    {
+        "name": "nsh",
+        "owner": "nuta",
+        "repo": "nuta/nsh"
+    },
+    {
+        "name": "motor-os",
+        "owner": "moturus",
+        "repo": "moturus/motor-os"
+    },
+    {
+        "name": "paperclip",
+        "owner": "paperclip-rs",
+        "repo": "paperclip-rs/paperclip"
+    },
+    {
+        "name": "mooneye-gb",
+        "owner": "Gekkio",
+        "repo": "Gekkio/mooneye-gb"
+    },
+    {
+        "name": "duct.rs",
+        "owner": "oconnor663",
+        "repo": "oconnor663/duct.rs"
+    },
+    {
+        "name": "book-cn",
+        "owner": "rust-lang-cn",
+        "repo": "rust-lang-cn/book-cn"
+    },
+    {
+        "name": "volt",
+        "owner": "suptejas",
+        "repo": "suptejas/volt"
+    },
+    {
+        "name": "rust-ecosystem",
+        "owner": "EmbarkStudios",
+        "repo": "EmbarkStudios/rust-ecosystem"
+    },
+    {
+        "name": "libui-rs",
+        "owner": "rust-native-ui",
+        "repo": "rust-native-ui/libui-rs"
+    },
+    {
+        "name": "macmon",
+        "owner": "vladkens",
+        "repo": "vladkens/macmon"
+    },
+    {
+        "name": "FuchsiaOS-docs-zh_CN",
+        "owner": "FuchsiaOS",
+        "repo": "FuchsiaOS/FuchsiaOS-docs-zh_CN"
+    },
+    {
+        "name": "cargo-cache",
+        "owner": "matthiaskrgr",
+        "repo": "matthiaskrgr/cargo-cache"
+    },
+    {
+        "name": "cn-font-split",
+        "owner": "KonghaYao",
+        "repo": "KonghaYao/cn-font-split"
+    },
+    {
+        "name": "ncollide",
+        "owner": "dimforge",
+        "repo": "dimforge/ncollide"
+    },
+    {
+        "name": "steam-tui",
+        "owner": "dmadisetti",
+        "repo": "dmadisetti/steam-tui"
+    },
+    {
+        "name": "ntpd-rs",
+        "owner": "pendulum-project",
+        "repo": "pendulum-project/ntpd-rs"
+    },
+    {
+        "name": "gimli",
+        "owner": "gimli-rs",
+        "repo": "gimli-rs/gimli"
+    },
+    {
+        "name": "websurfx",
+        "owner": "neon-mmd",
+        "repo": "neon-mmd/websurfx"
+    },
+    {
+        "name": "fas-rs",
+        "owner": "shadow3aaa",
+        "repo": "shadow3aaa/fas-rs"
+    },
+    {
+        "name": "backon",
+        "owner": "Xuanwo",
+        "repo": "Xuanwo/backon"
+    },
+    {
+        "name": "Dorion",
+        "owner": "SpikeHD",
+        "repo": "SpikeHD/Dorion"
+    },
+    {
+        "name": "minirust",
+        "owner": "minirust",
+        "repo": "minirust/minirust"
+    },
+    {
+        "name": "rust.ko",
+        "owner": "tsgates",
+        "repo": "tsgates/rust.ko"
+    },
+    {
+        "name": "cortex-m",
+        "owner": "rust-embedded",
+        "repo": "rust-embedded/cortex-m"
+    },
+    {
+        "name": "femtoGPT",
+        "owner": "keyvank",
+        "repo": "keyvank/femtoGPT"
+    },
+    {
+        "name": "trybuild",
+        "owner": "dtolnay",
+        "repo": "dtolnay/trybuild"
+    },
+    {
+        "name": "testcontainers-rs",
+        "owner": "testcontainers",
+        "repo": "testcontainers/testcontainers-rs"
+    },
+    {
+        "name": "cocogitto",
+        "owner": "cocogitto",
+        "repo": "cocogitto/cocogitto"
+    },
+    {
+        "name": "nexus-cli",
+        "owner": "nexus-xyz",
+        "repo": "nexus-xyz/nexus-cli"
+    },
+    {
+        "name": "relibc",
+        "owner": "redox-os",
+        "repo": "redox-os/relibc"
+    },
+    {
+        "name": "skanuvaty",
+        "owner": "Esc4iCEscEsc",
+        "repo": "Esc4iCEscEsc/skanuvaty"
+    },
+    {
+        "name": "zine",
+        "owner": "zineland",
+        "repo": "zineland/zine"
+    },
+    {
+        "name": "VirtualDesktopAccessor",
+        "owner": "Ciantic",
+        "repo": "Ciantic/VirtualDesktopAccessor"
+    },
+    {
+        "name": "bupstash",
+        "owner": "andrewchambers",
+        "repo": "andrewchambers/bupstash"
+    },
+    {
+        "name": "mayastor",
+        "owner": "openebs",
+        "repo": "openebs/mayastor"
+    },
+    {
+        "name": "NimPlant",
+        "owner": "chvancooten",
+        "repo": "chvancooten/NimPlant"
+    },
+    {
+        "name": "amber",
+        "owner": "dalance",
+        "repo": "dalance/amber"
+    },
+    {
+        "name": "lumen",
+        "owner": "jnsahaj",
+        "repo": "jnsahaj/lumen"
+    },
+    {
+        "name": "tlborm",
+        "owner": "DanielKeep",
+        "repo": "DanielKeep/tlborm"
+    },
+    {
+        "name": "iamb",
+        "owner": "ulyssa",
+        "repo": "ulyssa/iamb"
+    },
+    {
+        "name": "datenlord",
+        "owner": "datenlord",
+        "repo": "datenlord/datenlord"
+    },
+    {
+        "name": "rustfinity",
+        "owner": "rustfinity",
+        "repo": "rustfinity/rustfinity"
+    },
+    {
+        "name": "catfs",
+        "owner": "kahing",
+        "repo": "kahing/catfs"
+    },
+    {
+        "name": "govee2mqtt",
+        "owner": "wez",
+        "repo": "wez/govee2mqtt"
+    },
+    {
+        "name": "seam",
+        "owner": "Borber",
+        "repo": "Borber/seam"
+    },
+    {
+        "name": "OpenVehicleDiag",
+        "owner": "rnd-ash",
+        "repo": "rnd-ash/OpenVehicleDiag"
+    },
+    {
+        "name": "memflow",
+        "owner": "memflow",
+        "repo": "memflow/memflow"
+    },
+    {
+        "name": "magic-wormhole.rs",
+        "owner": "magic-wormhole",
+        "repo": "magic-wormhole/magic-wormhole.rs"
+    },
+    {
+        "name": "clog-cli",
+        "owner": "clog-tool",
+        "repo": "clog-tool/clog-cli"
+    },
+    {
+        "name": "cargo-wizard",
+        "owner": "Kobzol",
+        "repo": "Kobzol/cargo-wizard"
+    },
+    {
+        "name": "szyszka",
+        "owner": "qarmin",
+        "repo": "qarmin/szyszka"
+    },
+    {
+        "name": "ollama-rs",
+        "owner": "pepperoni21",
+        "repo": "pepperoni21/ollama-rs"
+    },
+    {
+        "name": "doh-server",
+        "owner": "DNSCrypt",
+        "repo": "DNSCrypt/doh-server"
+    },
+    {
+        "name": "rust-ctor",
+        "owner": "mmastrac",
+        "repo": "mmastrac/rust-ctor"
+    },
+    {
+        "name": "rune",
+        "owner": "Losses",
+        "repo": "Losses/rune"
+    },
+    {
+        "name": "eva",
+        "owner": "oppiliappan",
+        "repo": "oppiliappan/eva"
+    },
+    {
+        "name": "not-perf",
+        "owner": "koute",
+        "repo": "koute/not-perf"
+    },
+    {
+        "name": "scooter",
+        "owner": "thomasschafer",
+        "repo": "thomasschafer/scooter"
+    },
+    {
+        "name": "sail",
+        "owner": "lakehq",
+        "repo": "lakehq/sail"
+    },
+    {
+        "name": "bytemuck",
+        "owner": "Lokathor",
+        "repo": "Lokathor/bytemuck"
+    },
+    {
+        "name": "async-channel",
+        "owner": "smol-rs",
+        "repo": "smol-rs/async-channel"
+    },
+    {
+        "name": "SwayOSD",
+        "owner": "ErikReider",
+        "repo": "ErikReider/SwayOSD"
+    },
+    {
+        "name": "rustodon",
+        "owner": "rustodon",
+        "repo": "rustodon/rustodon"
+    },
+    {
+        "name": "gurk-rs",
+        "owner": "boxdot",
+        "repo": "boxdot/gurk-rs"
+    },
+    {
+        "name": "fend",
+        "owner": "printfn",
+        "repo": "printfn/fend"
+    },
+    {
+        "name": "toml",
+        "owner": "toml-rs",
+        "repo": "toml-rs/toml"
+    },
+    {
+        "name": "core",
+        "owner": "alloy-rs",
+        "repo": "alloy-rs/core"
+    },
+    {
+        "name": "tvix",
+        "owner": "tvlfyi",
+        "repo": "tvlfyi/tvix"
+    },
+    {
+        "name": "cairo-contracts",
+        "owner": "OpenZeppelin",
+        "repo": "OpenZeppelin/cairo-contracts"
+    },
+    {
+        "name": "x86_64",
+        "owner": "rust-osdev",
+        "repo": "rust-osdev/x86_64"
+    },
+    {
+        "name": "filprofiler",
+        "owner": "pythonspeed",
+        "repo": "pythonspeed/filprofiler"
+    },
+    {
+        "name": "miniserde",
+        "owner": "dtolnay",
+        "repo": "dtolnay/miniserde"
+    },
+    {
+        "name": "cookcli",
+        "owner": "cooklang",
+        "repo": "cooklang/cookcli"
+    },
+    {
+        "name": "privastead",
+        "owner": "privastead",
+        "repo": "privastead/privastead"
+    },
+    {
+        "name": "bb8",
+        "owner": "djc",
+        "repo": "djc/bb8"
+    },
+    {
+        "name": "ntsc-rs",
+        "owner": "valadaptive",
+        "repo": "valadaptive/ntsc-rs"
+    },
+    {
+        "name": "snark",
+        "owner": "arkworks-rs",
+        "repo": "arkworks-rs/snark"
+    },
+    {
+        "name": "thorium",
+        "owner": "cisagov",
+        "repo": "cisagov/thorium"
+    },
+    {
+        "name": "rvemu",
+        "owner": "d0iasm",
+        "repo": "d0iasm/rvemu"
+    },
+    {
+        "name": "dezoomify-rs",
+        "owner": "lovasoa",
+        "repo": "lovasoa/dezoomify-rs"
+    },
+    {
+        "name": "cargo-mommy",
+        "owner": "Gankra",
+        "repo": "Gankra/cargo-mommy"
+    },
+    {
+        "name": "Leafish",
+        "owner": "Lea-fish",
+        "repo": "Lea-fish/Leafish"
+    },
+    {
+        "name": "shellfirm",
+        "owner": "kaplanelad",
+        "repo": "kaplanelad/shellfirm"
+    },
+    {
+        "name": "ula",
+        "owner": "dotcypress",
+        "repo": "dotcypress/ula"
+    },
+    {
+        "name": "awesome-rust",
+        "owner": "awesome-rust-com",
+        "repo": "awesome-rust-com/awesome-rust"
+    },
+    {
+        "name": "zedless",
+        "owner": "zedless-editor",
+        "repo": "zedless-editor/zedless"
+    },
+    {
+        "name": "window-switcher",
+        "owner": "sigoden",
+        "repo": "sigoden/window-switcher"
+    },
+    {
+        "name": "bluetui",
+        "owner": "pythops",
+        "repo": "pythops/bluetui"
+    },
+    {
+        "name": "envio",
+        "owner": "envio-cli",
+        "repo": "envio-cli/envio"
+    },
+    {
+        "name": "biodiff",
+        "owner": "8051Enthusiast",
+        "repo": "8051Enthusiast/biodiff"
+    },
+    {
+        "name": "agatedb",
+        "owner": "tikv",
+        "repo": "tikv/agatedb"
+    },
+    {
+        "name": "flowgger",
+        "owner": "awslabs",
+        "repo": "awslabs/flowgger"
+    },
+    {
+        "name": "noita_entangled_worlds",
+        "owner": "IntQuant",
+        "repo": "IntQuant/noita_entangled_worlds"
+    },
+    {
+        "name": "lantern",
+        "owner": "lanterndata",
+        "repo": "lanterndata/lantern"
+    },
+    {
+        "name": "ripsecrets",
+        "owner": "sirwart",
+        "repo": "sirwart/ripsecrets"
+    },
+    {
+        "name": "num-traits",
+        "owner": "rust-num",
+        "repo": "rust-num/num-traits"
+    },
+    {
+        "name": "imsearch",
+        "owner": "lolishinshi",
+        "repo": "lolishinshi/imsearch"
+    },
+    {
+        "name": "rbw",
+        "owner": "doy",
+        "repo": "doy/rbw"
+    },
+    {
+        "name": "cargo-sweep",
+        "owner": "holmgr",
+        "repo": "holmgr/cargo-sweep"
+    },
+    {
+        "name": "rdedup",
+        "owner": "dpc",
+        "repo": "dpc/rdedup"
+    },
+    {
+        "name": "synapse",
+        "owner": "Luminarys",
+        "repo": "Luminarys/synapse"
+    },
+    {
+        "name": "proc-macro2",
+        "owner": "dtolnay",
+        "repo": "dtolnay/proc-macro2"
+    },
+    {
+        "name": "DataSurgeon",
+        "owner": "Drew-Alleman",
+        "repo": "Drew-Alleman/DataSurgeon"
+    },
+    {
+        "name": "dutree",
+        "owner": "nachoparker",
+        "repo": "nachoparker/dutree"
+    },
+    {
+        "name": "kurbo",
+        "owner": "linebender",
+        "repo": "linebender/kurbo"
+    },
+    {
+        "name": "IPA",
+        "owner": "seekbytes",
+        "repo": "seekbytes/IPA"
+    },
+    {
+        "name": "yara-x",
+        "owner": "VirusTotal",
+        "repo": "VirusTotal/yara-x"
+    },
+    {
+        "name": "pods",
+        "owner": "marhkb",
+        "repo": "marhkb/pods"
+    },
+    {
+        "name": "rustybox",
+        "owner": "samuela",
+        "repo": "samuela/rustybox"
+    },
+    {
+        "name": "starlark-rust",
+        "owner": "facebook",
+        "repo": "facebook/starlark-rust"
+    },
+    {
+        "name": "stack-graphs",
+        "owner": "github",
+        "repo": "github/stack-graphs"
+    },
+    {
+        "name": "srgn",
+        "owner": "alexpovel",
+        "repo": "alexpovel/srgn"
+    },
+    {
+        "name": "actix-extras",
+        "owner": "actix",
+        "repo": "actix/actix-extras"
+    },
+    {
+        "name": "rust_serialization_benchmark",
+        "owner": "djkoloski",
+        "repo": "djkoloski/rust_serialization_benchmark"
+    },
+    {
+        "name": "manjusaka",
+        "owner": "YDHCUI",
+        "repo": "YDHCUI/manjusaka"
+    },
+    {
+        "name": "shuttle",
+        "owner": "awslabs",
+        "repo": "awslabs/shuttle"
+    },
+    {
+        "name": "Good-MITM",
+        "owner": "zu1k",
+        "repo": "zu1k/Good-MITM"
+    },
+    {
+        "name": "hyperion",
+        "owner": "hyperion-mc",
+        "repo": "hyperion-mc/hyperion"
+    },
+    {
+        "name": "azure-sdk-for-rust",
+        "owner": "Azure",
+        "repo": "Azure/azure-sdk-for-rust"
+    },
+    {
+        "name": "golem",
+        "owner": "golemcloud",
+        "repo": "golemcloud/golem"
+    },
+    {
+        "name": "ImHex-Patterns",
+        "owner": "WerWolv",
+        "repo": "WerWolv/ImHex-Patterns"
+    },
+    {
+        "name": "bootimage",
+        "owner": "rust-osdev",
+        "repo": "rust-osdev/bootimage"
+    },
+    {
+        "name": "rust-av",
+        "owner": "rust-av",
+        "repo": "rust-av/rust-av"
+    },
+    {
+        "name": "moxie",
+        "owner": "anp",
+        "repo": "anp/moxie"
+    },
+    {
+        "name": "xcp",
+        "owner": "tarka",
+        "repo": "tarka/xcp"
+    },
+    {
+        "name": "ch57x-keyboard-tool",
+        "owner": "kriomant",
+        "repo": "kriomant/ch57x-keyboard-tool"
+    },
+    {
+        "name": "ruru",
+        "owner": "d-unsed",
+        "repo": "d-unsed/ruru"
+    },
+    {
+        "name": "AEADs",
+        "owner": "RustCrypto",
+        "repo": "RustCrypto/AEADs"
+    },
+    {
+        "name": "jmcomic-downloader",
+        "owner": "lanyeeee",
+        "repo": "lanyeeee/jmcomic-downloader"
+    },
+    {
+        "name": "arrayvec",
+        "owner": "bluss",
+        "repo": "bluss/arrayvec"
+    },
+    {
+        "name": "trane",
+        "owner": "trane-project",
+        "repo": "trane-project/trane"
+    },
+    {
+        "name": "eureka",
+        "owner": "simeg",
+        "repo": "simeg/eureka"
+    },
+    {
+        "name": "rust-cpp",
+        "owner": "mystor",
+        "repo": "mystor/rust-cpp"
+    },
+    {
+        "name": "plonky2",
+        "owner": "0xPolygonZero",
+        "repo": "0xPolygonZero/plonky2"
+    },
+    {
+        "name": "book",
+        "owner": "dwyl",
+        "repo": "dwyl/book"
+    },
+    {
+        "name": "stratisd",
+        "owner": "stratis-storage",
+        "repo": "stratis-storage/stratisd"
+    },
+    {
+        "name": "reStream",
+        "owner": "rien",
+        "repo": "rien/reStream"
+    },
+    {
+        "name": "luxtorpeda",
+        "owner": "luxtorpeda-dev",
+        "repo": "luxtorpeda-dev/luxtorpeda"
+    },
+    {
+        "name": "roaring-rs",
+        "owner": "RoaringBitmap",
+        "repo": "RoaringBitmap/roaring-rs"
+    },
+    {
+        "name": "ar5iv",
+        "owner": "dginev",
+        "repo": "dginev/ar5iv"
+    },
+    {
+        "name": "slab",
+        "owner": "tokio-rs",
+        "repo": "tokio-rs/slab"
+    },
+    {
+        "name": "cargo-lambda",
+        "owner": "cargo-lambda",
+        "repo": "cargo-lambda/cargo-lambda"
+    },
+    {
+        "name": "codesnap.nvim",
+        "owner": "mistricky",
+        "repo": "mistricky/codesnap.nvim"
+    },
+    {
+        "name": "MirrorX",
+        "owner": "MirrorX-Desktop",
+        "repo": "MirrorX-Desktop/MirrorX"
+    },
+    {
+        "name": "bus",
+        "owner": "jonhoo",
+        "repo": "jonhoo/bus"
+    },
+    {
+        "name": "wluma",
+        "owner": "maximbaz",
+        "repo": "maximbaz/wluma"
+    },
+    {
+        "name": "bevy_editor_pls",
+        "owner": "jakobhellermann",
+        "repo": "jakobhellermann/bevy_editor_pls"
+    },
+    {
+        "name": "flux",
+        "owner": "sandydoo",
+        "repo": "sandydoo/flux"
+    },
+    {
+        "name": "orz",
+        "owner": "richox",
+        "repo": "richox/orz"
+    },
+    {
+        "name": "rendy",
+        "owner": "amethyst",
+        "repo": "amethyst/rendy"
+    },
+    {
+        "name": "halo2",
+        "owner": "zcash",
+        "repo": "zcash/halo2"
+    },
+    {
+        "name": "tuc",
+        "owner": "riquito",
+        "repo": "riquito/tuc"
+    },
+    {
+        "name": "fishnet",
+        "owner": "lichess-org",
+        "repo": "lichess-org/fishnet"
+    },
+    {
+        "name": "smartcore",
+        "owner": "smartcorelib",
+        "repo": "smartcorelib/smartcore"
+    },
+    {
+        "name": "migrate-to-uv",
+        "owner": "mkniewallner",
+        "repo": "mkniewallner/migrate-to-uv"
+    },
+    {
+        "name": "bite",
+        "owner": "WINSDK",
+        "repo": "WINSDK/bite"
+    },
+    {
+        "name": "shipyard",
+        "owner": "leudz",
+        "repo": "leudz/shipyard"
+    },
+    {
+        "name": "jsonrpc",
+        "owner": "paritytech",
+        "repo": "paritytech/jsonrpc"
+    },
+    {
+        "name": "onetagger",
+        "owner": "Marekkon5",
+        "repo": "Marekkon5/onetagger"
+    },
+    {
+        "name": "fcp",
+        "owner": "Svetlitski",
+        "repo": "Svetlitski/fcp"
+    },
+    {
+        "name": "renet",
+        "owner": "lucaspoffo",
+        "repo": "lucaspoffo/renet"
+    },
+    {
+        "name": "nanoserde",
+        "owner": "not-fl3",
+        "repo": "not-fl3/nanoserde"
+    },
+    {
+        "name": "lorri",
+        "owner": "nix-community",
+        "repo": "nix-community/lorri"
+    },
+    {
+        "name": "nftables-nat-rust",
+        "owner": "arloor",
+        "repo": "arloor/nftables-nat-rust"
+    },
+    {
+        "name": "pg_vectorize",
+        "owner": "ChuckHend",
+        "repo": "ChuckHend/pg_vectorize"
+    },
+    {
+        "name": "rsmpeg",
+        "owner": "larksuite",
+        "repo": "larksuite/rsmpeg"
+    },
+    {
+        "name": "felix",
+        "owner": "kyoheiu",
+        "repo": "kyoheiu/felix"
+    },
+    {
+        "name": "koto",
+        "owner": "koto-lang",
+        "repo": "koto-lang/koto"
+    },
+    {
+        "name": "llm-ls",
+        "owner": "huggingface",
+        "repo": "huggingface/llm-ls"
+    },
+    {
+        "name": "compio",
+        "owner": "compio-rs",
+        "repo": "compio-rs/compio"
+    },
+    {
+        "name": "rust-sloth",
+        "owner": "ecumene",
+        "repo": "ecumene/rust-sloth"
+    },
+    {
+        "name": "gossip",
+        "owner": "mikedilger",
+        "repo": "mikedilger/gossip"
+    },
+    {
+        "name": "chromepass",
+        "owner": "darkarp",
+        "repo": "darkarp/chromepass"
+    },
+    {
+        "name": "rust_os",
+        "owner": "thepowersgang",
+        "repo": "thepowersgang/rust_os"
+    },
+    {
+        "name": "goxlr-utility",
+        "owner": "GoXLR-on-Linux",
+        "repo": "GoXLR-on-Linux/goxlr-utility"
+    },
+    {
+        "name": "tunshell",
+        "owner": "TimeToogo",
+        "repo": "TimeToogo/tunshell"
+    },
+    {
+        "name": "valheim-docker",
+        "owner": "mbround18",
+        "repo": "mbround18/valheim-docker"
+    },
+    {
+        "name": "minesweeper-rs",
+        "owner": "robmikh",
+        "repo": "robmikh/minesweeper-rs"
+    },
+    {
+        "name": "KeyEcho",
+        "owner": "ZacharyL2",
+        "repo": "ZacharyL2/KeyEcho"
+    },
+    {
+        "name": "hoodik",
+        "owner": "hudikhq",
+        "repo": "hudikhq/hoodik"
+    },
+    {
+        "name": "steamguard-cli",
+        "owner": "dyc3",
+        "repo": "dyc3/steamguard-cli"
+    },
+    {
+        "name": "pinky",
+        "owner": "koute",
+        "repo": "koute/pinky"
+    },
+    {
+        "name": "flapigen-rs",
+        "owner": "Dushistov",
+        "repo": "Dushistov/flapigen-rs"
+    },
+    {
+        "name": "electrico",
+        "owner": "thomastschurtschenthaler",
+        "repo": "thomastschurtschenthaler/electrico"
+    },
+    {
+        "name": "svd2rust",
+        "owner": "rust-embedded",
+        "repo": "rust-embedded/svd2rust"
+    },
+    {
+        "name": "palette",
+        "owner": "Ogeon",
+        "repo": "Ogeon/palette"
+    },
+    {
+        "name": "org-rs",
+        "owner": "org-rs",
+        "repo": "org-rs/org-rs"
+    },
+    {
+        "name": "rust-cssparser",
+        "owner": "servo",
+        "repo": "servo/rust-cssparser"
+    },
+    {
+        "name": "cxx2flow",
+        "owner": "Enter-tainer",
+        "repo": "Enter-tainer/cxx2flow"
+    },
+    {
+        "name": "dynasm-rs",
+        "owner": "CensoredUsername",
+        "repo": "CensoredUsername/dynasm-rs"
+    },
+    {
+        "name": "avail",
+        "owner": "availproject",
+        "repo": "availproject/avail"
+    },
+    {
+        "name": "swash",
+        "owner": "dfrg",
+        "repo": "dfrg/swash"
+    },
+    {
+        "name": "papaya",
+        "owner": "ibraheemdev",
+        "repo": "ibraheemdev/papaya"
+    },
+    {
+        "name": "Figment",
+        "owner": "SergioBenitez",
+        "repo": "SergioBenitez/Figment"
+    },
+    {
+        "name": "kubernix",
+        "owner": "saschagrunert",
+        "repo": "saschagrunert/kubernix"
+    },
+    {
+        "name": "rig",
+        "owner": "r-lib",
+        "repo": "r-lib/rig"
+    },
+    {
+        "name": "lowfi",
+        "owner": "talwat",
+        "repo": "talwat/lowfi"
+    },
+    {
+        "name": "swhkd",
+        "owner": "waycrate",
+        "repo": "waycrate/swhkd"
+    },
+    {
+        "name": "csbindgen",
+        "owner": "Cysharp",
+        "repo": "Cysharp/csbindgen"
+    },
+    {
+        "name": "suckit",
+        "owner": "Skallwar",
+        "repo": "Skallwar/suckit"
+    },
+    {
+        "name": "rust-algos",
+        "owner": "rustcn-org",
+        "repo": "rustcn-org/rust-algos"
+    },
+    {
+        "name": "heed",
+        "owner": "meilisearch",
+        "repo": "meilisearch/heed"
+    },
+    {
+        "name": "password-hashes",
+        "owner": "RustCrypto",
+        "repo": "RustCrypto/password-hashes"
+    },
+    {
+        "name": "crowbook",
+        "owner": "crowdagger",
+        "repo": "crowdagger/crowbook"
+    },
+    {
+        "name": "developer-relations",
+        "owner": "RiotGames",
+        "repo": "RiotGames/developer-relations"
+    },
+    {
+        "name": "laurel",
+        "owner": "threathunters-io",
+        "repo": "threathunters-io/laurel"
+    },
+    {
+        "name": "create-your-own-lang-with-rust",
+        "owner": "ehsanmok",
+        "repo": "ehsanmok/create-your-own-lang-with-rust"
+    },
+    {
+        "name": "elliptic-curves",
+        "owner": "RustCrypto",
+        "repo": "RustCrypto/elliptic-curves"
+    },
+    {
+        "name": "elements",
+        "owner": "j4orz",
+        "repo": "j4orz/elements"
+    },
+    {
+        "name": "audioserve",
+        "owner": "izderadicka",
+        "repo": "izderadicka/audioserve"
+    },
+    {
+        "name": "pacquet",
+        "owner": "pnpm",
+        "repo": "pnpm/pacquet"
+    },
+    {
+        "name": "meteroid",
+        "owner": "meteroid-oss",
+        "repo": "meteroid-oss/meteroid"
+    },
+    {
+        "name": "ripasso",
+        "owner": "cortex",
+        "repo": "cortex/ripasso"
+    },
+    {
+        "name": "openmls",
+        "owner": "openmls",
+        "repo": "openmls/openmls"
+    },
+    {
+        "name": "socket2",
+        "owner": "rust-lang",
+        "repo": "rust-lang/socket2"
+    },
+    {
+        "name": "erased-serde",
+        "owner": "dtolnay",
+        "repo": "dtolnay/erased-serde"
+    },
+    {
+        "name": "landscape",
+        "owner": "ThisSeanZhang",
+        "repo": "ThisSeanZhang/landscape"
+    },
+    {
+        "name": "rustcat",
+        "owner": "robiot",
+        "repo": "robiot/rustcat"
+    },
+    {
+        "name": "ultraviolet",
+        "owner": "fu5ha",
+        "repo": "fu5ha/ultraviolet"
+    },
+    {
+        "name": "dovi_tool",
+        "owner": "quietvoid",
+        "repo": "quietvoid/dovi_tool"
+    },
+    {
+        "name": "allsorts",
+        "owner": "yeslogic",
+        "repo": "yeslogic/allsorts"
+    },
+    {
+        "name": "serde_with",
+        "owner": "jonasbb",
+        "repo": "jonasbb/serde_with"
+    },
+    {
+        "name": "cartero",
+        "owner": "danirod",
+        "repo": "danirod/cartero"
+    },
+    {
+        "name": "etl",
+        "owner": "supabase",
+        "repo": "supabase/etl"
+    },
+    {
+        "name": "core",
+        "owner": "chatmail",
+        "repo": "chatmail/core"
+    },
+    {
+        "name": "linkme",
+        "owner": "dtolnay",
+        "repo": "dtolnay/linkme"
+    },
+    {
+        "name": "runebender",
+        "owner": "linebender",
+        "repo": "linebender/runebender"
+    },
+    {
+        "name": "governor",
+        "owner": "boinkor-net",
+        "repo": "boinkor-net/governor"
+    },
+    {
+        "name": "cannoli",
+        "owner": "joncatanio",
+        "repo": "joncatanio/cannoli"
+    },
+    {
+        "name": "bartib",
+        "owner": "nikolassv",
+        "repo": "nikolassv/bartib"
+    },
+    {
+        "name": "meli",
+        "owner": "meli",
+        "repo": "meli/meli"
+    },
+    {
+        "name": "object",
+        "owner": "gimli-rs",
+        "repo": "gimli-rs/object"
+    },
+    {
+        "name": "Ares",
+        "owner": "bee-san",
+        "repo": "bee-san/Ares"
+    },
+    {
+        "name": "munal-os",
+        "owner": "Askannz",
+        "repo": "Askannz/munal-os"
+    },
+    {
+        "name": "ocl",
+        "owner": "cogciprocate",
+        "repo": "cogciprocate/ocl"
+    },
+    {
+        "name": "algebra",
+        "owner": "arkworks-rs",
+        "repo": "arkworks-rs/algebra"
+    },
+    {
+        "name": "contracts",
+        "owner": "skyward-finance",
+        "repo": "skyward-finance/contracts"
+    },
+    {
+        "name": "veryl",
+        "owner": "veryl-lang",
+        "repo": "veryl-lang/veryl"
+    },
+    {
+        "name": "mkdb",
+        "owner": "antoniosarosi",
+        "repo": "antoniosarosi/mkdb"
+    },
+    {
+        "name": "cargo-auditable",
+        "owner": "rust-secure-code",
+        "repo": "rust-secure-code/cargo-auditable"
+    },
+    {
+        "name": "Acala",
+        "owner": "AcalaNetwork",
+        "repo": "AcalaNetwork/Acala"
+    },
+    {
+        "name": "Astar",
+        "owner": "AstarNetwork",
+        "repo": "AstarNetwork/Astar"
+    },
+    {
+        "name": "indextree",
+        "owner": "saschagrunert",
+        "repo": "saschagrunert/indextree"
+    },
+    {
+        "name": "ordinals-collections",
+        "owner": "ordinals-wallet",
+        "repo": "ordinals-wallet/ordinals-collections"
+    },
+    {
+        "name": "lrclib",
+        "owner": "tranxuanthang",
+        "repo": "tranxuanthang/lrclib"
+    },
+    {
+        "name": "flux",
+        "owner": "flux-rs",
+        "repo": "flux-rs/flux"
+    },
+    {
+        "name": "solana-arbitrage-bot",
+        "owner": "0xNineteen",
+        "repo": "0xNineteen/solana-arbitrage-bot"
+    },
+    {
+        "name": "binrw",
+        "owner": "jam1garner",
+        "repo": "jam1garner/binrw"
+    },
+    {
+        "name": "whkd",
+        "owner": "LGUG2Z",
+        "repo": "LGUG2Z/whkd"
+    },
+    {
+        "name": "disruptor-rs",
+        "owner": "nicholassm",
+        "repo": "nicholassm/disruptor-rs"
+    },
+    {
+        "name": "reflect",
+        "owner": "dtolnay",
+        "repo": "dtolnay/reflect"
+    },
+    {
+        "name": "rain",
+        "owner": "substantic",
+        "repo": "substantic/rain"
+    },
+    {
+        "name": "r9",
+        "owner": "r9os",
+        "repo": "r9os/r9"
+    },
+    {
+        "name": "tmux-rs",
+        "owner": "richardscollin",
+        "repo": "richardscollin/tmux-rs"
+    },
+    {
+        "name": "leetcode-rust",
+        "owner": "aylei",
+        "repo": "aylei/leetcode-rust"
+    },
+    {
+        "name": "kernel",
+        "owner": "redox-os",
+        "repo": "redox-os/kernel"
+    },
+    {
+        "name": "sprocketnes",
+        "owner": "pcwalton",
+        "repo": "pcwalton/sprocketnes"
+    },
+    {
+        "name": "sapling",
+        "owner": "kneasle",
+        "repo": "kneasle/sapling"
+    },
+    {
+        "name": "actix-net",
+        "owner": "actix",
+        "repo": "actix/actix-net"
+    },
+    {
+        "name": "kiro-editor",
+        "owner": "rhysd",
+        "repo": "rhysd/kiro-editor"
+    },
+    {
+        "name": "git-graph",
+        "owner": "mlange-42",
+        "repo": "mlange-42/git-graph"
+    },
+    {
+        "name": "smartdns-rs",
+        "owner": "mokeyish",
+        "repo": "mokeyish/smartdns-rs"
+    },
+    {
+        "name": "packages",
+        "owner": "typst",
+        "repo": "typst/packages"
+    },
+    {
+        "name": "cargo-script",
+        "owner": "DanielKeep",
+        "repo": "DanielKeep/cargo-script"
+    },
+    {
+        "name": "gauntlet",
+        "owner": "project-gauntlet",
+        "repo": "project-gauntlet/gauntlet"
+    },
+    {
+        "name": "minitrace-rust",
+        "owner": "tikv",
+        "repo": "tikv/minitrace-rust"
+    },
+    {
+        "name": "obliteration",
+        "owner": "obhq",
+        "repo": "obhq/obliteration"
+    },
+    {
+        "name": "garde",
+        "owner": "jprochazk",
+        "repo": "jprochazk/garde"
+    },
+    {
+        "name": "halp",
+        "owner": "orhun",
+        "repo": "orhun/halp"
+    },
+    {
+        "name": "serpl",
+        "owner": "yassinebridi",
+        "repo": "yassinebridi/serpl"
+    },
+    {
+        "name": "magic-cli",
+        "owner": "guywaldman",
+        "repo": "guywaldman/magic-cli"
+    },
+    {
+        "name": "cargo-hack",
+        "owner": "taiki-e",
+        "repo": "taiki-e/cargo-hack"
+    },
+    {
+        "name": "Verve",
+        "owner": "ParthJadhav",
+        "repo": "ParthJadhav/Verve"
+    },
+    {
+        "name": "cargo-vet",
+        "owner": "mozilla",
+        "repo": "mozilla/cargo-vet"
+    },
+    {
+        "name": "cargo-instruments",
+        "owner": "cmyr",
+        "repo": "cmyr/cargo-instruments"
+    },
+    {
+        "name": "duckdb-rs",
+        "owner": "duckdb",
+        "repo": "duckdb/duckdb-rs"
+    },
+    {
+        "name": "overskride",
+        "owner": "kaii-lb",
+        "repo": "kaii-lb/overskride"
+    },
+    {
+        "name": "dotslash",
+        "owner": "facebook",
+        "repo": "facebook/dotslash"
+    },
+    {
+        "name": "lru-rs",
+        "owner": "jeromefroe",
+        "repo": "jeromefroe/lru-rs"
+    },
+    {
+        "name": "wiremock-rs",
+        "owner": "LukeMathWalker",
+        "repo": "LukeMathWalker/wiremock-rs"
+    },
+    {
+        "name": "geopolars",
+        "owner": "geopolars",
+        "repo": "geopolars/geopolars"
+    },
+    {
+        "name": "context-switch",
+        "owner": "jimblandy",
+        "repo": "jimblandy/context-switch"
+    },
+    {
+        "name": "social-media-hacker-list",
+        "owner": "MobileFirstLLC",
+        "repo": "MobileFirstLLC/social-media-hacker-list"
+    },
+    {
+        "name": "rust-signals",
+        "owner": "Pauan",
+        "repo": "Pauan/rust-signals"
+    },
+    {
+        "name": "avbroot",
+        "owner": "chenxiaolong",
+        "repo": "chenxiaolong/avbroot"
+    },
+    {
+        "name": "hypercube",
+        "owner": "hypercube-lab",
+        "repo": "hypercube-lab/hypercube"
+    },
+    {
+        "name": "igrep",
+        "owner": "konradsz",
+        "repo": "konradsz/igrep"
+    },
+    {
+        "name": "operative-framework",
+        "owner": "graniet",
+        "repo": "graniet/operative-framework"
+    },
+    {
+        "name": "browser-agent",
+        "owner": "m1guelpf",
+        "repo": "m1guelpf/browser-agent"
+    },
+    {
+        "name": "rust-rosetta",
+        "owner": "rust-rosetta",
+        "repo": "rust-rosetta/rust-rosetta"
+    },
+    {
+        "name": "parity-bitcoin",
+        "owner": "paritytech",
+        "repo": "paritytech/parity-bitcoin"
+    },
+    {
+        "name": "typst.ts",
+        "owner": "Myriad-Dreamin",
+        "repo": "Myriad-Dreamin/typst.ts"
+    },
+    {
+        "name": "indoc",
+        "owner": "dtolnay",
+        "repo": "dtolnay/indoc"
+    },
+    {
+        "name": "progenitor",
+        "owner": "oxidecomputer",
+        "repo": "oxidecomputer/progenitor"
+    },
+    {
+        "name": "shawl",
+        "owner": "mtkennerly",
+        "repo": "mtkennerly/shawl"
+    },
+    {
+        "name": "statrs",
+        "owner": "statrs-dev",
+        "repo": "statrs-dev/statrs"
+    },
+    {
+        "name": "popsicle",
+        "owner": "pop-os",
+        "repo": "pop-os/popsicle"
+    },
+    {
+        "name": "block-ciphers",
+        "owner": "RustCrypto",
+        "repo": "RustCrypto/block-ciphers"
+    },
+    {
+        "name": "mevi",
+        "owner": "fasterthanlime",
+        "repo": "fasterthanlime/mevi"
+    },
+    {
+        "name": "hck",
+        "owner": "sstadick",
+        "repo": "sstadick/hck"
+    },
+    {
+        "name": "tectonicdb",
+        "owner": "0b01",
+        "repo": "0b01/tectonicdb"
+    },
+    {
+        "name": "g3",
+        "owner": "bytedance",
+        "repo": "bytedance/g3"
+    },
+    {
+        "name": "martypc",
+        "owner": "dbalsom",
+        "repo": "dbalsom/martypc"
+    },
+    {
+        "name": "neovim-gtk",
+        "owner": "daa84",
+        "repo": "daa84/neovim-gtk"
+    },
+    {
+        "name": "realworld-rust-rocket",
+        "owner": "TatriX",
+        "repo": "TatriX/realworld-rust-rocket"
+    },
+    {
+        "name": "kellnr",
+        "owner": "kellnr",
+        "repo": "kellnr/kellnr"
+    },
+    {
+        "name": "parry",
+        "owner": "dimforge",
+        "repo": "dimforge/parry"
+    },
+    {
+        "name": "OctaSine",
+        "owner": "greatest-ape",
+        "repo": "greatest-ape/OctaSine"
+    },
+    {
+        "name": "thunder",
+        "owner": "0x676e67",
+        "repo": "0x676e67/thunder"
+    },
+    {
+        "name": "rauthy",
+        "owner": "sebadob",
+        "repo": "sebadob/rauthy"
+    },
+    {
+        "name": "stu",
+        "owner": "lusingander",
+        "repo": "lusingander/stu"
+    },
+    {
+        "name": "typify",
+        "owner": "oxidecomputer",
+        "repo": "oxidecomputer/typify"
+    },
+    {
+        "name": "csml-engine",
+        "owner": "CSML-by-Clevy",
+        "repo": "CSML-by-Clevy/csml-engine"
+    },
+    {
+        "name": "gl-rs",
+        "owner": "rust-windowing",
+        "repo": "rust-windowing/gl-rs"
+    },
+    {
+        "name": "metaboss",
+        "owner": "samuelvanderwaal",
+        "repo": "samuelvanderwaal/metaboss"
+    },
+    {
+        "name": "niva",
+        "owner": "bramblex",
+        "repo": "bramblex/niva"
+    },
+    {
+        "name": "apple-platform-rs",
+        "owner": "indygreg",
+        "repo": "indygreg/apple-platform-rs"
+    },
+    {
+        "name": "PackSquash",
+        "owner": "ComunidadAylas",
+        "repo": "ComunidadAylas/PackSquash"
+    },
+    {
+        "name": "bitwhip",
+        "owner": "bitwhip",
+        "repo": "bitwhip/bitwhip"
+    },
+    {
+        "name": "KiwiTalk",
+        "owner": "KiwiTalk",
+        "repo": "KiwiTalk/KiwiTalk"
+    },
+    {
+        "name": "nix-software-center",
+        "owner": "snowfallorg",
+        "repo": "snowfallorg/nix-software-center"
+    },
+    {
+        "name": "ed25519-dalek",
+        "owner": "dalek-cryptography",
+        "repo": "dalek-cryptography/ed25519-dalek"
+    },
+    {
+        "name": "wrappers",
+        "owner": "supabase",
+        "repo": "supabase/wrappers"
+    },
+    {
+        "name": "wasm-service",
+        "owner": "richardanaya",
+        "repo": "richardanaya/wasm-service"
+    },
+    {
+        "name": "sendme",
+        "owner": "n0-computer",
+        "repo": "n0-computer/sendme"
+    },
+    {
+        "name": "lune",
+        "owner": "lune-org",
+        "repo": "lune-org/lune"
+    },
+    {
+        "name": "j4rs",
+        "owner": "astonbitecode",
+        "repo": "astonbitecode/j4rs"
+    },
+    {
+        "name": "camilladsp",
+        "owner": "HEnquist",
+        "repo": "HEnquist/camilladsp"
+    },
+    {
+        "name": "tinyvec",
+        "owner": "Lokathor",
+        "repo": "Lokathor/tinyvec"
+    },
+    {
+        "name": "statix",
+        "owner": "oppiliappan",
+        "repo": "oppiliappan/statix"
+    },
+    {
+        "name": "FunctionStomping",
+        "owner": "Idov31",
+        "repo": "Idov31/FunctionStomping"
+    },
+    {
+        "name": "ore",
+        "owner": "regolith-labs",
+        "repo": "regolith-labs/ore"
+    },
+    {
+        "name": "xmr-btc-swap",
+        "owner": "comit-network",
+        "repo": "comit-network/xmr-btc-swap"
+    },
+    {
+        "name": "grammers",
+        "owner": "Lonami",
+        "repo": "Lonami/grammers"
+    },
+    {
+        "name": "glyph-brush",
+        "owner": "alexheretic",
+        "repo": "alexheretic/glyph-brush"
+    },
+    {
+        "name": "lux",
+        "owner": "nvim-neorocks",
+        "repo": "nvim-neorocks/lux"
+    },
+    {
+        "name": "async-stream",
+        "owner": "tokio-rs",
+        "repo": "tokio-rs/async-stream"
+    },
+    {
+        "name": "physx-rs",
+        "owner": "EmbarkStudios",
+        "repo": "EmbarkStudios/physx-rs"
+    },
+    {
+        "name": "selene",
+        "owner": "Kampfkarren",
+        "repo": "Kampfkarren/selene"
+    },
+    {
+        "name": "TLS-poison",
+        "owner": "jmdx",
+        "repo": "jmdx/TLS-poison"
+    },
+    {
+        "name": "topngx",
+        "owner": "gsquire",
+        "repo": "gsquire/topngx"
+    },
+    {
+        "name": "std-training",
+        "owner": "esp-rs",
+        "repo": "esp-rs/std-training"
+    },
+    {
+        "name": "crater",
+        "owner": "rust-lang",
+        "repo": "rust-lang/crater"
+    },
+    {
+        "name": "lazymc",
+        "owner": "timvisee",
+        "repo": "timvisee/lazymc"
+    },
+    {
+        "name": "zram-generator",
+        "owner": "systemd",
+        "repo": "systemd/zram-generator"
+    },
+    {
+        "name": "sui-mev",
+        "owner": "fuzzland",
+        "repo": "fuzzland/sui-mev"
+    },
+    {
+        "name": "maelstrom",
+        "owner": "maelstrom-software",
+        "repo": "maelstrom-software/maelstrom"
+    },
+    {
+        "name": "orion",
+        "owner": "orion-rs",
+        "repo": "orion-rs/orion"
+    },
+    {
+        "name": "rust-mysql-simple",
+        "owner": "blackbeam",
+        "repo": "blackbeam/rust-mysql-simple"
+    },
+    {
+        "name": "imager",
+        "owner": "imager-io",
+        "repo": "imager-io/imager"
+    },
+    {
+        "name": "manga-tui",
+        "owner": "josueBarretogit",
+        "repo": "josueBarretogit/manga-tui"
+    },
+    {
+        "name": "rustc-perf",
+        "owner": "rust-lang",
+        "repo": "rust-lang/rustc-perf"
+    },
+    {
+        "name": "conflux-rust",
+        "owner": "Conflux-Chain",
+        "repo": "Conflux-Chain/conflux-rust"
+    },
+    {
+        "name": "dvm",
+        "owner": "justjavac",
+        "repo": "justjavac/dvm"
+    },
+    {
+        "name": "cargo-pgo",
+        "owner": "Kobzol",
+        "repo": "Kobzol/cargo-pgo"
+    },
+    {
+        "name": "serum-dex",
+        "owner": "project-serum",
+        "repo": "project-serum/serum-dex"
+    },
+    {
+        "name": "typstudio",
+        "owner": "Cubxity",
+        "repo": "Cubxity/typstudio"
+    },
+    {
+        "name": "Heroinn",
+        "owner": "b23r0",
+        "repo": "b23r0/Heroinn"
+    },
+    {
+        "name": "IRust",
+        "owner": "sigmaSd",
+        "repo": "sigmaSd/IRust"
+    },
+    {
+        "name": "miden-vm",
+        "owner": "0xMiden",
+        "repo": "0xMiden/miden-vm"
+    },
+    {
+        "name": "google-cloud-rust",
+        "owner": "googleapis",
+        "repo": "googleapis/google-cloud-rust"
+    },
+    {
+        "name": "Loop",
+        "owner": "Miserlou",
+        "repo": "Miserlou/Loop"
+    },
+    {
+        "name": "nomino",
+        "owner": "yaa110",
+        "repo": "yaa110/nomino"
+    },
+    {
+        "name": "bark",
+        "owner": "haileys",
+        "repo": "haileys/bark"
+    },
+    {
+        "name": "rust-practice",
+        "owner": "rosedblabs",
+        "repo": "rosedblabs/rust-practice"
+    },
+    {
+        "name": "Peng",
+        "owner": "makeecat",
+        "repo": "makeecat/Peng"
+    },
+    {
+        "name": "adsb_deku",
+        "owner": "rsadsb",
+        "repo": "rsadsb/adsb_deku"
+    },
+    {
+        "name": "fang",
+        "owner": "ayrat555",
+        "repo": "ayrat555/fang"
+    },
+    {
+        "name": "htmx-lsp",
+        "owner": "ThePrimeagen",
+        "repo": "ThePrimeagen/htmx-lsp"
+    },
+    {
+        "name": "valthrun-cs2",
+        "owner": "Valthrun",
+        "repo": "Valthrun/valthrun-cs2"
+    },
+    {
+        "name": "rnet",
+        "owner": "0x676e67",
+        "repo": "0x676e67/rnet"
+    },
+    {
+        "name": "i3-style",
+        "owner": "altdesktop",
+        "repo": "altdesktop/i3-style"
+    },
+    {
+        "name": "agate",
+        "owner": "mbrubeck",
+        "repo": "mbrubeck/agate"
+    },
+    {
+        "name": "rustgpt",
+        "owner": "bitswired",
+        "repo": "bitswired/rustgpt"
+    },
+    {
+        "name": "Xline",
+        "owner": "xline-kv",
+        "repo": "xline-kv/Xline"
+    },
+    {
+        "name": "mev-bundle-generator",
+        "owner": "0xAlcibiades",
+        "repo": "0xAlcibiades/mev-bundle-generator"
+    },
+    {
+        "name": "rusty-kaspa",
+        "owner": "kaspanet",
+        "repo": "kaspanet/rusty-kaspa"
+    },
+    {
+        "name": "snatch",
+        "owner": "derniercri",
+        "repo": "derniercri/snatch"
+    },
+    {
+        "name": "turbo.fish",
+        "owner": "jplatte",
+        "repo": "jplatte/turbo.fish"
+    },
+    {
+        "name": "traits",
+        "owner": "RustCrypto",
+        "repo": "RustCrypto/traits"
+    },
+    {
+        "name": "slumber",
+        "owner": "LucasPickering",
+        "repo": "LucasPickering/slumber"
+    },
+    {
+        "name": "handlr",
+        "owner": "chmln",
+        "repo": "chmln/handlr"
+    },
+    {
+        "name": "fontations",
+        "owner": "googlefonts",
+        "repo": "googlefonts/fontations"
+    },
+    {
+        "name": "rip",
+        "owner": "prefix-dev",
+        "repo": "prefix-dev/rip"
+    },
+    {
+        "name": "riscv-rust",
+        "owner": "takahirox",
+        "repo": "takahirox/riscv-rust"
+    },
+    {
+        "name": "potatis",
+        "owner": "henrikpersson",
+        "repo": "henrikpersson/potatis"
+    },
+    {
+        "name": "chili",
+        "owner": "dragostis",
+        "repo": "dragostis/chili"
+    },
+    {
+        "name": "oatmeal",
+        "owner": "dustinblackman",
+        "repo": "dustinblackman/oatmeal"
+    },
+    {
+        "name": "ngrrram",
+        "owner": "wintermute-cell",
+        "repo": "wintermute-cell/ngrrram"
+    },
+    {
+        "name": "sentry-rust",
+        "owner": "getsentry",
+        "repo": "getsentry/sentry-rust"
+    },
+    {
+        "name": "jsonschema",
+        "owner": "Stranger6667",
+        "repo": "Stranger6667/jsonschema"
+    },
+    {
+        "name": "moq",
+        "owner": "kixelated",
+        "repo": "kixelated/moq"
+    },
+    {
+        "name": "csview",
+        "owner": "wfxr",
+        "repo": "wfxr/csview"
+    },
+    {
+        "name": "ytui-music",
+        "owner": "sudipghimire533",
+        "repo": "sudipghimire533/ytui-music"
+    },
+    {
+        "name": "tendermint-rs",
+        "owner": "cometbft",
+        "repo": "cometbft/tendermint-rs"
+    },
+    {
+        "name": "nativeshell",
+        "owner": "nativeshell",
+        "repo": "nativeshell/nativeshell"
+    },
+    {
+        "name": "fast_rsync",
+        "owner": "dropbox",
+        "repo": "dropbox/fast_rsync"
+    },
+    {
+        "name": "onagre",
+        "owner": "onagre-launcher",
+        "repo": "onagre-launcher/onagre"
+    },
+    {
+        "name": "mimalloc_rust",
+        "owner": "purpleprotocol",
+        "repo": "purpleprotocol/mimalloc_rust"
+    },
+    {
+        "name": "mycelium",
+        "owner": "hawkw",
+        "repo": "hawkw/mycelium"
+    },
+    {
+        "name": "cucumber",
+        "owner": "cucumber-rs",
+        "repo": "cucumber-rs/cucumber"
+    },
+    {
+        "name": "menyoki",
+        "owner": "orhun",
+        "repo": "orhun/menyoki"
+    },
+    {
+        "name": "globe",
+        "owner": "adamsky",
+        "repo": "adamsky/globe"
+    },
+    {
+        "name": "sig",
+        "owner": "ynqa",
+        "repo": "ynqa/sig"
+    },
+    {
+        "name": "pathfinder",
+        "owner": "eqlabs",
+        "repo": "eqlabs/pathfinder"
+    },
+    {
+        "name": "toipe",
+        "owner": "Samyak2",
+        "repo": "Samyak2/toipe"
+    },
+    {
+        "name": "donutbrowser",
+        "owner": "zhom",
+        "repo": "zhom/donutbrowser"
+    },
+    {
+        "name": "CreuSAT",
+        "owner": "sarsko",
+        "repo": "sarsko/CreuSAT"
+    },
+    {
+        "name": "muvm",
+        "owner": "AsahiLinux",
+        "repo": "AsahiLinux/muvm"
+    },
+    {
+        "name": "cacache-rs",
+        "owner": "zkat",
+        "repo": "zkat/cacache-rs"
+    },
+    {
+        "name": "avail-light",
+        "owner": "availproject",
+        "repo": "availproject/avail-light"
+    },
+    {
+        "name": "huawei-pc-manager-bootstrap",
+        "owner": "hamflx",
+        "repo": "hamflx/huawei-pc-manager-bootstrap"
+    },
+    {
+        "name": "ai-gateway",
+        "owner": "langdb",
+        "repo": "langdb/ai-gateway"
+    },
+    {
+        "name": "wasmex",
+        "owner": "tessi",
+        "repo": "tessi/wasmex"
+    },
+    {
+        "name": "wired-notify",
+        "owner": "Toqozz",
+        "repo": "Toqozz/wired-notify"
+    },
+    {
+        "name": "frum",
+        "owner": "TaKO8Ki",
+        "repo": "TaKO8Ki/frum"
+    },
+    {
+        "name": "httparse",
+        "owner": "seanmonstar",
+        "repo": "seanmonstar/httparse"
+    },
+    {
+        "name": "docuum",
+        "owner": "stepchowfun",
+        "repo": "stepchowfun/docuum"
+    },
+    {
+        "name": "sherlock",
+        "owner": "Skxxtz",
+        "repo": "Skxxtz/sherlock"
+    },
+    {
+        "name": "retrowin32",
+        "owner": "evmar",
+        "repo": "evmar/retrowin32"
+    },
+    {
+        "name": "rboy",
+        "owner": "mvdnes",
+        "repo": "mvdnes/rboy"
+    },
+    {
+        "name": "rust-koans",
+        "owner": "crazymykl",
+        "repo": "crazymykl/rust-koans"
+    },
+    {
+        "name": "bili-shadowreplay",
+        "owner": "Xinrea",
+        "repo": "Xinrea/bili-shadowreplay"
+    },
+    {
+        "name": "kakoune-lsp",
+        "owner": "kakoune-lsp",
+        "repo": "kakoune-lsp/kakoune-lsp"
+    },
+    {
+        "name": "systemd-manager-tui",
+        "owner": "matheus-git",
+        "repo": "matheus-git/systemd-manager-tui"
+    },
+    {
+        "name": "gpt-macro",
+        "owner": "retrage",
+        "repo": "retrage/gpt-macro"
+    },
+    {
+        "name": "aws-secretsmanager-agent",
+        "owner": "aws",
+        "repo": "aws/aws-secretsmanager-agent"
+    },
+    {
+        "name": "flipperzero-rs",
+        "owner": "flipperzero-rs",
+        "repo": "flipperzero-rs/flipperzero-rs"
+    },
+    {
+        "name": "rust-hypervisor-firmware",
+        "owner": "cloud-hypervisor",
+        "repo": "cloud-hypervisor/rust-hypervisor-firmware"
+    },
+    {
+        "name": "shadow-rs",
+        "owner": "joaoviictorti",
+        "repo": "joaoviictorti/shadow-rs"
+    },
+    {
+        "name": "lazyjj",
+        "owner": "Cretezy",
+        "repo": "Cretezy/lazyjj"
+    },
+    {
+        "name": "memory.lol",
+        "owner": "travisbrown",
+        "repo": "travisbrown/memory.lol"
+    },
+    {
+        "name": "wagyu",
+        "owner": "howardwu",
+        "repo": "howardwu/wagyu"
+    },
+    {
+        "name": "deadnix",
+        "owner": "astro",
+        "repo": "astro/deadnix"
+    },
+    {
+        "name": "cunzhi",
+        "owner": "imhuso",
+        "repo": "imhuso/cunzhi"
+    },
+    {
+        "name": "semver",
+        "owner": "dtolnay",
+        "repo": "dtolnay/semver"
+    },
+    {
+        "name": "pikkr",
+        "owner": "pikkr",
+        "repo": "pikkr/pikkr"
+    },
+    {
+        "name": "rusttype",
+        "owner": "redox-os",
+        "repo": "redox-os/rusttype"
+    },
+    {
+        "name": "cargo-call-stack",
+        "owner": "japaric",
+        "repo": "japaric/cargo-call-stack"
+    },
+    {
+        "name": "ab-av1",
+        "owner": "alexheretic",
+        "repo": "alexheretic/ab-av1"
+    },
+    {
+        "name": "cavif-rs",
+        "owner": "kornelski",
+        "repo": "kornelski/cavif-rs"
+    },
+    {
+        "name": "metaplex-program-library",
+        "owner": "metaplex-foundation",
+        "repo": "metaplex-foundation/metaplex-program-library"
+    },
+    {
+        "name": "cargo-about",
+        "owner": "EmbarkStudios",
+        "repo": "EmbarkStudios/cargo-about"
+    },
+    {
+        "name": "nixops4",
+        "owner": "nixops4",
+        "repo": "nixops4/nixops4"
+    },
+    {
+        "name": "vim-dogrun",
+        "owner": "wadackel",
+        "repo": "wadackel/vim-dogrun"
+    },
+    {
+        "name": "fedimint",
+        "owner": "fedimint",
+        "repo": "fedimint/fedimint"
+    },
+    {
+        "name": "dbus-rs",
+        "owner": "diwic",
+        "repo": "diwic/dbus-rs"
+    },
+    {
+        "name": "ppfuzz",
+        "owner": "dwisiswant0",
+        "repo": "dwisiswant0/ppfuzz"
+    },
+    {
+        "name": "magi",
+        "owner": "a16z",
+        "repo": "a16z/magi"
+    },
+    {
+        "name": "Rust-Flashcards",
+        "owner": "ad-si",
+        "repo": "ad-si/Rust-Flashcards"
+    },
+    {
+        "name": "noaa-apt",
+        "owner": "martinber",
+        "repo": "martinber/noaa-apt"
+    },
+    {
+        "name": "brontes",
+        "owner": "SorellaLabs",
+        "repo": "SorellaLabs/brontes"
+    },
+    {
+        "name": "findex",
+        "owner": "mdgaziur",
+        "repo": "mdgaziur/findex"
+    },
+    {
+        "name": "wsta",
+        "owner": "eliihen",
+        "repo": "eliihen/wsta"
+    },
+    {
+        "name": "rustboyadvance-ng",
+        "owner": "michelhe",
+        "repo": "michelhe/rustboyadvance-ng"
+    },
+    {
+        "name": "dirble",
+        "owner": "Isona",
+        "repo": "Isona/dirble"
+    },
+    {
+        "name": "static-assertions",
+        "owner": "nvzqz",
+        "repo": "nvzqz/static-assertions"
+    },
+    {
+        "name": "git-journal",
+        "owner": "saschagrunert",
+        "repo": "saschagrunert/git-journal"
+    },
+    {
+        "name": "test-case",
+        "owner": "frondeus",
+        "repo": "frondeus/test-case"
+    },
+    {
+        "name": "lexe",
+        "owner": "Ray-D-Song",
+        "repo": "Ray-D-Song/lexe"
+    },
+    {
+        "name": "tapo",
+        "owner": "mihai-dinculescu",
+        "repo": "mihai-dinculescu/tapo"
+    },
+    {
+        "name": "vim-markdown-composer",
+        "owner": "euclio",
+        "repo": "euclio/vim-markdown-composer"
+    },
+    {
+        "name": "iai",
+        "owner": "bheisler",
+        "repo": "bheisler/iai"
+    },
+    {
+        "name": "rim",
+        "owner": "mathall",
+        "repo": "mathall/rim"
+    },
+    {
+        "name": "reverie",
+        "owner": "facebookexperimental",
+        "repo": "facebookexperimental/reverie"
+    },
+    {
+        "name": "salva",
+        "owner": "dimforge",
+        "repo": "dimforge/salva"
+    },
+    {
+        "name": "atsamd",
+        "owner": "atsamd-rs",
+        "repo": "atsamd-rs/atsamd"
+    },
+    {
+        "name": "hyperlight-wasm",
+        "owner": "hyperlight-dev",
+        "repo": "hyperlight-dev/hyperlight-wasm"
+    },
+    {
+        "name": "hoard",
+        "owner": "Hyde46",
+        "repo": "Hyde46/hoard"
+    },
+    {
+        "name": "goldboot",
+        "owner": "fossable",
+        "repo": "fossable/goldboot"
+    },
+    {
+        "name": "unicode-segmentation",
+        "owner": "unicode-rs",
+        "repo": "unicode-rs/unicode-segmentation"
+    },
+    {
+        "name": "wastebin",
+        "owner": "matze",
+        "repo": "matze/wastebin"
+    },
+    {
+        "name": "yourcontrols",
+        "owner": "Sequal32",
+        "repo": "Sequal32/yourcontrols"
+    },
+    {
+        "name": "python-launcher",
+        "owner": "brettcannon",
+        "repo": "brettcannon/python-launcher"
+    },
+    {
+        "name": "tlrc",
+        "owner": "tldr-pages",
+        "repo": "tldr-pages/tlrc"
+    },
+    {
+        "name": "typstyle",
+        "owner": "typstyle-rs",
+        "repo": "typstyle-rs/typstyle"
+    },
+    {
+        "name": "distant",
+        "owner": "chipsenkbeil",
+        "repo": "chipsenkbeil/distant"
+    },
+    {
+        "name": "narrowlink",
+        "owner": "narrowlink",
+        "repo": "narrowlink/narrowlink"
+    },
+    {
+        "name": "tmux-sessionizer",
+        "owner": "jrmoulton",
+        "repo": "jrmoulton/tmux-sessionizer"
+    },
+    {
+        "name": "paste",
+        "owner": "anna-is-cute",
+        "repo": "anna-is-cute/paste"
+    },
+    {
+        "name": "godot-rapier-physics",
+        "owner": "appsinacup",
+        "repo": "appsinacup/godot-rapier-physics"
+    },
+    {
+        "name": "stronghold.rs",
+        "owner": "iotaledger",
+        "repo": "iotaledger/stronghold.rs"
+    },
+    {
+        "name": "solo2",
+        "owner": "solokeys",
+        "repo": "solokeys/solo2"
+    },
+    {
+        "name": "sdk",
+        "owner": "ProvableHQ",
+        "repo": "ProvableHQ/sdk"
+    },
+    {
+        "name": "espflash",
+        "owner": "esp-rs",
+        "repo": "esp-rs/espflash"
+    },
+    {
+        "name": "RSA",
+        "owner": "RustCrypto",
+        "repo": "RustCrypto/RSA"
+    },
+    {
+        "name": "huak",
+        "owner": "cnpryer",
+        "repo": "cnpryer/huak"
+    },
+    {
+        "name": "parallel-disk-usage",
+        "owner": "KSXGitHub",
+        "repo": "KSXGitHub/parallel-disk-usage"
+    },
+    {
+        "name": "noodles",
+        "owner": "zaeleus",
+        "repo": "zaeleus/noodles"
+    },
+    {
+        "name": "cosmic-comp",
+        "owner": "pop-os",
+        "repo": "pop-os/cosmic-comp"
+    },
+    {
+        "name": "xbuild",
+        "owner": "rust-mobile",
+        "repo": "rust-mobile/xbuild"
+    },
+    {
+        "name": "prsqlite",
+        "owner": "kawasin73",
+        "repo": "kawasin73/prsqlite"
+    },
+    {
+        "name": "sealevel-attacks",
+        "owner": "coral-xyz",
+        "repo": "coral-xyz/sealevel-attacks"
+    },
+    {
+        "name": "Ebou",
+        "owner": "terhechte",
+        "repo": "terhechte/Ebou"
+    },
+    {
+        "name": "parquet-wasm",
+        "owner": "kylebarron",
+        "repo": "kylebarron/parquet-wasm"
+    },
+    {
+        "name": "cfg-if",
+        "owner": "rust-lang",
+        "repo": "rust-lang/cfg-if"
+    },
+    {
+        "name": "frontier",
+        "owner": "polkadot-evm",
+        "repo": "polkadot-evm/frontier"
+    },
+    {
+        "name": "aidoku-zh-sources",
+        "owner": "suiyuran",
+        "repo": "suiyuran/aidoku-zh-sources"
+    },
+    {
+        "name": "httpmock",
+        "owner": "alexliesenfeld",
+        "repo": "alexliesenfeld/httpmock"
+    },
+    {
+        "name": "wiki-tui",
+        "owner": "Builditluc",
+        "repo": "Builditluc/wiki-tui"
+    },
+    {
+        "name": "dotenv",
+        "owner": "dotenv-rs",
+        "repo": "dotenv-rs/dotenv"
+    },
+    {
+        "name": "ripdrag",
+        "owner": "nik012003",
+        "repo": "nik012003/ripdrag"
+    },
+    {
+        "name": "MozWire",
+        "owner": "NilsIrl",
+        "repo": "NilsIrl/MozWire"
+    },
+    {
+        "name": "jito-solana",
+        "owner": "jito-foundation",
+        "repo": "jito-foundation/jito-solana"
+    },
+    {
+        "name": "autoadb",
+        "owner": "rom1v",
+        "repo": "rom1v/autoadb"
+    },
+    {
+        "name": "packet",
+        "owner": "nozwock",
+        "repo": "nozwock/packet"
+    },
+    {
+        "name": "ErlangRT",
+        "owner": "kvakvs",
+        "repo": "kvakvs/ErlangRT"
+    },
+    {
+        "name": "http-proxy-ipv6-pool",
+        "owner": "zu1k",
+        "repo": "zu1k/http-proxy-ipv6-pool"
+    },
+    {
+        "name": "diffr",
+        "owner": "mookid",
+        "repo": "mookid/diffr"
+    },
+    {
+        "name": "intentrace",
+        "owner": "sectordistrict",
+        "repo": "sectordistrict/intentrace"
+    },
+    {
+        "name": "aderyn",
+        "owner": "Cyfrin",
+        "repo": "Cyfrin/aderyn"
+    },
+    {
+        "name": "LibreQoS",
+        "owner": "LibreQoE",
+        "repo": "LibreQoE/LibreQoS"
+    },
+    {
+        "name": "bevy_asset_loader",
+        "owner": "NiklasEi",
+        "repo": "NiklasEi/bevy_asset_loader"
+    },
+    {
+        "name": "doctave",
+        "owner": "Doctave",
+        "repo": "Doctave/doctave"
+    },
+    {
+        "name": "intermodal",
+        "owner": "casey",
+        "repo": "casey/intermodal"
+    },
+    {
+        "name": "winsafe",
+        "owner": "rodrigocfd",
+        "repo": "rodrigocfd/winsafe"
+    },
+    {
+        "name": "aidoku-community-sources",
+        "owner": "Skittyblock",
+        "repo": "Skittyblock/aidoku-community-sources"
+    },
+    {
+        "name": "todo-or-die",
+        "owner": "davidpdrsn",
+        "repo": "davidpdrsn/todo-or-die"
+    },
+    {
+        "name": "tui-journal",
+        "owner": "AmmarAbouZor",
+        "repo": "AmmarAbouZor/tui-journal"
+    },
+    {
+        "name": "serde-wasm-bindgen",
+        "owner": "RReverser",
+        "repo": "RReverser/serde-wasm-bindgen"
+    },
+    {
+        "name": "nurl",
+        "owner": "nix-community",
+        "repo": "nix-community/nurl"
+    },
+    {
+        "name": "aliases",
+        "owner": "sebglazebrook",
+        "repo": "sebglazebrook/aliases"
+    },
+    {
+        "name": "tex-fmt",
+        "owner": "WGUNDERWOOD",
+        "repo": "WGUNDERWOOD/tex-fmt"
+    },
+    {
+        "name": "RustyTube",
+        "owner": "opensourcecheemsburgers",
+        "repo": "opensourcecheemsburgers/RustyTube"
+    },
+    {
+        "name": "JoJoLoader",
+        "owner": "Pizz33",
+        "repo": "Pizz33/JoJoLoader"
+    },
+    {
+        "name": "VIPORMiner",
+        "owner": "ViporMiner",
+        "repo": "ViporMiner/VIPORMiner"
+    },
+    {
+        "name": "parinfer-rust",
+        "owner": "eraserhd",
+        "repo": "eraserhd/parinfer-rust"
+    },
+    {
+        "name": "AppToolkit",
+        "owner": "apptools-lab",
+        "repo": "apptools-lab/AppToolkit"
+    },
+    {
+        "name": "jot",
+        "owner": "shashwatah",
+        "repo": "shashwatah/jot"
+    },
+    {
+        "name": "Kokoros",
+        "owner": "lucasjinreal",
+        "repo": "lucasjinreal/Kokoros"
+    },
+    {
+        "name": "pinocchio",
+        "owner": "anza-xyz",
+        "repo": "anza-xyz/pinocchio"
+    },
+    {
+        "name": "teip",
+        "owner": "greymd",
+        "repo": "greymd/teip"
+    },
+    {
+        "name": "chiselstore",
+        "owner": "chiselstrike",
+        "repo": "chiselstrike/chiselstore"
+    },
+    {
+        "name": "savage",
+        "owner": "p-e-w",
+        "repo": "p-e-w/savage"
+    },
+    {
+        "name": "sidecar",
+        "owner": "codestoryai",
+        "repo": "codestoryai/sidecar"
+    },
+    {
+        "name": "zsh-yarn-autocompletions",
+        "owner": "g-plane",
+        "repo": "g-plane/zsh-yarn-autocompletions"
+    },
+    {
+        "name": "git-stack",
+        "owner": "gitext-rs",
+        "repo": "gitext-rs/git-stack"
+    },
+    {
+        "name": "rdbc",
+        "owner": "tokio-rs",
+        "repo": "tokio-rs/rdbc"
+    },
+    {
+        "name": "ringrtc",
+        "owner": "signalapp",
+        "repo": "signalapp/ringrtc"
+    },
+    {
+        "name": "zeronsd",
+        "owner": "zerotier",
+        "repo": "zerotier/zeronsd"
+    },
+    {
+        "name": "parity-signer",
+        "owner": "novasamatech",
+        "repo": "novasamatech/parity-signer"
+    },
+    {
+        "name": "system76-scheduler",
+        "owner": "pop-os",
+        "repo": "pop-os/system76-scheduler"
+    },
+    {
+        "name": "Tran",
+        "owner": "Borber",
+        "repo": "Borber/Tran"
+    },
+    {
+        "name": "json-rust",
+        "owner": "maciejhirsz",
+        "repo": "maciejhirsz/json-rust"
+    },
+    {
+        "name": "ReGreet",
+        "owner": "rharish101",
+        "repo": "rharish101/ReGreet"
+    },
+    {
+        "name": "link",
+        "owner": "postrequest",
+        "repo": "postrequest/link"
+    },
+    {
+        "name": "abscissa",
+        "owner": "iqlusioninc",
+        "repo": "iqlusioninc/abscissa"
+    },
+    {
+        "name": "termchat",
+        "owner": "lemunozm",
+        "repo": "lemunozm/termchat"
+    },
+    {
+        "name": "whorl",
+        "owner": "mgattozzi",
+        "repo": "mgattozzi/whorl"
+    },
+    {
+        "name": "fastembed-rs",
+        "owner": "Anush008",
+        "repo": "Anush008/fastembed-rs"
+    },
+    {
+        "name": "ducker",
+        "owner": "robertpsoane",
+        "repo": "robertpsoane/ducker"
+    },
+    {
+        "name": "egui_graphs",
+        "owner": "blitzar-tech",
+        "repo": "blitzar-tech/egui_graphs"
+    }
+]
