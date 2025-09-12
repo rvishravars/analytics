@@ -2,31 +2,65 @@
 import os
 import pandas as pd
 import matplotlib.pyplot as plt
+import argparse
+import seaborn as sns
 
-# --- Config ---
-BROKEN_BUILDS_CSV = "data/28_ci_theater_broken_builds_rust.csv"
-PROJECT_SIZES_CSV = "data/19_ci_theater_project_sizes_rust.csv"
-OUTPUT_DIR = "data"
+
+def categorize_project(sloc: int) -> str:
+    """Categorizes a project based on its Source Lines of Code (SLOC)."""
+    if sloc < 1000:
+        return "Very Small"
+    elif sloc < 10000:
+        return "Small"
+    elif sloc < 100000:
+        return "Medium"
+    elif sloc < 1000000:
+        return "Large"
+    else:
+        return "Very Large"
+
 
 # --- Main ---
 def main():
     """
     Generates box plots comparing CI build brokenness metrics against project size.
     """
-    # Ensure output directory exists
-    os.makedirs(OUTPUT_DIR, exist_ok=True)
+    parser = argparse.ArgumentParser(description="Generate boxplots of broken build metrics by project size.")
+    parser.add_argument(
+        "--broken-builds-file",
+        required=True,
+        help="Path to the broken builds CSV file (from 28_ci_theater_broken_builds_rust.py).",
+    )
+    parser.add_argument(
+        "--sizes-file",
+        required=True,
+        help="Path to the repo summary CSV file with SLOC (from 29_ci_theater_polyglot_rust.py).",
+    )
+    parser.add_argument(
+        "--output-stretches-plot", required=True, help="Path to save the broken stretches plot."
+    )
+    parser.add_argument(
+        "--output-max-days-plot", required=True, help="Path to save the max broken days plot."
+    )
+    parser.add_argument(
+        "--cohort-name",
+        required=True,
+        help="Name of the cohort for plot titles (e.g., 'Monoglot' or 'Polyglot').",
+    )
+    args = parser.parse_args()
 
     # Load data
     try:
-        broken_builds_df = pd.read_csv(BROKEN_BUILDS_CSV)
-        project_sizes_df = pd.read_csv(PROJECT_SIZES_CSV)
+        broken_builds_df = pd.read_csv(args.broken_builds_file)
+        project_sizes_df = pd.read_csv(args.sizes_file)
     except FileNotFoundError as e:
         print(f"Error: Missing required CSV file: {e.filename}")
-        print("Please run '28_ci_theater_broken_builds_rust.py' and '19_ci_theater_project_size_rust.py' first.")
+        print("Please run the prerequisite scripts first.")
         return
 
     # Merge on project name
-    df = pd.merge(broken_builds_df, project_sizes_df[["name", "Category"]], on="name", how="inner")
+    project_sizes_df["Category"] = project_sizes_df["rust_sloc"].apply(categorize_project)
+    df = pd.merge(broken_builds_df, project_sizes_df[["repo", "Category"]], left_on="name", right_on="repo", how="inner")
 
     # Clean and convert relevant fields
     df["Broken >2 Days"] = pd.to_numeric(df["Broken >2 Days"], errors="coerce")
@@ -48,36 +82,40 @@ def main():
 
     # --- Plot 1: Number of long broken build stretches (>2 days) ---
     plt.figure(figsize=(10, 6))
-    df.boxplot(column="Broken >2 Days", by="Category", grid=True)
+    sns.boxplot(data=df, x="Category", y="Broken >2 Days", order=category_order)
 
     median_val = df["Broken >2 Days"].median()
     plt.axhline(y=median_val, color='green', linestyle='--', label=f"Overall Median ({median_val:.2f})")
 
-    plt.title("Count of Long Broken Build Stretches (>2 Days) by Project Size")
+    plt.title(f"Count of Long Broken Build Stretches (>2 Days) by Project Size ({args.cohort_name} Projects)")
     plt.suptitle("")
     plt.xlabel("Project Size Category")
     plt.ylabel("Number of Stretches > 2 Days")
     plt.xticks(rotation=10)
     plt.legend()
+    plt.grid(True, axis='y')
     plt.tight_layout()
 
-    out_path1 = os.path.join(OUTPUT_DIR, "28_1_broken_stretches_by_size_rust.png")
+    out_path1 = args.output_stretches_plot
+    os.makedirs(os.path.dirname(out_path1) or ".", exist_ok=True)
     plt.savefig(out_path1, dpi=300, bbox_inches='tight')
     print(f"✅ Plot saved to {out_path1}")
     plt.close()
 
     # --- Plot 2: Maximum duration of a broken build stretch ---
     plt.figure(figsize=(10, 6))
-    df.boxplot(column="Max Broken Days", by="Category", grid=True)
+    sns.boxplot(data=df, x="Category", y="Max Broken Days", order=category_order)
 
-    plt.title("Maximum Broken Build Duration by Project Size")
+    plt.title(f"Maximum Broken Build Duration by Project Size ({args.cohort_name} Projects)")
     plt.suptitle("")
     plt.xlabel("Project Size Category")
     plt.ylabel("Max Days Build Remained Broken")
     plt.xticks(rotation=10)
+    plt.grid(True, axis='y')
     plt.tight_layout()
 
-    out_path2 = os.path.join(OUTPUT_DIR, "28_1_max_broken_days_by_size_rust.png")
+    out_path2 = args.output_max_days_plot
+    os.makedirs(os.path.dirname(out_path2) or ".", exist_ok=True)
     plt.savefig(out_path2, dpi=300, bbox_inches='tight')
     print(f"✅ Plot saved to {out_path2}")
     plt.close()

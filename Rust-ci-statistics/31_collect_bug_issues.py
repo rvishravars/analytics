@@ -8,7 +8,6 @@ import importlib
 from bug_issue_utils import get_bug_issues
 
 OUTPUT_DIR = "data"
-STATS_CSV = "data/23_github_projects_stats_rust.csv"
 
 def main():
     parser = argparse.ArgumentParser(description="Count bug-like issues before and after CI adoption.")
@@ -21,6 +20,11 @@ def main():
         "--output-file",
         required=True,
         help="Path to the output CSV file.",
+    )
+    parser.add_argument(
+        "--stats-file",
+        required=True,
+        help="Path to the stats CSV file from 23_collect_github_stats.py for the cohort.",
     )
     args = parser.parse_args()
 
@@ -36,13 +40,13 @@ def main():
         raise RuntimeError(error_msg)
 
     try:
-        stats_df = pd.read_csv(STATS_CSV)
+        stats_df = pd.read_csv(args.stats_file)
     except FileNotFoundError:
-        raise RuntimeError(f"Stats file not found: {STATS_CSV}. Please run '23_github_project_statistics_rust.py' first.")
+        raise RuntimeError(f"Stats file not found: {args.stats_file}. Please run '23_collect_github_stats.py' first.")
 
     # Filter the main stats dataframe to only include our target projects
     df = stats_df[stats_df['Project'].isin(target_projects)].copy()
-    print(f"Found {len(df)} of {len(target_projects)} target projects in {STATS_CSV}.")
+    print(f"Found {len(df)} of {len(target_projects)} target projects in {args.stats_file}.")
 
     results = []
     for _, row in df.iterrows():
@@ -77,18 +81,6 @@ def main():
         os.makedirs(os.path.dirname(out_csv_path) or ".", exist_ok=True)
         bug_df.to_csv(out_csv_path, index=False)
         print(f"✅ Bug data saved to {out_csv_path}")
-
-        plt.figure(figsize=(8, 6))
-        bug_df[["Bug Issues Before CI", "Bug Issues After CI"]].plot.box()
-        plt.title("Filtered Bug-Like Issues Before vs After CI")
-        plt.ylabel("Number of Inferred Bug Issues")
-        plt.ylim(0, 100)  # y-axis capped as requested
-        plt.grid(True)
-        plt.tight_layout()
-        out_path = os.path.join(OUTPUT_DIR, "31_bugs_before_after_ci_rust.png")
-        # This plot is just for a quick check; the main comparison is in script 32.
-        # plt.savefig(out_path, dpi=300, bbox_inches='tight')
-        # print(f"✅ Plot saved to {out_path}")
 
 if __name__ == "__main__":
     main()

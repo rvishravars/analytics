@@ -1,5 +1,0 @@
-Category,Count,Percent
-No tests,294,52.78
-Tests but not in CI,22,3.95
-In CI without coverage,110,19.75
-In CI with coverage,131,23.52

@@ -1,23 +1,23 @@
 #!/usr/bin/env python3
 """
-Extended analyzer for Rust repositories:
+Analyzer for Rust repositories based on language share:
 - Clones each repo (shallow, depth=1)
 - Runs `cloc --json` on the whole repo
 - Filters non-programming/aux types via IGNORED_LANGS
-- Produces BOTH:
+- Produces cohorts based on Rust's share of SLOC:
     1) ALL Rust repos (Rust detected at all)
-    2) Polyglot Rust repos (Rust + >=1 other language)
-    3) Monoglot Rust repos (Rust only after filtering)
+    2) Polyglot Rust repos (50% <= Rust SLOC < 100%)
+    3) Monoglot Rust repos (100% Rust SLOC)
 - Writes summary CSVs for each, plus long per-language breakdowns
 - Prints a quick console table for the polyglot subset
 
 Outputs (in ./data):
-- rust_all_repo_summary.csv                (all Rust repos)
-- rust_all_repo_by_language.csv           (long format)
-- polyglot_rust_repo_summary.csv          (Rust + >=1 other lang)
-- polyglot_rust_repo_by_language.csv      (long format)
-- rust_monoglot_repo_summary.csv          (Rust only)
-- rust_monoglot_repo_by_language.csv      (long format; will just be Rust rows)
+- 29a_all_rust_repos_summary.csv
+- 29a_all_rust_repos_by_language.csv
+- 29a_polyglot_rust_repos_summary.csv
+- 29a_polyglot_rust_repos_by_language.csv
+- 29a_monoglot_rust_repos_summary.csv
+- 29a_monoglot_rust_repos_by_language.csv
 
 Requires: cloc, GitPython, tabulate
 """
@@ -116,10 +116,6 @@ def is_rust_present(lang_sloc: dict) -> bool:
     return lang_sloc.get("Rust", 0) > 0
 
 
-def is_polyglot(lang_sloc: dict) -> bool:
-    return len(lang_sloc) >= 2
-
-
 def shallow_clone(url: str, dest: str, max_retries: int = 3) -> None:
     """
     Shallow clone with GitPython, with options to reduce data.
@@ -186,13 +182,13 @@ def process_repository(project: dict, base_tmpdir: str) -> dict | None:
             if not is_rust_present(lang_sloc):
                 return None  # drop repos with no Rust detected
 
-            row = create_summary_row(name, repo_full, lang_sloc)
+            summary_row = create_summary_row(name, repo_full, lang_sloc)
             # also return exploded language rows
-            long_rows = [
+            long_format_rows = [
                 {"name": name, "repo": repo_full, "language": lang, "sloc": sloc}
                 for lang, sloc in lang_sloc.items()
             ]
-            return {"summary": row, "long": long_rows}
+            return {"summary": summary_row, "long": long_format_rows}
 
     except Exception as e:
         print(f"[error] {name}: {e}")
@@ -211,67 +207,63 @@ def main():
                     summary_rows.append(result["summary"])
                     long_format_all_rows.extend(result["long"])
 
-    # Nothing found
     if not summary_rows:
         print("No repositories with Rust detected.")
         return
 
-    # Ensure data dir exists
     os.makedirs("data", exist_ok=True)
 
-    # --- Partition data into cohorts ---
-    # All Rust repos
+    # --- Partition data into cohorts based on Rust share ---
     all_summary_rows = summary_rows
-    # Polyglot: Rust + >=1 other language
-    polyglot_summary_rows = [row for row in summary_rows if row["num_langs"] >= 2]
-    # Monoglot: Rust only
-    monoglot_summary_rows = [row for row in summary_rows if row["num_langs"] == 1]
 
-    # Build long-format partitions
-    def filter_long_format_rows(rows_subset):
-        repos = set(row["repo"] for row in rows_subset)
-        return [r for r in long_format_all_rows if r["repo"] in repos]
+    # Monoglot: 100% Rust
+    monoglot_summary_rows = [
+        row for row in summary_rows if row["rust_share_pct"] == 100.0
+    ]
+
+    # Polyglot: 50% <= Rust share < 100%
+    polyglot_summary_rows = [
+        row for row in summary_rows if 50.0 <= row["rust_share_pct"] < 100.0
+    ]
+
+    def filter_long_format_rows(summary_subset):
+        repos_subset = set(row["repo"] for row in summary_subset)
+        return [r for r in long_format_all_rows if r["repo"] in repos_subset]
 
     long_format_polyglot_rows = filter_long_format_rows(polyglot_summary_rows)
     long_format_monoglot_rows = filter_long_format_rows(monoglot_summary_rows)
 
-    # --- Write CSVs ---
-    def write_summary_csv(path, rows):
+    def write_csv(path, rows, fieldnames):
+        if not rows:
+            print(f"ℹ️ No data for {path}, skipping.")
+            return
         with open(path, "w", newline="", encoding="utf-8") as f:
-            writer = csv.DictWriter(
-                f,
-                fieldnames=[
-                    "name", "repo", "total_sloc", "rust_sloc", "rust_share_pct",
-                    "num_langs", "top_langs", "languages_json"
-                ]
-            )
+            writer = csv.DictWriter(f, fieldnames=fieldnames)
             writer.writeheader()
             writer.writerows(rows)
+        print(f"✅ Wrote {len(rows)} rows to {path}")
 
-    def write_long_csv(path, rows):
-        with open(path, "w", newline="", encoding="utf-8") as f:
-            writer = csv.DictWriter(f, fieldnames=["name", "repo", "language", "sloc"])
-            writer.writeheader()
-            writer.writerows(rows)
+    summary_fields = ["name", "repo", "total_sloc", "rust_sloc", "rust_share_pct", "num_langs", "top_langs", "languages_json"]
+    long_fields = ["name", "repo", "language", "sloc"]
 
-    write_summary_csv("data/29_all_rust_repos_summary.csv", all_summary_rows)
-    write_long_csv("data/29_all_rust_repos_by_language.csv", long_format_all_rows)
+    write_csv("data/29a_all_rust_repos_summary.csv", all_summary_rows, summary_fields)
+    write_csv("data/29a_all_rust_repos_by_language.csv", long_format_all_rows, long_fields)
 
-    write_summary_csv("data/29_polyglot_rust_repos_summary.csv", polyglot_summary_rows)
-    write_long_csv("data/29_polyglot_rust_repos_by_language.csv", long_format_polyglot_rows)
+    write_csv("data/29a_polyglot_rust_repos_summary.csv", polyglot_summary_rows, summary_fields)
+    write_csv("data/29a_polyglot_rust_repos_by_language.csv", long_format_polyglot_rows, long_fields)
 
-    write_summary_csv("data/29_monoglot_rust_repos_summary.csv", monoglot_summary_rows)
-    write_long_csv("data/29_monoglot_rust_repos_by_language.csv", long_format_monoglot_rows)
+    write_csv("data/29a_monoglot_rust_repos_summary.csv", monoglot_summary_rows, summary_fields)
+    write_csv("data/29a_monoglot_rust_repos_by_language.csv", long_format_monoglot_rows, long_fields)
 
-    # --- Console table: quick look at polyglot subset ---
     if polyglot_summary_rows:
-        print("Polyglot Rust repos (Rust + >=1 other language):")
-        # Sort by total_sloc desc for display
+        print("\n--- Polyglot Rust repos (50% <= Rust SLOC < 100%) ---")
         polyglot_rows_sorted = sorted(polyglot_summary_rows, key=lambda x: (-int(x["total_sloc"]), x["name"]))
         print(tabulate(polyglot_rows_sorted[:25], headers="keys", tablefmt="grid"))
-    else:
-        print("No polyglot Rust repos under current filters.")
 
+    if monoglot_summary_rows:
+        print("\n--- Monoglot Rust repos (100% Rust SLOC) ---")
+        monoglot_rows_sorted = sorted(monoglot_summary_rows, key=lambda x: (-int(x["total_sloc"]), x["name"]))
+        print(tabulate(monoglot_rows_sorted[:25], headers="keys", tablefmt="grid"))
 
 if __name__ == "__main__":
     main()

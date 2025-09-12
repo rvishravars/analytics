@@ -26,7 +26,6 @@ import re
 import json
 import csv
 import time
-import shutil
 import subprocess
 from tempfile import TemporaryDirectory
 from concurrent.futures import ThreadPoolExecutor, as_completed
@@ -186,13 +185,13 @@ def process_repository(project: dict, base_tmpdir: str) -> dict | None:
             if not is_rust_present(lang_sloc):
                 return None  # drop repos with no Rust detected
 
-            row = create_summary_row(name, repo_full, lang_sloc)
+            summary_row = create_summary_row(name, repo_full, lang_sloc)
             # also return exploded language rows
-            long_rows = [
+            long_format_rows = [
                 {"name": name, "repo": repo_full, "language": lang, "sloc": sloc}
                 for lang, sloc in lang_sloc.items()
             ]
-            return {"summary": row, "long": long_rows}
+            return {"summary": summary_row, "long": long_format_rows}
 
     except Exception as e:
         print(f"[error] {name}: {e}")
@@ -220,22 +219,19 @@ def main():
     os.makedirs("data", exist_ok=True)
 
     # --- Partition data into cohorts ---
-    # All Rust repos
     all_summary_rows = summary_rows
-    # Polyglot: Rust + >=1 other language
     polyglot_summary_rows = [row for row in summary_rows if row["num_langs"] >= 2]
-    # Monoglot: Rust only
     monoglot_summary_rows = [row for row in summary_rows if row["num_langs"] == 1]
 
     # Build long-format partitions
-    def filter_long_format_rows(rows_subset):
-        repos = set(row["repo"] for row in rows_subset)
-        return [r for r in long_format_all_rows if r["repo"] in repos]
+    def filter_long_format_rows(summary_subset):
+        repos_subset = set(row["repo"] for row in summary_subset)
+        return [r for r in long_format_all_rows if r["repo"] in repos_subset]
 
     long_format_polyglot_rows = filter_long_format_rows(polyglot_summary_rows)
     long_format_monoglot_rows = filter_long_format_rows(monoglot_summary_rows)
 
-    # --- Write CSVs ---
+    # --- Write CSVs for each cohort ---
     def write_summary_csv(path, rows):
         with open(path, "w", newline="", encoding="utf-8") as f:
             writer = csv.DictWriter(

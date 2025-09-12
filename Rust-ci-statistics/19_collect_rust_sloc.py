@@ -15,7 +15,7 @@ from dotenv import load_dotenv
 
 # --- NEW: import flat list of "owner/repo" slugs ---
 # rust_repos_100_percent.py must define: projects = ["owner/repo", ...]
-from rust_repos_100_percent import projects as _slug_projects
+from rust_repos_100_percent import projects as repo_slugs
 
 # ----------------------- Config -----------------------
 load_dotenv()
@@ -71,10 +71,12 @@ def run_cloc(path: str, timeout=CLOC_TIMEOUT_SEC) -> dict:
         preview = "\n".join(s.splitlines()[:10])
         raise RuntimeError(f"cloc JSON parse error: {je}\n--- preview ---\n{preview}\n--------------")
 
-def compute_sloc_and_langs(cloc_data: dict) -> tuple[int, list[str]]:
-    rust = cloc_data.get("Rust", {})
-    code = int(rust.get("code", 0)) if isinstance(rust, dict) else 0
-    return code, ([f"Rust ({code})"] if code else [])
+def extract_rust_sloc(cloc_data: dict) -> tuple[int, list[str]]:
+    """Extracts Rust SLOC from cloc data and creates a summary string."""
+    rust_stats = cloc_data.get("Rust", {})
+    sloc = int(rust_stats.get("code", 0)) if isinstance(rust_stats, dict) else 0
+    language_summary = [f"Rust ({sloc})"] if sloc else []
+    return sloc, language_summary
 
 def shallow_clone(url: str, dest: str, max_retries: int = 3) -> None:
     """
@@ -116,33 +118,33 @@ def _parse_slug(slug: str) -> tuple[str, str]:
         raise ValueError(f"Invalid repo slug '{slug}'. Expected 'owner/repo'.")
     return owner, repo
 
-def _to_project_dicts(slugs: list[str]) -> list[dict]:
+def convert_slugs_to_project_dicts(slugs: list[str]) -> list[dict]:
     """
     Convert flat 'owner/repo' strings into dicts compatible with the old code:
     { "name": <owner/repo>, "repo": <owner/repo> }
     (We no longer have separate owner/name fields in the input.)
     Also de-duplicates case-insensitively.
     """
-    seen = set()
-    out = []
+    seen_slugs = set()
+    project_dicts = []
     for slug in slugs:
-        owner, repo = _parse_slug(slug)
-        full = f"{owner}/{repo}"
-        key = full.lower()
-        if key in seen:
+        owner, repo_name = _parse_slug(slug)
+        full_slug = f"{owner}/{repo_name}"
+        normalized_slug = full_slug.lower()
+        if normalized_slug in seen_slugs:
             continue
-        seen.add(key)
-        out.append({
-            "name": full,   # keep column 'name' readable
-            "repo": full,   # used below to construct the URL
+        seen_slugs.add(normalized_slug)
+        project_dicts.append({
+            "name": full_slug,   # keep column 'name' readable
+            "repo": full_slug,   # used below to construct the URL
         })
-    return out
+    return project_dicts
 
 # Build the adapted projects list once
-projects = _to_project_dicts(_slug_projects)
+projects = convert_slugs_to_project_dicts(repo_slugs)
 
 # --------------------- Processing ---------------------
-def process_one(project: dict, base_tmpdir: str) -> dict | None:
+def process_repository(project: dict, base_tmpdir: str) -> dict | None:
     """
     project dict expects:
       - project["name"]: display name (we'll use 'owner/repo')
@@ -163,7 +165,7 @@ def process_one(project: dict, base_tmpdir: str) -> dict | None:
             shallow_clone(url, dest)
 
             cloc_data = run_cloc(dest)
-            sloc, languages_list = compute_sloc_and_langs(cloc_data)
+            sloc, languages_list = extract_rust_sloc(cloc_data)
 
             if sloc == 0:
                 return None  # 👈 drop non-Rust repos
@@ -189,11 +191,11 @@ def main():
 
     with TemporaryDirectory() as tmpdir:
         with ThreadPoolExecutor(max_workers=MAX_WORKERS) as pool:
-            futs = [pool.submit(process_one, proj, tmpdir) for proj in projects]
-            for fut in as_completed(futs):
-                r = fut.result()
-                if r:
-                    results.append(r)
+            futures = [pool.submit(process_repository, proj, tmpdir) for proj in projects]
+            for future in as_completed(futures):
+                result = future.result()
+                if result:
+                    results.append(result)
 
     # Stable sort by SLOC (errors at bottom)
     def sort_key(r):
@@ -207,14 +209,14 @@ def main():
     os.makedirs("data", exist_ok=True)
 
     # Write CSV
-    out_csv = "data/19_ci_theater_project_sizes_rust.csv"
-    with open(out_csv, "w", newline="", encoding="utf-8") as csvfile:
+    output_csv_path = "data/19_rust_sloc.csv"
+    with open(output_csv_path, "w", newline="", encoding="utf-8") as csvfile:
         fieldnames = ["name", "SLOC", "Category", "Languages"]
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
         writer.writeheader()
         writer.writerows(results)
 
-    print(f"\nResults written to {out_csv}")
+    print(f"\nResults written to {output_csv_path}")
 
 if __name__ == "__main__":
     main()

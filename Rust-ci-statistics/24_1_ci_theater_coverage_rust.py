@@ -41,6 +41,8 @@ import xml.etree.ElementTree as ET
 from statistics import mean
 from datetime import datetime, timezone, timedelta
 from concurrent.futures import ThreadPoolExecutor, as_completed
+import argparse
+import importlib
 from typing import Optional, Tuple, List, Dict, Set
 
 import requests
@@ -58,9 +60,6 @@ HEADERS = {
     "Accept": "application/vnd.github+json",
     "User-Agent": "ci-coverage-and-tests/3.0",
 }
-
-# Project list: [{"owner": "org_or_user", "name": "repo"}]
-from rust_repos_100_percent import projects as _slug_projects
 
 # --- Adapter for flat slugs ---
 def _parse_slug(slug: str) -> tuple[str, str]:
@@ -98,9 +97,6 @@ def _to_project_dicts(slugs: list[str]) -> list[dict]:
             print(f"[warn] Skipping invalid slug: {e}")
     return out
 
-# Build the adapted projects list once
-projects = _to_project_dicts(_slug_projects)
-
 # Tunables (kept conservative to avoid rate limits)
 WORKERS       = 4            # concurrent repos (raise slowly if stable)
 PER_PAGE_RUNS = 100          # max density per page
@@ -108,16 +104,12 @@ RUNS_PER_REPO = 30           # only the latest few runs
 CUTOFF_DAYS   = 365          # up to ~6 months
 PAGE_SLEEP    = 0.10         # throttle between pages
 TIMEOUT_S     = 25
-DATA_DIR      = "data"
-CSV_FILE      = os.path.join(DATA_DIR, "24_ci_theater_coverage_rust.csv")
 
 # Debugging
 DEBUG = True
 
 # Optional: only download artifacts whose names contain these tokens (speeds things up)
-#ARTIFACT_NAME_ALLOWLIST = re.compile(r"(cover|lcov|cobertura|jacoco)", re.IGNORECASE)
-
-ARTIFACT_NAME_ALLOWLIST = None
+ARTIFACT_NAME_ALLOWLIST = re.compile(r"(cover|lcov|cobertura|jacoco)", re.IGNORECASE)
 
 COVERAGE_TOOL_HINTS = [
     (re.compile(r"\bcargo\s+llvm-cov\b", re.IGNORECASE), "llvm-cov"),
@@ -180,6 +172,33 @@ class RateLimiter:
                 pass
 
 RATE = RateLimiter(min_remaining=50)
+
+# ---------- Allow List Handler ----------
+class AllowList:
+    def __init__(self, file_path: str):
+        self.allowed: Set[str] = self._parse_slugs_to_set(file_path)
+
+    def _parse_slugs_to_set(self, file_path: str) -> Set[str]:
+        slugs = set()
+        try:
+            with open(file_path, "r", encoding="utf-8") as f:
+                for line in f:
+                    line = line.strip()
+                    if not line or line.startswith("#"):
+                        continue
+                    try:
+                        owner, repo = _parse_slug(line)
+                        slugs.add(f"{owner.lower()}/{repo.lower()}")
+                        slugs.add(owner.lower())  # Allow by owner too
+                    except ValueError as e:
+                        print(f"[warn] Skipping invalid allow-list slug '{line}': {e}")
+        except FileNotFoundError:
+            raise RuntimeError(f"Allow list file not found: {file_path}")
+        return slugs
+
+    def is_allowed(self, owner: str, name: str) -> bool:
+        full_slug = f"{owner.lower()}/{name.lower()}"
+        return full_slug in self.allowed or owner.lower() in self.allowed
 
 # ---------- Unified request with retries + global limiting ----------
 def http_request(method: str, url: str, session: requests.Session, **kwargs) -> requests.Response:
@@ -926,7 +945,11 @@ def extract_repo_coverage_and_tests(owner: str, name: str) -> Tuple[Dict, List[f
     })
     return row, coverages
 
-def process_repo(index: int, owner: str, name: str) -> Tuple[int, Dict]:
+def process_repo(index: int, owner: str, name: str, allow_list: Optional[AllowList]) -> Optional[Tuple[int, Dict]]:
+    if allow_list and not allow_list.is_allowed(owner, name):
+        print(f"[{index}] ⏭️  Skipping {owner}/{name} (not in allow list)")
+        return None
+    
     print(f"[{index}] {owner}/{name} …")
     row, _ = extract_repo_coverage_and_tests(owner, name)
     print(f"[{index}] {owner}/{name} → tests_static={row['Has Tests (static)']}, "
@@ -936,9 +959,42 @@ def process_repo(index: int, owner: str, name: str) -> Tuple[int, Dict]:
 
 # ---------- Main ----------
 def main():
-    os.makedirs(DATA_DIR, exist_ok=True)
+    parser = argparse.ArgumentParser(description="Analyze test and coverage signals for a list of GitHub repos.")
+    parser.add_argument(
+        "--projects-file",
+        required=True,
+        help="The Python module name (without .py) containing the 'projects' list of repo slugs.",
+    )
+    parser.add_argument(
+        "--output-file",
+        required=True,
+        help="Path to the output CSV file.",
+    )
+    parser.add_argument(
+        "--allow-list",
+        help="Path to a text file with one 'owner/repo' or 'owner' slug per line. Only process these repos.",
+    )
+    args = parser.parse_args()
 
+    try:
+        projects_module = importlib.import_module(args.projects_file)
+        _slug_projects = projects_module.projects
+    except (ImportError, AttributeError):
+        error_msg = (
+            f"Could not import 'projects' list from '{args.projects_file}.py'.\n"
+            f"Please ensure the file '{args.projects_file}.py' exists in the current directory.\n"
+            "This file is generated by 'helper_create_cohorts.py'. You may need to run the prerequisite scripts."
+        )
+        raise RuntimeError(error_msg)
+
+    projects = _to_project_dicts(_slug_projects)
+    CSV_FILE = args.output_file
+    os.makedirs(os.path.dirname(CSV_FILE) or ".", exist_ok=True)
+    
     total = len(projects)
+    
+    allow_list = AllowList(args.allow_list) if args.allow_list else None
+    
     print(f"📊 Processing {total} repos with {WORKERS} workers…")
     ordered: List[Optional[Dict]] = [None] * total
     processed_count = 0
@@ -973,18 +1029,20 @@ def main():
     with ThreadPoolExecutor(max_workers=WORKERS) as ex:
         futures = []
         for i, p in enumerate(projects, start=1):
-            futures.append(ex.submit(process_repo, i, p["owner"], p["name"]))
+            futures.append(ex.submit(process_repo, i, p["owner"], p["name"], allow_list))
 
         for fut in as_completed(futures):
-            idx, row = fut.result()
-            ordered[idx - 1] = row
-            processed_count += 1
+            result = fut.result()
+            if result:
+                idx, row = result
+                ordered[idx - 1] = row
+                processed_count += 1
 
-            # Write to CSV every 5 repos
-            if processed_count % 5 == 0 or processed_count == total:
-                current_results = [r for r in ordered if r is not None]
-                write_results_to_csv(current_results)
-                print(f"  [checkpoint] Wrote {len(current_results)}/{processed_count} results to {CSV_FILE}")
+                # Write to CSV every 5 repos
+                if processed_count % 5 == 0 or processed_count == total:
+                    current_results = [r for r in ordered if r is not None]
+                    write_results_to_csv(current_results)
+                    print(f"  [checkpoint] Wrote {len(current_results)}/{processed_count} results to {CSV_FILE}")
 
     results = [r for r in ordered if r is not None]
 
