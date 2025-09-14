@@ -208,7 +208,7 @@ def process_repository(project: dict, base_tmpdir: str) -> dict:  # base_tmpdir 
                 "name": name,
                 "Last Commit Date": last_commit_date,
                 "Total Commits (since inception)": total_commits,
-                "Avg Commits/Weekday (Mon–Fri)": avg_weekday_commits,
+                "Avg_Commits_Weekday": avg_weekday_commits,
             }
 
     except Exception as e:
@@ -217,7 +217,7 @@ def process_repository(project: dict, base_tmpdir: str) -> dict:  # base_tmpdir 
             "name": name,
             "Last Commit Date": "Error",
             "Total Commits (since inception)": "Error",
-            "Avg Commits/Weekday (Mon–Fri)": "Error",
+            "Avg_Commits_Weekday": "Error",
         }
 
 # ---------------------- Main ------------------------
@@ -278,7 +278,7 @@ def main():
         "name",
         "Last Commit Date",
         "Total Commits (since inception)",
-        "Avg Commits/Weekday (Mon–Fri)",
+        "Avg_Commits_Weekday",
     ]
     with open(csv_path, "w", newline="", encoding="utf-8") as csvfile:
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)

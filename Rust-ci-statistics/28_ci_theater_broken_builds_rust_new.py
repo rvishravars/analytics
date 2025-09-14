@@ -226,14 +226,12 @@ def compute_broken_stretches(runs):
     )
     broken_periods = []
     broken_since = None
-
     for run in runs:
-        status = run.get("conclusion")  # success|failure|neutral|cancelled|timed_out|null
+        status = run.get("conclusion")
         created_str = run.get("created_at")
         if not created_str:
             continue
         created = datetime.fromisoformat(created_str.replace("Z", "+00:00"))
-
         if status == "failure":
             if broken_since is None:
                 broken_since = created
@@ -243,18 +241,31 @@ def compute_broken_stretches(runs):
                 broken_periods.append(delta_days)
                 broken_since = None
         else:
-            # ignore non-terminal or neutral states for streak logic
             pass
 
-    # If still broken at the end
     if broken_since:
         now = datetime.now(timezone.utc)
         trailing_days = (now - broken_since).days
         broken_periods.append(trailing_days)
 
-    broken_gt_2 = sum(1 for d in broken_periods if d > 2)
-    max_broken_days = max(broken_periods) if broken_periods else 0
-    return broken_gt_2, max_broken_days
+    if not broken_periods:
+        return 0, 0, 0, 0  # num_broken, q1, mean, q3
+
+    broken_periods.sort()
+    len_periods = len(broken_periods)
+
+    # 1st Quartile
+    index_q1 = math.ceil(0.25 * len_periods) - 1
+    first_quartile = broken_periods[index_q1]
+
+    # 3rd Quartile
+    index_q3 = math.ceil(0.75 * len_periods) - 1
+    third_quartile = broken_periods[index_q3]
+
+    mean_duration = sum(broken_periods) / len_periods
+    num_broken_builds = len_periods
+
+    return num_broken_builds, first_quartile, mean_duration, third_quartile
 
 def process_project(p):
     owner, name = p["owner"], p["name"]
@@ -265,15 +276,19 @@ def process_project(p):
         return {
             "name": full_slug,
             "Runs Analyzed": 0,
-            "Broken >2 Days": "",
-            "Max Broken Days": ""
+            "Number of Broken Builds": "",
+            "First Quartile": "",
+            "Mean Duration": "",
+            "Third Quartile": "",
         }
-    gt2, max_days = compute_broken_stretches(runs)
+    num_broken_builds, first_quartile, mean_duration, third_quartile = compute_broken_stretches(runs)
     return {
         "name": full_slug,
         "Runs Analyzed": len(runs),
-        "Broken >2 Days": gt2,
-        "Max Broken Days": max_days
+        "Number of Broken Builds": num_broken_builds,
+        "First Quartile": first_quartile,
+        "Mean Duration": round(mean_duration, 2),
+        "Third Quartile": third_quartile,
     }
 
 # --------------------------
@@ -319,8 +334,10 @@ def main():
                 res = {
                     "name": full_slug,
                     "Runs Analyzed": 0,
-                    "Broken >2 Days": "",
-                    "Max Broken Days": ""
+                    "Number of Broken Builds": "",
+                    "First Quartile": "",
+                    "Mean Duration": "",
+                    "Third Quartile": "",
                 }
             results.append(res)
 
