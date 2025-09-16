@@ -86,46 +86,14 @@ python 22_ci_theater_long_builds_rust.py --projects-file rust_repos_monoglot --o
 # Collect General Project Statistics | done
 python 23_github_project_statistics_rust.py --projects-file rust_repos_monoglot --output-file data/23_stats_monoglot.csv
 
-# Analyze Time to First CI by Project Size | done
-python 25_ci_theater_time_to_ci_by_size_rust.py \
-    --stats-file data/23_stats_monoglot.csv \
-    --sizes-file data/29_monoglot_rust_repos_summary.csv \
-    --output-file data/25_time_to_ci_by_size_monoglot.png \
-    --cohort-name Monoglot
-
-# Analyze Average Build Duration by Project Size done
-python 27_ci_theater_long_build_by_project_size_rust.py \
-    --builds-file data/22_long_builds_monoglot.csv \
-    --sizes-file data/29_monoglot_rust_repos_summary.csv \
-    --output-file data/27_avg_build_duration_by_size_monoglot.png \
-    --cohort-name Monoglot
-
 # Collect Test & Coverage Stats | done
 python 24_1_ci_theater_coverage_rust.py --projects-file rust_repos_monoglot --output-file data/24_coverage_monoglot.csv
 
 # Collect Broken Build Stats | done
-python 28_ci_theater_broken_builds_rust.py --projects-file rust_repos_monoglot --output-file data/28_broken_builds_monoglot.csv
-
-# Analyze Broken Builds by Project Size | done
-python 28_1_ci_theater_broken_builds_rust_by_size.py \
-    --broken-builds-file data/28_broken_builds_monoglot.csv \
-    --sizes-file data/29_monoglot_rust_repos_summary.csv \
-    --output-stretches-plot data/28_1_broken_stretches_by_size_monoglot.png \
-    --output-max-days-plot data/28_1_max_broken_days_by_size_monoglot.png \
-    --cohort-name Monoglot
+python 28_ci_theater_broken_builds_rust_new.py --projects-file rust_repos_monoglot --output-file data/28_broken_builds_monoglot.csv
 
 # Collect Bug-like Issues | done
 python 31_collect_bug_issues.py --projects-file rust_repos_monoglot --stats-file data/23_stats_monoglot.csv --output-file data/31_bugs_monoglot.csv
-
-# Analyze Bug Issues by Project Size | done
-python 31_1_ci_bug_issues_by_size_rust.py \
-    --bugs-file data/31_bugs_monoglot.csv \
-    --sizes-file data/29_monoglot_rust_repos_summary.csv \
-    --output-scatter-plot data/31_1_bug_ratio_vs_sloc_monoglot.png \
-    --output-boxplot data/31_1_bug_ratio_by_size_boxplot_monoglot.png \
-    --cohort-name Monoglot \
-    --output-comparison-boxplot True
-```
 
 #### For the Polyglot Cohort
 
@@ -139,31 +107,82 @@ python 22_ci_theater_long_builds_rust.py --projects-file rust_repos_polyglot --o
 # Collect General Project Statistics | done
 python 23_github_project_statistics_rust.py --projects-file rust_repos_polyglot --output-file data/23_stats_polyglot.csv
 
-# Analyze Time to First CI by Project Size | done
-python 25_ci_theater_time_to_ci_by_size_rust.py \
-    --stats-file data/23_stats_polyglot.csv \
-    --sizes-file data/29_polyglot_rust_repos_summary.csv \
-    --output-file data/25_time_to_ci_by_size_polyglot.png \
-    --cohort-name Polyglot
-
-# Analyze Average Build Duration by Project Size | done
-python 27_ci_theater_long_build_by_project_size_rust.py \
-    --builds-file data/22_long_builds_polyglot.csv \
-    --sizes-file data/29_polyglot_rust_repos_summary.csv \
-    --output-file data/27_avg_build_duration_by_size_polyglot.png \
-    --cohort-name Polyglot
-
-# Collect Test & Coverage Stats
+# Collect Test & Coverage Stats | done
 python 24_1_ci_theater_coverage_rust.py --projects-file rust_repos_polyglot --output-file data/24_coverage_polyglot.csv
 
 # Collect Broken Build Stats | done
-python 28_ci_theater_broken_builds_rust.py --projects-file rust_repos_polyglot --output-file data/28_broken_builds_polyglot.csv
+python 28_ci_theater_broken_builds_rust_new.py --projects-file rust_repos_polyglot --output-file data/28_broken_builds_polyglot.csv
 
-# Collect Bug-like Issues
+# Collect Bug-like Issues | done
 python 31_collect_bug_issues.py --projects-file rust_repos_polyglot --stats-file data/23_stats_polyglot.csv --output-file data/31_bugs_polyglot.csv
 ```
 
 ### Phase 3: Generate Comparative Analysis
+
+# Analyse bugs issued by size
+
+python 31_2_ci_bug_issues_by_size_combined.py  \
+    --mono-bugs-file data/31_bugs_monoglot.csv   \
+    --poly-bugs-file data/31_bugs_polyglot.csv  \
+    --output-file figures/bugs_before_after_ci_by_cohort.png   \
+    --mono-cohort-name "Monoglot"  \
+    --poly-cohort-name "Polyglot"
+
+# Analyze Commit Frequency by Project Size | done
+python 21_1_ci_theater_commit_freq_by_project_size_rust.py \
+  --mono-freq-file data/20_commit_freq_monoglot.csv \
+  --mono-sizes-file data/29_monoglot_rust_repos_summary.csv \
+  --poly-freq-file data/20_commit_freq_polyglot.csv \
+  --poly-sizes-file data/29_polyglot_rust_repos_summary.csv \
+  --output-file figures/commit_freq.png \
+  --mono-cohort-name Monoglot \
+  --poly-cohort-name Polyglot
+
+# Analyze Time to First CI by Project Size | done
+python 25_ci_theater_time_to_ci_by_size_rust.py \
+    --mono-stats-file data/23_stats_monoglot.csv \
+    --mono-sizes-file data/29_monoglot_rust_repos_summary.csv \
+    --mono-cohort-name Monoglot \
+    --poly-stats-file data/23_stats_polyglot.csv \
+    --poly-sizes-file data/29_polyglot_rust_repos_summary.csv \
+    --poly-cohort-name Polyglot \
+    --output-file figures/time_to_ci.png
+
+# Analyze Average Build Duration by Project Size done
+python 27_ci_theater_long_build_by_project_size_rust.py \
+    --mono-builds-file data/22_long_builds_monoglot.csv \
+    --mono-sizes-file data/29_monoglot_rust_repos_summary.csv \
+    --poly-builds-file data/22_long_builds_polyglot.csv \
+    --poly-sizes-file data/29_polyglot_rust_repos_summary.csv \
+    --output-file figures/build_duration.png \
+    --plot-style default
+
+# Analyze Broken Build Duration by Project Size
+python 28_1_ci_theater_broken_builds_by_project_size_rust.py \
+    --mono-broken-builds-file data/28_broken_builds_monoglot.csv \
+    --mono-sizes-file data/29_monoglot_rust_repos_summary.csv \
+    --poly-broken-builds-file data/28_broken_builds_polyglot.csv \
+    --poly-sizes-file data/29_polyglot_rust_repos_summary.csv \
+    --output-file figures/broken_build_duration.png \
+    --mono-cohort-name Monoglot \
+    --poly-cohort-name Polyglot
+
+# Analyze CI Test Adoption
+python 33.ci_test_adoption_analysis.py \
+    --mono-csv data/24_coverage_monoglot.csv \
+    --poly-csv data/24_coverage_polyglot.csv \
+    --mono-total-csv data/29_monoglot_rust_repos_summary.csv \
+    --poly-total-csv data/29_polyglot_rust_repos_summary.csv \
+    --output-file figures/ci_test_adoption.png
+
+# Analyze coverage
+python 24_2_ci_theater_coverage_rust_analysis.py \
+        --mode coverage \
+        --mono-input-csv data/24_coverage_monoglot.csv \
+        --poly-input-csv data/24_coverage_polyglot.csv \
+        --output-file figures/test_coverage.png \
+        --mono-cohort-name Monoglot \
+        --poly-cohort-name Polyglot
 
 Run the final comparison script. It reads the CSV files generated in Phase 2 and produces plots and statistical tests comparing the two cohorts.
 
@@ -197,14 +216,14 @@ These scripts perform specific analyses on the generated data.
 
 *   **Test Coverage Analysis**:
     ```bash
-    python 24_2_ci_theater_coverage_rust_analysis.py
+    # Example for monoglot cohort
+    python 24_2_ci_theater_coverage_rust_analysis.py \
+        --input-csv data/24_coverage_monoglot.csv \
+        --output-dir figures/coverage_analysis \
+        --cohort-name Monoglot
     ```
-    This script reads the output from `24_1_ci_theater_coverage_rust.py` and generates plots visualizing test and coverage adoption, including a CI funnel chart.
-
-### Older or Alternative Scripts
-
-*   `19_ci_theater_project_size_rust.py`: A simpler script for calculating only Rust SLOC. The main workflow now uses `29_ci_theater_polyglot_rust.py` for a more detailed language breakdown.
-*   `21_1_ci_theater_commit_freq_by_project_size_rust.py`: Generates a plot of commit frequency vs. project size. It depends on `19_...` for size data.
+    This script reads a coverage CSV (e.g., `data/24_coverage_monoglot.csv`) and generates plots visualizing test and coverage adoption for that cohort. It is now integrated into the main workflow.
+.
 
 ### Utility Modules
 

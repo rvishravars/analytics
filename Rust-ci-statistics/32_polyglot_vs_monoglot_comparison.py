@@ -4,14 +4,13 @@ Compares CI health metrics between monoglot and polyglot Rust projects.
 
 This script loads the output CSVs from other analyses (which should be run
 separately for monoglot and polyglot project lists) and generates
-comparative plots and statistical tests.
+comparative plots.
 """
 import os
 import argparse
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
-from scipy.stats import mannwhitneyu
 
 def load_and_combine(metric_prefix: str, monoglot_csv: str, polyglot_csv: str) -> pd.DataFrame:
     """Loads and concatenates monoglot and polyglot data, adding a 'group' column."""
@@ -25,35 +24,44 @@ def load_and_combine(metric_prefix: str, monoglot_csv: str, polyglot_csv: str) -
         print(f"Skipping {metric_prefix}: Missing file {e.filename}")
         return pd.DataFrame()
 
-def compare_metric(df: pd.DataFrame, metric_column: str, title: str, ylabel: str, out_name: str, output_dir: str):
-    """Generates a boxplot and runs a Mann-Whitney U test for a given metric."""
+def compare_metric(df: pd.DataFrame, metric_column: str, title: str, ylabel: str, out_name: str, output_dir: str, log_scale: bool = False, summary_text: str = None):
+    """Generates a boxplot and summary statistics for a given metric."""
     if df.empty or metric_column not in df.columns:
         return
 
     df[metric_column] = pd.to_numeric(df[metric_column], errors='coerce')
     df.dropna(subset=[metric_column], inplace=True)
 
-    plt.figure(figsize=(8, 6))
-    sns.boxplot(data=df, x='group', y=metric_column, order=['Monoglot', 'Polyglot'])
-    plt.title(title)
-    plt.xlabel("Project Type")
-    plt.ylabel(ylabel)
-    plt.tight_layout()
+    fig, ax = plt.subplots(figsize=(8, 6))
+    sns.boxplot(ax=ax, data=df, x='group', y=metric_column, order=['Monoglot', 'Polyglot'], boxprops=dict(facecolor='white'))
+
+    if log_scale:
+        ax.set_yscale('log')
+        ylabel += " (log scale)"
+        ax.grid(True, which="both", ls="--", c='0.7')
+    else:
+        ax.grid(True, axis='y')
+        # Apply y-axis cap for build duration plot
+        if metric_column == "Avg Duration (min)":
+            ax.set_ylim(0, 60)
+
+    ax.set_title(title)
+    ax.set_xlabel("Project Type")
+    ax.set_ylabel(ylabel)
+    plt.tight_layout(rect=[0, 0, 1, 0.96])
     plt.savefig(os.path.join(output_dir, f"{out_name}.png"), dpi=300)
     plt.close()
     print(f"✅ Plot saved to {output_dir}/{out_name}.png")
 
-    # Statistical significance test
-    mono_data = df[df['group'] == 'Monoglot'][metric_column].dropna()
-    poly_data = df[df['group'] == 'Polyglot'][metric_column].dropna()
+    # --- Summary Statistics ---
+    print(f"\n--- Summary Statistics for '{title}' ---")
+    summary_df = df.groupby('group')[metric_column].describe()
+    print(summary_df.to_string())
 
-    if not mono_data.empty and not poly_data.empty:
-        stat, p_value = mannwhitneyu(mono_data, poly_data, alternative='two-sided')
-        print(f"  - Mann-Whitney U test for '{metric_column}': p-value = {p_value:.4f}")
-        if p_value < 0.05:
-            print("    -> Statistically significant difference found.")
-        else:
-            print("    -> No statistically significant difference.")
+    # Save summary to CSV
+    summary_csv_path = os.path.join(output_dir, f"{out_name}_stats.csv")
+    summary_df.to_csv(summary_csv_path)
+    print(f"✅ Statistics saved to {summary_csv_path}\n")
 
 def main():
     parser = argparse.ArgumentParser(description="Compare monoglot and polyglot project metrics.")
@@ -103,11 +111,37 @@ def main():
 
     # Compare commit frequency
     commit_df = load_and_combine("Commit Frequency", args.commit_freq_mono, args.commit_freq_poly)
-    compare_metric(commit_df, "Avg Commits/Weekday (Mon–Fri)", "Commit Frequency: Monoglot vs. Polyglot", "Avg. Commits / Weekday", "commit_freq_comparison", args.output_dir)
+    if not commit_df.empty:
+        # Handle multiple possible column names for commit frequency
+        commit_col_new = "Avg_Commits_Weekday"
+        commit_col_legacy = "Avg Commits/Weekday (Mon–Fri)"
+        commit_col_malformed = "Weekday (Mon–Fri)"  # From malformed CSVs
+
+        if commit_col_new in commit_df.columns:
+            commit_col = commit_col_new
+        elif commit_col_legacy in commit_df.columns:
+            commit_col = commit_col_legacy
+        elif commit_col_malformed in commit_df.columns:
+            commit_col = commit_col_malformed
+        else:
+            commit_col = None
+
+        compare_metric(commit_df, commit_col, "Commit Frequency: Monoglot vs. Polyglot", "Avg. Commits / Weekday", "commit_freq_comparison", args.output_dir)
 
     # Compare build durations
     build_df = load_and_combine("Build Duration", args.build_duration_mono, args.build_duration_poly)
-    compare_metric(build_df, "Avg Duration (min)", "Build Duration: Monoglot vs. Polyglot", "Avg. Duration (min)", "build_duration_comparison", args.output_dir)
+    build_summary_text = None
+    if not build_df.empty:
+        numeric_build_durations = pd.to_numeric(build_df["Avg Duration (min)"], errors="coerce").dropna()
+        if not numeric_build_durations.empty:
+            median = numeric_build_durations.median()
+            q3 = numeric_build_durations.quantile(0.75)
+            p95 = numeric_build_durations.quantile(0.95)
+            build_summary_text = f"Overall Median: {median:.2f}\nOverall 75th: {q3:.2f}\nOverall 95th: {p95:.2f}"
+
+    compare_metric(build_df, "Avg Duration (min)", "Build Duration: Monoglot vs. Polyglot",
+                   "Avg. Duration (min)", "build_duration_comparison", args.output_dir,
+                   log_scale=False, summary_text=build_summary_text)
 
     # Compare test coverage
     coverage_df = load_and_combine("Test Coverage", args.coverage_mono, args.coverage_poly)
