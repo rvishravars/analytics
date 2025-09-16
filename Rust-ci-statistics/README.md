@@ -167,6 +167,14 @@ python 28_1_ci_theater_broken_builds_by_project_size_rust.py \
     --mono-cohort-name Monoglot \
     --poly-cohort-name Polyglot
 
+# Analyze CI Test Adoption
+python 33.ci_test_adoption_analysis.py \
+    --mono-csv data/24_coverage_monoglot.csv \
+    --poly-csv data/24_coverage_polyglot.csv \
+    --mono-total-csv data/29_monoglot_rust_repos_summary.csv \
+    --poly-total-csv data/29_polyglot_rust_repos_summary.csv \
+    --output-file figures/ci_test_adoption.png
+
 # Analyze coverage
 python 24_2_ci_theater_coverage_rust_analysis.py \
         --mode coverage \
