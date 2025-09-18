@@ -73,9 +73,9 @@ By default, the presentation will be available at [http://localhost:1948](http:/
 
 You can export your presentation as a static website using:
 ```bash
-reveal-md Presentation.md --static docs
+reveal-md Presentation.md --static presentation --theme beige --css presentation.css
 ```
-This generates a static version of your presentation in the `docs` directory. You can serve these files using any static server or deploy them (e.g., on GitHub Pages).
+This generates a static version of your presentation in the `presentation` directory. You can serve these files using any static server or deploy them (e.g., on GitHub Pages).
 
 ## Additional Tips
 

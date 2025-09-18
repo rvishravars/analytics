@@ -3,38 +3,15 @@
 
 ---
 
-## Online Data Joiner – Task & Approach
-
-- **Task**: Stream real-time training data  
-- **Approach**: Join **clicks ↔ impressions**, handle **no-click labels** carefully  
-- Train **online LR with SGD**  
-
-<div style="text-align: center; margin-top: 1rem;">
-<a href="#question-1" style="font-size: 2rem; text-decoration: none;">⬇️ Next</a>
-</div>
-
----
-
-## Online Data Joiner – Learning Rate Formula
-
-- **Per-coordinate learning rate**:
-
-$$
-\eta_{t,i} = \frac{\alpha}{\beta + \sqrt{\sum_{j=1}^t g_{j,i}^2}}
-$$
-
-<div style="text-align: center; margin-top: 1rem;">
-<a href="#question-1" style="font-size: 2rem; text-decoration: none;">⬇️ Next</a>
-</div>
-
----
-
 ## Online Data Joiner – Data Flow
 
-**Question**: How to trade off *freshness* vs. *click coverage*❓
+**Task**: Stream real-time training data
 
-![Online Joiner Flow](OnlineJoinerFlow.png)  
-*Closed-loop: real-time impressions and clicks feed into training*
+❓How to join *freshness* vs. *click impressions*❓
+
+![Online Joiner Flow](images/OnlineJoinerFlow.png)
+
+Similar infrastructure used by **google advertisements !**
 
 <div style="text-align: center; margin-top: 0.5rem;">
 <a href="#memory-trees" style="font-size: 2rem; text-decoration: none;">⬇️ Next</a>
@@ -42,40 +19,57 @@ $$
 
 ---
 
-![Feature Importance vs Cumulative](ImportanceVsCummulativeImp.png)
+## Online Data Joiner
+
+**Per-coordinate learning rate**:
+
+$$
+\eta_{t,i} = \frac{\alpha}{\beta + \sqrt{\sum_{j=1}^t g_{j,i}^2}} 
+$$
+
+- Train **Online Logistic Regression** with **SGD**
+- Marginally better than **BOPR**
+- ❓Challenges in Online Data Joining❓
+
+---
+
+## Online Data Joiner - Challenges & Solution
+
+**Anomaly detection** - Trainer <-x-> Joiner
+
+**HashQueue** & **Request ID** for efficient stream-to-stream joining.
+
+![alt text](images/generated-image.png)
+
+---
+
+## Memory & Latency – Boosted Trees
+
+![Feature Importance vs Cumulative](images/BoostingSubmodelvsNE.png)
+
+- Prediction accuracy improves with more boosted trees, mostly within the **first 500 trees**.
+
+- Beyond 500 trees, gains diminish; overfitting occurs in submodel 2 after **1,000 trees**.
+
+- **Overfitting** is due to smaller training data in **submodel 2** compared to others.
 
 ---
 
 ## Memory & Latency – Feature Importance
+
 <div id="memory-features">
 
-- **Findings**:
-  - Top **10 features ≈ 50%** of cumulative importance  
-  - Small subset of features accounts for most predictive power  
-  - **Question**: How many features can we remove without significantly hurting performance?
+![Feature Importance vs Cumulative](images/ImportanceVsCummulativeImp.png)
+
+**Findings**:
+Top **10 features ≈ 50%** of total feature importance  
+Small subset of features accounts for most predictive power  
+**Question**: Which features are most critical
 
 <div style="text-align: center; margin-top: 1rem;">
 <a href="#historical-context" style="font-size: 2rem; text-decoration: none;">⬇️ Next</a>
 </div>
 
-</div>
-
-
----
-
-![Feature Importance vs Cumulative](ImportanceVsCummulativeImp.png)
-
----
-
-## Memory & Latency – Feature Importance
-<div id="memory-features">
-
-- **Findings**:  
-  - Top **10 features ≈ 50%** of cumulative importance  
-- **Question**: Which features are most critical
-
-<div style="text-align: center; margin-top: 1rem;">
-<a href="#historical-context" style="font-size: 2rem; text-decoration: none;">⬇️ Next</a>
 </div>
 
 ---
@@ -83,57 +77,14 @@ $$
 ## Historical vs. Contextual Features
 <div id="historical-context">
 
-- **Task**: Compare feature types  
-- **Findings**:  
-  - **Historical >> Contextual** in accuracy  
-  - Contextual features essential for **cold start** scenarios  
+![Feature Importance vs Cumulative](images/HistoricalvsContextual.png)
+
+- **Findings**: **Historical >> Contextual** in accuracy   
 - **Question**: How to best **combine history + context**?
+Note: Contextual features essential for **cold start** scenarios
 
 <div style="text-align: center; margin-top: 1rem;">
 <a href="#massive-approach" style="font-size: 2rem; text-decoration: none;">⬇️ Next</a>
 </div>
 
 ---
-
-## Massive Training Data – Approach
-<div id="massive-approach">
-
-- **Task**: Control training cost  
-- **Approach**:  
-  - **Uniform subsampling**  
-  - **Negative down sampling** to address **class imbalance** (+ re-calibration)  
-
-$$
-q = \frac{p}{p + (1-p)/w}
-$$
-
-<div style="text-align: center; margin-top: 1rem;">
-<a href="#massive-findings" style="font-size: 2rem; text-decoration: none;">⬇️ Next</a>
-</div>
-
----
-
-## Massive Training Data – Findings
-<div id="massive-findings">
-
-- More data → better performance, **diminishing returns**  
-- Using 10% of data → ~1% NE reduction  
-
-❓ **Question**: How much can we *sample* without hurting accuracy?  
-
-<div style="text-align: center; margin-top: 1rem;">
-<a href="#key-takeaways" style="font-size: 2rem; text-decoration: none;">⬇️ Next</a>
-</div>
-
----
-
-## Key Takeaways
-<div id="key-takeaways">
-
-- **Data freshness matters**: online joiner ensures real-time updates  
-- **Hybrid model works best**: LR + SGD with per-coordinate learning rates  
-- **Boosting efficiency**: limit number of trees/features to avoid overfitting  
-- **Feature types**: historical features dominate, but contextual features help cold start  
-- **Data scale**: more training data helps, but diminishing returns apply; negative down sampling can handle class imbalance  
-
-</div>
