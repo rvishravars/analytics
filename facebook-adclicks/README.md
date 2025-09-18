@@ -65,7 +65,7 @@ npm install -g reveal-md
 
 To preview the presentation in your browser, run:
 ```bash
-reveal-md Presentation.md
+reveal-md Presentation.md --theme beige --css presentation.css
 ```
 By default, the presentation will be available at [http://localhost:1948](http://localhost:1948).
 

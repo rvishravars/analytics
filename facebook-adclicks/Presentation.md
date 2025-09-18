@@ -43,28 +43,57 @@ $$
 
 ---
 
-## Memory & Latency – Boosted Trees
+## Memory & Latency - Boosted tree
+
+- More tree in model = more time for prediction
+- Train **1 full day**
+- Vary number of trees from **1 to 2000**
+- Test/Prediction on **next day**
+- Restrict leaves to **12 leaves/tree**
+- Use **Normalized Entrophy** as evaluation metric
+
+---
+
+## Memory & Latency – Boosted tree
 
 ![Feature Importance vs Cumulative](images/BoostingSubmodelvsNE.png)
 
 - Prediction accuracy improves with more boosted trees, mostly within the **first 500 trees**.
 
-- Beyond 500 trees, gains diminish; overfitting occurs in submodel 2 after **1,000 trees**.
+- Beyond **500 trees**, gains diminish (NE change < 0.1>)
 
-- **Overfitting** is due to smaller training data in **submodel 2** compared to others.
+- **Overfitting** ? Due to smaller training data in **submodel 2** compared to others.
 
 ---
 
 ## Memory & Latency – Feature Importance
 
-<div id="memory-features">
+<div id="memory-features1">
+
+- **Feature count** affects **estimation accuracy** and **computation performance**
+- *Boosting Feature Importance* 
+    - **Sum of error reductions** made by feature across all **tree splits**
+- ❓Whats the finding of the Boosting Feature Importance❓
+
+
+<div style="text-align: center; margin-top: 1rem;">
+<a href="#historical-context" style="font-size: 2rem; text-decoration: none;">⬇️ Next</a>
+</div>
+
+</div>
+
+---
+
+## Memory & Latency – Feature Importance
+
+<div id="memory-features2">
 
 ![Feature Importance vs Cumulative](images/ImportanceVsCummulativeImp.png)
 
 **Findings**:
 Top **10 features ≈ 50%** of total feature importance  
 Small subset of features accounts for most predictive power  
-**Question**: Which features are most critical
+**Question**: ❓Which features are most critical❓
 
 <div style="text-align: center; margin-top: 1rem;">
 <a href="#historical-context" style="font-size: 2rem; text-decoration: none;">⬇️ Next</a>
