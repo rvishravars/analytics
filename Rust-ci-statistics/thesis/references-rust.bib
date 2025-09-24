@@ -1,0 +1,113 @@
+@misc{Bugden2022,
+      title={Rust: The Programming Language for Safety and Performance}, 
+      author={William Bugden and Ayman Alahmar},
+      year={2022},
+      eprint={2206.05503},
+      archivePrefix={arXiv},
+      primaryClass={cs.PL},
+      url={https://arxiv.org/abs/2206.05503}, 
+}
+
+@misc{Mwendia2024,
+  author = {Mark Mwendia},
+  title = {Optimizing DevOps Pipelines for Rust Projects: Leveraging Cargo and CI/CD},
+  year = {2024},
+  howpublished = {\url{https://dev.to/mark_mwendia_0298dd9c0aad/optimizing-devops-pipelines-for-rust-projects-leveraging-cargo-and-cicd-474d}},
+  note = {Dev.to Blog}
+}
+
+@article{Schueller2022,
+   title={Evolving collaboration, dependencies, and use in the Rust Open Source Software ecosystem},
+   volume={9},
+   ISSN={2052-4463},
+   url={http://dx.doi.org/10.1038/s41597-022-01819-z},
+   DOI={10.1038/s41597-022-01819-z},
+   number={1},
+   journal={Scientific Data},
+   publisher={Springer Science and Business Media LLC},
+   author={Schueller, William and Wachs, Johannes and Servedio, Vito D. P. and Thurner, Stefan and Loreto, Vittorio},
+   year={2022},
+   month=nov }
+
+@inproceedings{felidre2019ci_theater,
+  author = {Wagner Felidr\'{e} and Leonardo Furtado and Daniel A. da Costa and Bruno Cartaxo and Gustavo Pinto},
+  booktitle = {2019 ACM/IEEE International Symposium on Empirical Software Engineering and Measurement (ESEM)},
+  title = {Continuous Integration Theater},
+  year = {2019},
+  pages = {1-10},
+  doi = {10.1109/ESEM.2019.8870152}
+}
+
+@misc{RustInternals2015,
+  author = {{Rust Internals}},
+  title = {Production User Research Summary},
+  year = {2015},
+  url = {https://internals.rust-lang.org/t/production-user-research-summary/2530},
+  note = {Rust language community user research summary}
+}
+
+@misc{Fowler2024,
+  author = {Martin Fowler},
+  title = {Continuous Integration},
+  year = {2024},
+  howpublished = {\url{https://martinfowler.com/articles/continuousIntegration.html}},
+  note = {Accessed: 2025-08-27}
+}
+
+@misc{EffectiveRustCI,
+  title = {Item 32: Set up a continuous integration (CI) system},
+  howpublished = {\url{https://effective-rust.com/ci.html}},
+  note = {Effective Rust documentation},
+  year = {2024}
+}
+
+@inproceedings{Li2024,
+author = {Li, Hongyu and Guo, Liwei and Yang, Yexuan and Wang, Shangguang and Xu, Mengwei},
+title = {An empirical study of rust-for-Linux: the success, dissatisfaction, and compromise},
+year = {2024},
+isbn = {978-1-939133-41-0},
+publisher = {USENIX Association},
+address = {USA},
+abstract = {Developed for over 30 years, Linux has already become the computing foundation for today's digital world; from gigantic, complex mainframes (e.g., supercomputers) to cheap, wimpy embedded devices (e.g., IoTs), countless applications are built on top of it. Yet, such an infrastructure has been plagued by numerous memory and concurrency bugs since the day it was born, due to many rogue memory operations are permitted by C language. A recent project Rust-for-Linux (RFL) has the potential to address Linux's safety concerns once and for all - by embracing Rust's static ownership and type checkers into the kernel code, the kernel may finally be free from memory and concurrency bugs without hurting its performance. While it has been gradually matured and even merged into Linux mainline, however, RFL is rarely studied and still remains unclear whether it has indeed reconciled the safety and performance dilemma for the kernel.To this end, we conduct the first empirical study on RFL to understand its status quo and benefits, especially on how Rust fuses with Linux and whether the fusion assures driver safety without overhead. We collect and analyze 6 key RFL drivers, which involve hundreds of issues and PRs, thousands of Github commits and mail exchanges of the Linux mailing list, as well as over 12K discussions on Zulip. We have found while Rust mitigates kernel vulnerabilities, it is beyond Rust's capability to fully eliminate them; what is more, if not handled properly, its safety assurance even costs the developers dearly in terms of both runtime overhead and development efforts.},
+booktitle = {Proceedings of the 2024 USENIX Conference on Usenix Annual Technical Conference},
+articleno = {27},
+numpages = {19},
+location = {Santa Clara, CA, USA},
+series = {USENIX ATC'24}
+}
+
+@misc{HBLAB2025,
+  author = {{HBLAB Group}},
+  title = {The Future of Rust Programming Language},
+  year = {2025},
+  howpublished = {\url{https://hblabgroup.com/the-future-of-rust-programming-language/}},
+  note = {Web Article}
+}
+@inproceedings {fulton2021,
+author = {Kelsey R. Fulton and Anna Chan and Daniel Votipka and Michael Hicks and Michelle L. Mazurek},
+title = {Benefits and Drawbacks of Adopting a Secure Programming Language: Rust as a Case Study},
+booktitle = {Seventeenth Symposium on Usable Privacy and Security (SOUPS 2021)},
+year = {2021},
+isbn = {978-1-939133-25-0},
+pages = {597--616},
+url = {https://www.usenix.org/conference/soups2021/presentation/fulton},
+publisher = {USENIX Association},
+month = aug
+}
+@inproceedings{Hilton2016,
+author = {Hilton, Michael and Tunnell, Timothy and Huang, Kai and Marinov, Darko and Dig, Danny},
+title = {Usage, costs, and benefits of continuous integration in open-source projects},
+year = {2016},
+isbn = {9781450338455},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+url = {https://doi.org/10.1145/2970276.2970358},
+doi = {10.1145/2970276.2970358},
+abstract = {Continuous integration (CI) systems automate the compilation, building, and testing of software. Despite CI rising as a big success story in automated software engineering, it has received almost no attention from the research community. For example, how widely is CI used in practice, and what are some costs and benefits associated with CI? Without answering such questions, developers, tool builders, and researchers make decisions based on folklore instead of data. In this paper, we use three complementary methods to study the usage of CI in open-source projects. To understand which CI systems developers use, we analyzed 34,544 open-source projects from GitHub. To understand how developers use CI, we analyzed 1,529,291 builds from the most commonly used CI system. To understand why projects use or do not use CI, we surveyed 442 developers. With this data, we answered several key questions related to the usage, costs, and benefits of CI. Among our results, we show evidence that supports the claim that CI helps projects release more often, that CI is widely adopted by the most popular projects, as well as finding that the overall percentage of projects using CI continues to grow, making it important and timely to focus more research on CI.},
+booktitle = {Proceedings of the 31st IEEE/ACM International Conference on Automated Software Engineering},
+pages = {426–437},
+numpages = {12},
+keywords = {continuous integration, mining software repositories},
+location = {Singapore, Singapore},
+series = {ASE '16}
+}

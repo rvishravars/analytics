@@ -1,0 +1,266 @@
+#+TITLE: An Empirical Study of Continuous Integration in Open-Source Rust Projects
+#+AUTHOR: Vishravars Ramasubramanian
+#+DATE: 2025-07-25
+#+OPTIONS: toc:nil num:t
+#+CITE_EXPORT: biblatex
+#+LATEX_HEADER: \usepackage[backend=biber,style=plain]{biblatex}
+#+LATEX_HEADER: \addbibresource{references-rust.bib}
+#+LATEX_HEADER: \usepackage{tabularx}
+#+LATEX_HEADER: \usepackage[a4paper,margin=2.2cm]{geometry}
+* Abstract
+<TODO>
+
+* Acknowledgements
+<TODO>
+
+* Publications
+<TODO>
+
+* Chapter 1: Introduction
+
+** Motivation
+
+Rust is one of the most talked about systems programming languages, valued for its strong guarantees of memory safety, speed, and concurrency [cite:@Bugden2022]. With more than 2.3 million developers writing Rust and business adoption up by nearly 70%, major players like Google, Microsoft, and Amazon are increasingly bringing Rust into their stacks [cite:@Schueller2022] [cite:@HBLAB2025]. As a result, Rust is showing up in everything from critical infrastructure to cloud platforms and AI systems. This rapid rise makes it important to look at how Rust projects keep code quality and reliability in check. Continuous Integration (CI) is the main way teams manage this: every commit triggers off builds, tests, and checks to catch problems earlier in the release cycle. But past studies, like Continuous Integration Theater, have shown that many projects fall into bad habits i.e committing too infrequently, leaving builds broken for long stretches, or letting tests and coverage fall below [cite:@felidre2019ci_theater]. Looking at Rust through this lens can reveal whether similar issues exist in its ecosystem. For example, do projects suffer from long running broken builds? Are commits spaced too far apart to keep feedback useful? How well are tests and coverage integrated into the pipelines? CI is effective only if it delivers fast and reliable signals to developers, so these questions matter for both productivity and software quality. By studying a wide set of public Rust repositories on GitHub, this work aims to map out common CI pitfalls, highlight where pipelines fall short, and examine how feedback cycles impact day-to-day development. The aim is to obtain a clear, data-driven picture of Rust CI - what already works, what holds teams back, and where targeted fixes will have payoff.
+
+** Gaps in Rust Continuous Integration (CI) Research
+
+Although Rust is gaining momentum, systematic research into how projects use Continuous Integration (CI) remains limited. Three important gaps can be identified:
+
+- *CI patterns / anti-patterns in Rust are not studied.*
+  Studies in other programming language ecosystems have shown recurring issues such as long-lasting broken builds, infrequent commits, and weak test coverage [cite:@felidre2019ci_theater]. For Rust, no comparable evidence exists, leaving it unclear whether the same challenges occur or whether Rust projects encounter new and unique ones. Prior work has examined Rust adoption more generally—for example, Fulton et al. (2021) studied the benefits and drawbacks of adopting Rust. But these studies focus on security, tooling, and ecosystem maturity rather than CI workflows [cite:@fulton2021]. Issues such as long compile times and dependency growth are discussed, but CI practices themselves remain unexamined.
+
+- *The effects of CI adoption are not well understood.*
+  While CI is often assumed to improve integration frequency and defect detection, few studies have investigated whether Rust projects actually change their development behavior after adopting CI. It remains unclear whether adoption leads to measurable improvements in productivity, build health, or software quality [cite:@felidre2019ci_theater].
+
+- *Polyglot CI setups have received little attention.*
+  Rust's low-level control and LLVM-based compilation provide C-like performance, making it ideal for CPU-bound or data-intensive tasks where Python or other interpreted languages might struggle. Many Rust projects combine Rust with other languages like C for bindings, Python for scientific workflows, or JavaScript for web front-ends. This creates pipelines that must integrate Rust’s strict compilation model with more dynamic ecosystems. There is little empirical evidence on how these mixed-language pipelines function in practice, or whether they introduce specific issues such as dependency mismatches, brittle build scripts, or gaps in test coverage. No comparative studies exist to show how CI practices in polyglot Rust projects differ from those in Rust-only projects.
+
+** Research Questions
+
+To address these gaps, this study investigates the following research questions:
+
+/RQ1: Do Rust projects exhibit CI anti-patterns?/
+
+An empirical analysis confirms that Rust projects exhibit Continuous Integration (CI) anti-patterns consistent with "CI Theater," where CI practices are followed without delivering key benefits like rapid feedback and improved quality [cite:@felidre2019ci_theater]. A foundational issue is the delayed adoption of CI. Pure Rust (monoglot) projects wait over five years on average to implement CI, with medium-sized projects averaging 66.01 months. Mixed-language (polyglot) projects also lag, waiting approximately four years on average. This is substantially slower than the one-year median adoption time observed in the broader open-source ecosystem. Among projects that do use CI, several unhealthy practices are common. Infrequent commits are prevalent, particularly in small and medium-sized monoglot projects, which see mean commits per weekday as low as 0.33 and 0.73, respectively. Projects also suffer from prolonged broken builds; small monoglot repositories, for instance, leave their main branch in a failing state for a mean of 27.39 days. Finally, test coverage is systematically neglected. A very small fraction of projects—only 3.05% of monoglot and 5.05% of polyglot—report actionable coverage data, indicating a widespread failure to use CI for effective quality assurance.
+
+** Purposes, Context and Definitions
+
+** Definitions
+
+For clarity, this study adopts the following definitions:
+
+- *Continuous Integration (CI):* A software engineering practice where developers frequently merge code changes into a shared branch, triggering automated builds and tests. CI aims to detect integration problems early, maintain a releasable codebase, and provide rapid feedback to developers [cite:@Fowler2024].
+
+- *CI Workflow:* The automated pipeline defined in configuration files (e.g., GitHub Actions YAML), specifying jobs such as compilation, testing, linting, code coverage, and deployment checks. In this study, a workflow is considered effective if it provides fast and reliable feedback.
+
+- *Build Duration:* The elapsed time from the start to the completion of a CI run, encompassing compilation, testing, and quality checks. Build duration serves as a proxy for CI feedback latency.
+
+- *Broken Build:* A CI run that results in failure, preventing successful integration of changes. A project is considered to have a *prolonged broken build* if its main branch remains in a failing state for more than two consecutive days [cite:@felidre2019ci_theater].
+
+- *CI Anti-patterns / “CI Theater”:* Practices that give the illusion of continuous integration without delivering its benefits—examples include infrequent commits, prolonged broken builds, and long feedback cycles [cite:@felidre2019ci_theater].
+
+- *Coverage Evidence:* Indicators of whether a project actively measures test coverage as part of CI, either through explicit tools (e.g., tarpaulin) or through reported coverage metrics in CI logs.
+
+- *Monoglot Project*: A project where 100% of the source lines of code (SLOC) are written in Rust, with no substantial use of secondary languages. Used to distinguish analysis between pure Rust and polyglot projects.
+
+- *Polyglot Project:* A project that combines Rust with other programming languages (e.g., C, Python, JavaScript), resulting in mixed-language CI pipelines.
+
+- *CI Adoption:* The point in a project’s history when automated builds first appear in a public CI system (e.g., GitHub Actions). Metrics before and after this point are used to study changes in commit frequency, issue handling, and overall workflow health.
+
+- *Bug-like Issues:* Issues labeled or described with terms such as “bug”, “defect”, or “regression”. These are used as a proxy for defect reports when studying project quality before and after CI adoption.
+
+- *Project Size:* Measured as the number of source lines of code (SLOC) in Rust files. Size is used to normalize comparisons across projects and to stratify analysis (e.g., small, medium, large projects) [cite:@Bugden2022].
+
+These definitions establish the conceptual foundation for the empirical analyses conducted in this study.
+
+** Thesis Outline
+
+* Chapter 2: Literature Review
+
+** Literature Review
+
+Continuous Integration (CI) is a widely established practice in which developers frequently merge code into a shared branch, with each integration triggering automated builds and tests to detect issues early [cite:@Fowler2024]. Fowler (2024) emphasizes that effective CI depends on automation, self-testing code, and rapid feedback to keep the codebase consistently releasable. Frequent integrations reduce merge costs, enable earlier bug detection, and sustain quality by encouraging ongoing refactoring and testing [cite:@Fowler2024].
+
+In the Rust ecosystem, these principles are especially significant due to Rust’s long compilation times and its reliance on ecosystem-specific tools such as =cargo test=, Clippy, and coverage frameworks [cite:@Mwendia2024][cite:@HBLAB2025]. Empirical reports highlight approaches such as deterministic builds and version pinning to mitigate toolchain instability, while also noting the difficulty of balancing thorough linting and test coverage against acceptable build times [cite:@Mwendia2024]. For polyglot projects that combine Rust with languages like C++ or Python, additional orchestration and caching strategies are often required [cite:@HBLAB2025].
+
+Despite these advances, several gaps remain. Li et al. observe that data on Rust CI health metrics beyond build success such as test coverage consistency, build latency, or feedback cycles—remains limited [cite:@Li2024]. Studies of CI Theater have shown that unhealthy practices such as prolonged broken builds, infrequent commits are widespread in other ecosystems and likely affect Rust projects as well, though they have not yet been studied systematically [cite:@felidre2019ci_theater]. In addition, questions remain about how Rust specific tools (e.g., Clippy, tarpaulin) integrate with CI/CD platforms and shape workflow adoption [cite:@RustInternals2015]. Empirical understanding of CI in Rust is still emerging [cite:@Bugden2022]. There is a clear need for targeted investigation into Rust projects to document recurring CI anti-patterns and to assess how practices evolve before and after adoption.
+
+
+* Chapter 3: Research Design
+** Methodology of Research
+*** Data Curation
+
+GitHub provides an ideal platform for studying CI practices in Rust projects for several reasons. First, it is the primary hosting site for open-source Rust code and offers rich access to project histories, workflow definitions, and CI execution logs through standardized APIs and public libraries. Its integration with popular CI providers (such as GitHub Actions and third-party platforms) ensures that build/test events and coverage reports are both discoverable and largely consistent across projects. To investigate the CI practices of Rust projects, a dataset of open-source repositories hosted on GitHub was curated. The process began with an initial pool of approximately 8,800 repositories, identified through a keyword-based GitHub search restricted to Rust as the primary language (i.e., =lang:Rust=). To ensure active community engagement and a reasonable quality baseline, only repositories with at least 500 GitHub stars were retained. This filtering step produced a working set of 2,256 repositories for analysis.
+
+[[./figures/colanguage_counts_majority_vs_minority.png]]
+
+The selected repositories cover a wide range of domains, including web frameworks, databases, servers, and embedded systems. For the CI Theater analysis, each repository was cloned and source lines of code (SLOC) were measured using the =cloc= (Count Lines of Code) tool. Because many open-source repositories are polyglot in nature, additional filtering was applied to focus the analysis for RQ1 and RQ2 on primarily Rust-based projects. Specifically, the dataset was restricted to repositories where Rust accounted for 100% of total SLOC leaving us 556 projects for study. This threshold excluded 1687 polyglot projects whose CI pipelines may be strongly shaped by other ecosystems (e.g., JavaScript or Python). These 1687 excluded projects were retained separately for RQ3, which examines how the presence of other languages influences CI workflows.
+
+The Top colanguage chart shows that in both Rust-majority and Rust-minority projects, other languages commonly co-exist with Rust. For instance, JavaScript, CSS, and TypeScript are the most frequent co-languages in Rust projects, especially when Rust is the majority language. This suggests that many Rust projects are likely related to web development, where these front-end languages are essential. The presence of languages like C, C++, and Python also points to the use of Rust in systems programming, data science, or for performance-critical components, leveraging the unique strengths of each language within a single project. 
+** Data Analysis
+*** Commit Frequency
+
+#+begin_export latex
+\begin{tabularx}{\linewidth}{@{}XX@{}}
+\includegraphics[width=\linewidth]{figures/commit_freq.png}
+\end{tabularx}
+#+end_export
+
+| Cohort   | Size   | Mean | First Quartile | Third Quartile |
+|----------+--------+------+----------------+----------------|
+| Monoglot | Large  | 1.61 | 0.52           | 1.20           |
+| Monoglot | Medium | 0.73 | 0.29           | 0.84           |
+| Monoglot | Small  | 0.33 | 0.11           | 0.30           |
+| Polyglot | Large  | 6.04 | 1.55           | 6.96           |
+| Polyglot | Medium | 1.41 | 0.48           | 1.59           |
+| Polyglot | Small  | 0.60 | 0.15           | 0.64           |
+
+We can see a strong correlation between project size and commit frequency for both monoglot and polyglot Rust projects. In both cohorts, larger projects tend to have a higher mean number of commits per weekday. Polyglot rust projects consistently exhibit a much higher commit frequency than their monoglot counterparts across all size categories. The median commit rate for large polyglot projects is nearly five times that of large monoglot projects (6.96 vs. 1.20). This could point to more diverse and active development teams in these multi-language environments. Polyglot projects often have a broader contributor base with diverse skill sets (e.g., front-end web developers using JavaScript and back-end systems developers using Rust) who are working on different components in parallel. This concurrent development workflow inherently leads to more frequent commits and a greater number of merges into the main branch, a key characteristic of the polyglot Rust ecosystem.
+
+Conversely, the monoglot cohort, particularly the small and medium-sized projects, exhibits much lower commit frequencies. This aligns with the "CI Theater" anti-pattern of infrequent commits, which can lead to delayed feedback and larger, more complex merges.  A potential explanation for this low frequency is that these projects are in a maintenance or legacy phase, where major feature development is complete and the codebase is stable, leading to infrequent, targeted commits for bug fixes or minor updates.
+
+*** Broken builds
+
+#+begin_export latex
+\begin{tabularx}{\linewidth}{@{}XX@{}}
+\includegraphics[width=\linewidth]{figures/broken_build_duration.png}
+\end{tabularx}
+#+end_export
+
+| Cohort | Size | Mean (days)                 | Count | Std. Dev. |
+|----------+--------+-------------+-------+-----------                |
+| Monoglot | Small | 27.39 | 328       | 76.58 |
+| Monoglot | Medium | 10.30 | 164       | 40.29 |
+| Monoglot | Large | 5.27 | 6       | 11.90 |
+| Polyglot | Small | 22.97 |      530  | 72.43 |
+| Polyglot | Medium | 14.77 |     788    | 60.14 |
+| Polyglot | Large | 1.92 |      194  | 11.65 |
+
+Broken build analysis across Rust projects reveals few contrasts between monoglot and polyglot cohorts, with small projects in both categories exhibiting highly skewed distributions. In monoglot small projects, the mean duration of a broken build stretch is 27.39 days, yet the median is only 0.55 days, signaling that while most projects recover quickly, a minority suffer extended downtime. These long tails visible in both mean and standard deviation suggest that CI neglect or lack of contributor activity leaves smaller monoglot repositories especially vulnerable to “CI theater” behaviors, such as unrepaired main branches and stagnation. Medium and large monoglot projects gradually reduce both mean and median broken build durations, but occasional outliers persist which keeping averages elevated. The results reinforce prior findings that healthy CI practice depends on both team engagement and automation, and imply that focused investment in CI pipeline reliability especially for small projects could reduce extended failures in the Rust ecosystem.
+
+*** Build Duration
+
+#+begin_export latex
+\begin{tabularx}{\linewidth}{@{}XX@{}}
+\includegraphics[width=\linewidth]{figures/build_duration.png}
+\end{tabularx}
+#+end_export
+
+| Cohort | Category | Mean | 1st Quartile | 3rd Quartile |
+|-----------+----------+--------+--------------+--------------|
+| Monoglot | Small | 5.58 | 1.58 | 6.12 |
+| Monoglot | Medium | 7.28 | 2.35 | 8.64 |
+| Monoglot | Large | 8.62 | 4.89 | 10.73 |
+| Polyglot | Small | 5.44 | 1.40 | 7.09 |
+| Polyglot | Medium | 8.32 | 2.59 | 10.15 |
+| Polyglot | Large | 11.23 | 4.18 | 14.69 |
+
+Average build durations reveal scaling effects in both monoglot and polyglot Rust projects. We can notice key differences as project size increases. For small projects, both cohorts report similar mean build times (around 5.5 minutes), with polyglot projects just below monoglot. This gap widens with size. Medium and large polyglot projects face notably longer average and third quartile build durations (mean 8.3 vs. 7.3 minutes for medium, 11.2 vs. 8.6 minutes for large), and their longest builds reach farther into double digits.
+
+Boxplot visualizations confirm this trend, showing that most builds cluster under 10 minutes but a minority of large polyglot projects experience runs over 15 minutes. These sustained build durations likely reflect CI complexity and multi-language orchestration in polyglot projects, where additional linting, cross-language compilation, and integration tasks may stretch runtime. In contrast, monoglot Rust projects maintain steadier scaling, with fewer extreme outliers. These results suggest that while small projects benefit equally regardless of language mix, build times for large and medium polyglot projects may be a key target for CI optimization potentially through caching, parallelization, and focused workflow engineering.
+
+*** Test coverage
+
+#+begin_export latex
+\begin{tabularx}{\linewidth}{@{}XX@{}}
+\includegraphics[width=\linewidth]{figures/test_coverage.png} &
+\includegraphics[width=\linewidth]{figures/ci_test_adoption.png} &
+\end{tabularx}
+#+end_export
+
+| Cohort   | Mean   | 1st Quartile | 3rd Quartile |
+|----------+--------+--------------+--------------+
+| Monoglot | 87.79  | 76.50        | 100.00       |
+| Polyglot | 78.12  | 69.80        | 96.44        |
+
+Test coverage in Rust projects shows clear differences between monoglot and polyglot repositories. Monoglot projects tend to have higher and more consistent coverage, with a mean of 87.8% and a third quartile of 100%, indicating strong testing practices. Polyglot projects, while capable of high coverage (third quartile 96.4%), show greater variability and a lower mean (78.1%), likely due to the complexity of multi-language CI setups. CI test adoption is widespread: 462 monoglot and 1093 polyglot projects have CI tests. However, meaningful coverage is rare overall. Only 3.05% of monoglot and 5.05% of polyglot projects have coverage configured and report non-zero samples. That leaves 540 monoglot and 1334 polyglot projects without actionable coverage data. While many Rust projects adopt CI testing, most do not track coverage effectively highlighting a gap in tooling, enforcement, or prioritization.
+
+*** Time to first CI
+
+#+begin_export latex
+\begin{tabularx}{\linewidth}{@{}XX@{}}
+\includegraphics[width=\linewidth]{figures/time_to_ci.png}
+\end{tabularx}
+#+end_export
+
+| Cohort    | Size   | Mean     | Q1    | Q3    |
+|-----------+--------+----------+-------+-------|
+| Monoglot  | Small  | 63.64    | 39.00 | 87.00 |
+| Monoglot  | Medium | 66.01    | 39.75 | 94.25 |
+| Monoglot  | Large  | 56.67    | 46.75 | 67.25 |
+| Polyglot  | Small  | 49.05    | 23.00 | 71.00 |
+| Polyglot  | Medium | 49.82    | 22.50 | 70.50 |
+| Polyglot  | Large  | 47.63    | 24.00 | 69.00 |
+
+Rust projects exhibit notably slow adoption of continuous integration (CI) compared to industry standards in other open-source ecosystems. For monoglot (pure Rust) projects, the average lag before first CI setup is especially long—over 5 years for most size categories, and more than 7 years for many medium-sized projects. This means many pure Rust repositories delay implementing automated builds and tests for several years, suggesting that CI is often deprioritized within much of the Rust ecosystem.
+
+By contrast, a study by [cite:@Hilton2016] found that in general open-source projects, the median time to adopt CI is about one year after project inception. Polyglot projects in the Rust ecosystem adopt CI somewhat faster and with less variation (around 4 years on average), but still lag behind industry best practices where CI is operationalized within months. This persistence of delayed adoption underlines the need for Rust projects to prioritize earlier CI setup to improve project health and reliability.
+
+*** Defects before and after CI
+
+#+begin_export latex
+\begin{tabularx}{\linewidth}{@{}XX@{}}
+\includegraphics[width=\linewidth]{figures/bugs_before_after_ci_by_cohort.png}
+\end{tabularx}
+#+end_export
+
+| Cohort   | Bug Type            | Mean   | Q1   | Q3     |
+|----------+---------------------+--------+------+--------|
+| Monoglot | Bug Issues Before CI| 68.21  | 15.5 | 81.00  |
+| Monoglot | Bug Issues After CI | 12.23  |  1.0 | 14.00  |
+| Polyglot | Bug Issues Before CI|170.60  | 18.0 |163.00  |
+| Polyglot | Bug Issues After CI | 72.99  |  4.0 | 48.25  |
+
+The statistics for bug issues before and after CI adoption show a substantial reduction in reported bugs for both monoglot and polyglot Rust projects following the introduction of continuous integration. For monoglot projects, the average number of bug issues drops from 68.2 before CI to just 12.2 after CI, with the first quartile declining from 15.5 to 1.0 and the third quartile dropping from 81.0 to 14.0. This pattern indicates that most pure Rust projects experience fewer bug reports after integrating CI, and the effect is consistent across both the lower and upper ends of the distribution.
+
+Polyglot projects, which generally report more bugs due to their larger size or complexity, also see a clear decrease. The mean bug issues fall from 170.6 prior to CI to 73.0 following CI adoption. The reduction in the first quartile (18.0 to 4.0) and the third quartile (163.0 to 48.3) highlights that this improvement holds across a wide range of project profiles, though the typical polyglot project still has more bug issues than its monoglot counterpart in both periods. These trends strongly suggest that adopting CI workflows correlates with improved defect management and possibly better software quality in open-source Rust projects.
+
+** Instruments
+The empirical investigation was conducted using a custom-developed software toolchain designed to systematically collect, process, and analyze data from a large corpus of open-source Rust repositories. The overall approach follows three primary stages: data curation, metric extraction, and quantitative analysis.
+
+First, a *data curation pipeline* was established to build a high-quality dataset. This involved querying the GitHub API to identify an initial set of active Rust projects, followed by an automated filtering process to exclude repositories that appeared to be demos, tutorials, or boilerplate templates. Each remaining repository was then cloned and its source code was analyzed to determine its language composition. This allowed for the classification of projects into two distinct cohorts: *monoglot* (exclusively Rust) and *polyglot* (Rust combined with other languages), which formed the basis for comparative analysis.
+
+Second, a series of *metric extraction instruments* were deployed to gather empirical data on CI practices for each project. These tools interacted with both the GitHub API and local Git repositories to measure key indicators of CI health. The metrics collected fall into following categories:
+- *Workflow Activity:* Commit frequency and recency, and the time from project creation to first CI adoption.
+- *Build Health:* Average and maximum build durations, and the frequency and length of prolonged broken build periods.
+- *Code Quality:* Evidence of test execution and code coverage reporting, and the rate of bug-like issues reported before and after CI adoption.
+
+Finally, an *analysis and visualization program* processed the collected data to answer the research questions. This component generated statistics, comparative boxplots, and histograms to identify trends and anti-patterns. This stage also involved merging metric data with project size information to create stratified analyses (e.g., build duration by project size). Together, this toolchain provided a reproducible, end-to-end pipeline for transforming raw repository data into the empirical findings as part of the study.
+
+** Procedure and Timeline
+
+- *Weeks 1: Literature Review and Tooling Setup*
+  - Conducted a review of existing literature on CI practices.
+  - Developed and tested the initial data collection and filtering scripts.
+
+- *Weeks 2–5: Data Curation and Cohort Definition*
+  - Identified and filtered the initial set of Rust repositories.
+  - Cloned repositories and performed language composition analysis to define monoglot and polyglot cohorts.
+
+- *Weeks 6–7: Data Analysis and Visualization*
+  - Processed the collected data to generate summary statistics.
+  - Created comparative plots and ran statistical tests.
+  - Interpreted the results to identify key findings for each research question.
+  - TODO
+
+** Ethics
+** Limitations
+
+* Chapter 4: Results
+** 4.1 Research Question 1
+** 4.2 Research Question 2
+* Chapter 5: Discussion
+** 5.1 Overview
+** 5.2 Interpretation
+** 5.3 Strengths and Limitations
+
+* Chapter 6: Conclusions
+** 6.1 Summary
+** 6.2 Original Contributions
+** 6.3 Recommendations
+** 6.4 Future Work
+
+* Chapter 7: References
+#+LATEX: \printbibliography[heading=none]
+* Appendices
+** Appendix A: Ethics Approval
