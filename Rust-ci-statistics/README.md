@@ -184,6 +184,18 @@ python 24_2_ci_theater_coverage_rust_analysis.py \
         --mono-cohort-name Monoglot \
         --poly-cohort-name Polyglot
 
+# Analyze commit velocity leading to CI
+python 25_1_ci_theater_ci_by_commit_velocity.py \
+    --mono-stats-file ./data/23_stats_monoglot.csv \
+    --mono-sizes-file ./data/29_monoglot_rust_repos_summary.csv \
+    --poly-stats-file ./data/23_stats_polyglot.csv \
+    --poly-sizes-file ./data/29_polyglot_rust_repos_summary.csv \
+    --output-file ./output/ci_correlation_plot.png
+    --recompute N
+    --cache-file ./output/computed_data.csv
+    --log-y
+
+
 Run the final comparison script. It reads the CSV files generated in Phase 2 and produces plots and statistical tests comparing the two cohorts.
 
 ```bash
