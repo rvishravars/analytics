@@ -13,7 +13,7 @@ header-includes:
 | Day | Kaggle Focus                    | Dataset Link                                                | AI Engineer Skill                                   | Progress |
 |-----|---------------------------------|-------------------------------------------------------------|-----------------------------------------------------|----------|
 |  1  | Titanic – Binary Classification | [Kaggle](https://www.kaggle.com/c/titanic)                | Environment setup; Git repo; reproducibility        | [*]      |
-|  2  | House Prices – Regression       | [Kaggle](https://www.kaggle.com/c/house-prices-advanced-regression-techniques) | Data cleaning pipelines (pandas, sklearn.Pipeline)  | [ ]      |
+|  2  | House Prices – Regression       | [Kaggle](https://www.kaggle.com/c/house-prices-advanced-regression-techniques) | Data cleaning pipelines (pandas, sklearn.Pipeline)  | [*]      |
 |  3  | Iris / Penguins – Multiclass    | [Kaggle](https://www.kaggle.com/uciml/iris)               | Notebook VC (nbdime, branches)                      | [ ]      |
 |  4  | Heart Disease UCI               | [Kaggle](https://www.kaggle.com/ronitf/heart-disease-uci) | Feature eng + custom transformers                   | [ ]      |
 |  5  | Customer Churn (IBM)            | [Kaggle](https://www.kaggle.com/blastchar/telco-customer-churn) | Imbalanced data (SMOTE, class weights, AUC)         | [ ]      |
