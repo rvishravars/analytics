@@ -1,4 +1,4 @@
-# HIPAA Agent Hub (v0.2)
+# Agent Hub (v0.2)
 
 This project implements a secure Agent Hub architecture with a centralized Gateway (MCP Server) and a Compliance Agent.
 
