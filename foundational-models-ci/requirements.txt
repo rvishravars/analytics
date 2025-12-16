@@ -1,0 +1,11 @@
+gitpython
+tabulate
+dotenv
+pandas
+seaborn
+matplotlib
+torch
+tensorflow
+flax
+transformers
+frontmatter

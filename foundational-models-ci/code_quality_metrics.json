@@ -1,0 +1,2293 @@
+[
+  {
+    "repo": "karpathy/minGPT",
+    "stars": 23117,
+    "ci_systems": {
+      "uses_github_actions": false,
+      "uses_travis_ci": false,
+      "uses_circle_ci": false,
+      "github_actions_workflows": 0,
+      "github_actions_files": []
+    },
+    "test_files": {
+      "unit_tests": 1,
+      "integration_tests": 0,
+      "e2e_tests": 0,
+      "conftest": 0,
+      "total_test_files": 1
+    },
+    "quality_tools": {},
+    "github_actions": {
+      "total_workflows": 0,
+      "workflow_names": [],
+      "with_badges": false,
+      "runs_data": null
+    },
+    "build_status": null
+  },
+  {
+    "repo": "huggingface/sentence-transformers",
+    "stars": 17979,
+    "ci_systems": {
+      "uses_github_actions": true,
+      "uses_travis_ci": false,
+      "uses_circle_ci": false,
+      "github_actions_workflows": 2,
+      "github_actions_files": [
+        ".github/workflows/quality.yml",
+        ".github/workflows/tests.yml"
+      ]
+    },
+    "test_files": {
+      "unit_tests": 56,
+      "integration_tests": 0,
+      "e2e_tests": 0,
+      "conftest": 3,
+      "total_test_files": 59
+    },
+    "quality_tools": {},
+    "github_actions": {
+      "total_workflows": 4,
+      "workflow_names": [
+        "Quality",
+        "Unit tests",
+        "Copilot code review",
+        "Dependabot Updates"
+      ],
+      "with_badges": true,
+      "runs_data": {
+        "total_runs": 10,
+        "success_runs": 10,
+        "failure_runs": 0,
+        "success_rate": 100.0
+      }
+    },
+    "build_status": null
+  },
+  {
+    "repo": "huggingface/trl",
+    "stars": 16587,
+    "ci_systems": {
+      "uses_github_actions": true,
+      "uses_travis_ci": false,
+      "uses_circle_ci": false,
+      "github_actions_workflows": 14,
+      "github_actions_files": [
+        ".github/workflows/build_documentation.yml",
+        ".github/workflows/build_pr_documentation.yml",
+        ".github/workflows/clear_cache.yml"
+      ]
+    },
+    "test_files": {
+      "unit_tests": 41,
+      "integration_tests": 0,
+      "e2e_tests": 0,
+      "conftest": 1,
+      "total_test_files": 42
+    },
+    "quality_tools": {},
+    "github_actions": {
+      "total_workflows": 20,
+      "workflow_names": [
+        "pages-build-deployment",
+        "Tests",
+        "Build PR Documentation",
+        "Build documentation",
+        "Cleanup Cache",
+        "Upload PR Documentation",
+        "Slow tests (on push)",
+        "Build TRL Docker image",
+        "Secret Leaks",
+        "Tests latest TRL release with dev dependencies",
+        "Hugging Face Issue Labeler",
+        "PR Style Bot",
+        "CodeQL Analysis - Workflows",
+        "Test self-hosted on all groups",
+        "Env",
+        "Publish to PyPI",
+        "Automatic Dependency Submission",
+        "Copilot coding agent",
+        "Tests (experimental)",
+        "Copilot code review"
+      ],
+      "with_badges": true,
+      "runs_data": {
+        "total_runs": 10,
+        "success_runs": 6,
+        "failure_runs": 2,
+        "success_rate": 60.0
+      }
+    },
+    "build_status": null
+  },
+  {
+    "repo": "microsoft/Swin-Transformer",
+    "stars": 15517,
+    "ci_systems": {
+      "uses_github_actions": false,
+      "uses_travis_ci": false,
+      "uses_circle_ci": false,
+      "github_actions_workflows": 0,
+      "github_actions_files": []
+    },
+    "test_files": {
+      "unit_tests": 1,
+      "integration_tests": 0,
+      "e2e_tests": 0,
+      "conftest": 0,
+      "total_test_files": 1
+    },
+    "quality_tools": {},
+    "github_actions": {
+      "total_workflows": 1,
+      "workflow_names": [
+        "CodeQL"
+      ],
+      "with_badges": true,
+      "runs_data": {
+        "total_runs": 10,
+        "success_runs": 10,
+        "failure_runs": 0,
+        "success_rate": 100.0
+      }
+    },
+    "build_status": null
+  },
+  {
+    "repo": "facebookresearch/detr",
+    "stars": 14945,
+    "ci_systems": {
+      "uses_github_actions": false,
+      "uses_travis_ci": false,
+      "uses_circle_ci": false,
+      "github_actions_workflows": 0,
+      "github_actions_files": []
+    },
+    "test_files": {
+      "unit_tests": 1,
+      "integration_tests": 0,
+      "e2e_tests": 0,
+      "conftest": 0,
+      "total_test_files": 1
+    },
+    "quality_tools": {},
+    "github_actions": {
+      "total_workflows": 0,
+      "workflow_names": [],
+      "with_badges": true,
+      "runs_data": null
+    },
+    "build_status": null
+  },
+  {
+    "repo": "NVIDIA/Megatron-LM",
+    "stars": 14492,
+    "ci_systems": {
+      "uses_github_actions": true,
+      "uses_travis_ci": false,
+      "uses_circle_ci": false,
+      "github_actions_workflows": 21,
+      "github_actions_files": [
+        ".github/workflows/_build_test_publish_wheel.yml",
+        ".github/workflows/_release_library.yml",
+        ".github/workflows/_update_dependencies.yml"
+      ]
+    },
+    "test_files": {
+      "unit_tests": 216,
+      "integration_tests": 0,
+      "e2e_tests": 0,
+      "conftest": 4,
+      "total_test_files": 220
+    },
+    "quality_tools": {},
+    "github_actions": {
+      "total_workflows": 25,
+      "workflow_names": [
+        ".github/workflows/_build_test_publish_wheel.yml",
+        "Release",
+        "~Update dependencies template",
+        "Auto-assign Milestone to PR",
+        "Auto Reminder Bot",
+        "Auto Swap Labels",
+        "Auto Update Copy PR Bot",
+        "Build docs",
+        "Build, test, and publish a PyPi wheel (to testpypi).",
+        "API Compatibility Check",
+        "Create PR to main with cherry-pick from release",
+        "Approve Test Queue",
+        "CICD Megatron-LM",
+        "Stale-Close-Inactive-Issues-PRs",
+        "Community Bot",
+        "Copyright check",
+        "Dependabot",
+        "Installation Test",
+        "Mirror Dev to Main",
+        "Codeowners Approval Workflow",
+        "Oncall Assign",
+        "Code freeze",
+        "Release Megatron-Core",
+        "Trigger MBridge Tests",
+        "Copilot code review"
+      ],
+      "with_badges": true,
+      "runs_data": {
+        "total_runs": 10,
+        "success_runs": 8,
+        "failure_runs": 1,
+        "success_rate": 80.0
+      }
+    },
+    "build_status": null
+  },
+  {
+    "repo": "BlinkDL/RWKV-LM",
+    "stars": 14214,
+    "ci_systems": {
+      "uses_github_actions": false,
+      "uses_travis_ci": false,
+      "uses_circle_ci": false,
+      "github_actions_workflows": 0,
+      "github_actions_files": []
+    },
+    "test_files": {
+      "unit_tests": 0,
+      "integration_tests": 0,
+      "e2e_tests": 0,
+      "conftest": 0,
+      "total_test_files": 0
+    },
+    "quality_tools": {},
+    "github_actions": {
+      "total_workflows": 0,
+      "workflow_names": [],
+      "with_badges": false,
+      "runs_data": null
+    },
+    "build_status": null
+  },
+  {
+    "repo": "qubvel-org/segmentation_models.pytorch",
+    "stars": 11145,
+    "ci_systems": {
+      "uses_github_actions": true,
+      "uses_travis_ci": false,
+      "uses_circle_ci": false,
+      "github_actions_workflows": 3,
+      "github_actions_files": [
+        ".github/workflows/pypi.yml",
+        ".github/workflows/stale.yaml",
+        ".github/workflows/tests.yml"
+      ]
+    },
+    "test_files": {
+      "unit_tests": 31,
+      "integration_tests": 0,
+      "e2e_tests": 0,
+      "conftest": 1,
+      "total_test_files": 32
+    },
+    "quality_tools": {},
+    "github_actions": {
+      "total_workflows": 4,
+      "workflow_names": [
+        "Upload Python Package",
+        "Close stale issues and PRs",
+        "CI",
+        "Dependabot Updates"
+      ],
+      "with_badges": true,
+      "runs_data": {
+        "total_runs": 10,
+        "success_runs": 10,
+        "failure_runs": 0,
+        "success_rate": 100.0
+      }
+    },
+    "build_status": null
+  },
+  {
+    "repo": "facebookresearch/xformers",
+    "stars": 10167,
+    "ci_systems": {
+      "uses_github_actions": true,
+      "uses_travis_ci": false,
+      "uses_circle_ci": false,
+      "github_actions_workflows": 12,
+      "github_actions_files": [
+        ".github/workflows/gh-pages.yml",
+        ".github/workflows/gpu_test_gh.yml",
+        ".github/workflows/linters.yml"
+      ]
+    },
+    "test_files": {
+      "unit_tests": 30,
+      "integration_tests": 0,
+      "e2e_tests": 0,
+      "conftest": 0,
+      "total_test_files": 30
+    },
+    "quality_tools": {},
+    "github_actions": {
+      "total_workflows": 13,
+      "workflow_names": [
+        "Build & deploy documentation",
+        "gpu_test_gh",
+        ".github/workflows/linters.yml",
+        "lint",
+        "rocm-build",
+        "rocm-ci",
+        "Build and Publish ROCm Docker Image",
+        "wheels",
+        "wheels_build",
+        "wheels_upload_pip",
+        "wheels_upload_s3",
+        "win-build",
+        "pages-build-deployment"
+      ],
+      "with_badges": true,
+      "runs_data": {
+        "total_runs": 10,
+        "success_runs": 5,
+        "failure_runs": 2,
+        "success_rate": 50.0
+      }
+    },
+    "build_status": null
+  },
+  {
+    "repo": "bigscience-workshop/petals",
+    "stars": 9851,
+    "ci_systems": {
+      "uses_github_actions": true,
+      "uses_travis_ci": false,
+      "uses_circle_ci": false,
+      "github_actions_workflows": 3,
+      "github_actions_files": [
+        ".github/workflows/check-style.yaml",
+        ".github/workflows/push-docker-image.yaml",
+        ".github/workflows/run-tests.yaml"
+      ]
+    },
+    "test_files": {
+      "unit_tests": 15,
+      "integration_tests": 0,
+      "e2e_tests": 0,
+      "conftest": 1,
+      "total_test_files": 16
+    },
+    "quality_tools": {},
+    "github_actions": {
+      "total_workflows": 3,
+      "workflow_names": [
+        "Check style",
+        "Push to Docker Hub",
+        "Tests"
+      ],
+      "with_badges": false,
+      "runs_data": null
+    },
+    "build_status": null
+  },
+  {
+    "repo": "zyddnys/manga-image-translator",
+    "stars": 9000,
+    "ci_systems": {
+      "uses_github_actions": true,
+      "uses_travis_ci": false,
+      "uses_circle_ci": false,
+      "github_actions_workflows": 3,
+      "github_actions_files": [
+        ".github/workflows/ci.yml",
+        ".github/workflows/release.yml",
+        ".github/workflows/stale.yml"
+      ]
+    },
+    "test_files": {
+      "unit_tests": 5,
+      "integration_tests": 0,
+      "e2e_tests": 0,
+      "conftest": 1,
+      "total_test_files": 6
+    },
+    "quality_tools": {},
+    "github_actions": {
+      "total_workflows": 5,
+      "workflow_names": [
+        "Bandit",
+        "CI",
+        "CodeQL",
+        "Publish Release docker image",
+        "Mark stale issues"
+      ],
+      "with_badges": false,
+      "runs_data": {
+        "total_runs": 10,
+        "success_runs": 10,
+        "failure_runs": 0,
+        "success_rate": 100.0
+      }
+    },
+    "build_status": null
+  },
+  {
+    "repo": "google/trax",
+    "stars": 8294,
+    "ci_systems": {
+      "uses_github_actions": true,
+      "uses_travis_ci": true,
+      "uses_circle_ci": false,
+      "github_actions_workflows": 1,
+      "github_actions_files": [
+        ".github/workflows/build.yaml"
+      ]
+    },
+    "test_files": {
+      "unit_tests": 86,
+      "integration_tests": 2,
+      "e2e_tests": 0,
+      "conftest": 0,
+      "total_test_files": 88
+    },
+    "quality_tools": {},
+    "github_actions": {
+      "total_workflows": 2,
+      "workflow_names": [
+        "build",
+        "CodeQL"
+      ],
+      "with_badges": true,
+      "runs_data": {
+        "total_runs": 10,
+        "success_runs": 7,
+        "failure_runs": 3,
+        "success_rate": 70.0
+      }
+    },
+    "build_status": null
+  },
+  {
+    "repo": "openai/jukebox",
+    "stars": 8034,
+    "ci_systems": {
+      "uses_github_actions": false,
+      "uses_travis_ci": true,
+      "uses_circle_ci": false,
+      "github_actions_workflows": 0,
+      "github_actions_files": []
+    },
+    "test_files": {
+      "unit_tests": 49,
+      "integration_tests": 0,
+      "e2e_tests": 0,
+      "conftest": 0,
+      "total_test_files": 49
+    },
+    "quality_tools": {},
+    "github_actions": {
+      "total_workflows": 0,
+      "workflow_names": [],
+      "with_badges": false,
+      "runs_data": null
+    },
+    "build_status": null
+  },
+  {
+    "repo": "Morizeyao/GPT2-Chinese",
+    "stars": 7601,
+    "ci_systems": {
+      "uses_github_actions": false,
+      "uses_travis_ci": false,
+      "uses_circle_ci": false,
+      "github_actions_workflows": 0,
+      "github_actions_files": []
+    },
+    "test_files": {
+      "unit_tests": 0,
+      "integration_tests": 0,
+      "e2e_tests": 0,
+      "conftest": 0,
+      "total_test_files": 0
+    },
+    "quality_tools": {},
+    "github_actions": {
+      "total_workflows": 0,
+      "workflow_names": [],
+      "with_badges": false,
+      "runs_data": null
+    },
+    "build_status": null
+  },
+  {
+    "repo": "EleutherAI/gpt-neox",
+    "stars": 7348,
+    "ci_systems": {
+      "uses_github_actions": true,
+      "uses_travis_ci": false,
+      "uses_circle_ci": false,
+      "github_actions_workflows": 6,
+      "github_actions_files": [
+        ".github/workflows/.cpu_ci_on_pr.yml",
+        ".github/workflows/coverity_scan.yml",
+        ".github/workflows/cpu_ci.yml"
+      ]
+    },
+    "test_files": {
+      "unit_tests": 21,
+      "integration_tests": 0,
+      "e2e_tests": 0,
+      "conftest": 1,
+      "total_test_files": 22
+    },
+    "quality_tools": {},
+    "github_actions": {
+      "total_workflows": 7,
+      "workflow_names": [
+        "docker_build",
+        "Pull Request",
+        "Run CPU Tests",
+        "Coverity",
+        "Workflow Dispatch CPU Tests",
+        "Pull Request CPU Tests",
+        "Dependabot Updates"
+      ],
+      "with_badges": true,
+      "runs_data": {
+        "total_runs": 10,
+        "success_runs": 0,
+        "failure_runs": 10,
+        "success_rate": 0.0
+      }
+    },
+    "build_status": null
+  },
+  {
+    "repo": "codertimo/BERT-pytorch",
+    "stars": 6505,
+    "ci_systems": {
+      "uses_github_actions": false,
+      "uses_travis_ci": false,
+      "uses_circle_ci": false,
+      "github_actions_workflows": 0,
+      "github_actions_files": []
+    },
+    "test_files": {
+      "unit_tests": 3,
+      "integration_tests": 0,
+      "e2e_tests": 0,
+      "conftest": 0,
+      "total_test_files": 3
+    },
+    "quality_tools": {},
+    "github_actions": {
+      "total_workflows": 0,
+      "workflow_names": [],
+      "with_badges": true,
+      "runs_data": null
+    },
+    "build_status": null
+  },
+  {
+    "repo": "sczhou/ProPainter",
+    "stars": 6401,
+    "ci_systems": {
+      "uses_github_actions": false,
+      "uses_travis_ci": false,
+      "uses_circle_ci": false,
+      "github_actions_workflows": 0,
+      "github_actions_files": []
+    },
+    "test_files": {
+      "unit_tests": 0,
+      "integration_tests": 0,
+      "e2e_tests": 0,
+      "conftest": 0,
+      "total_test_files": 0
+    },
+    "quality_tools": {},
+    "github_actions": {
+      "total_workflows": 0,
+      "workflow_names": [],
+      "with_badges": true,
+      "runs_data": null
+    },
+    "build_status": null
+  },
+  {
+    "repo": "lucidrains/x-transformers",
+    "stars": 5710,
+    "ci_systems": {
+      "uses_github_actions": true,
+      "uses_travis_ci": false,
+      "uses_circle_ci": false,
+      "github_actions_workflows": 2,
+      "github_actions_files": [
+        ".github/workflows/python-publish.yml",
+        ".github/workflows/python-test.yaml"
+      ]
+    },
+    "test_files": {
+      "unit_tests": 1,
+      "integration_tests": 0,
+      "e2e_tests": 0,
+      "conftest": 0,
+      "total_test_files": 1
+    },
+    "quality_tools": {},
+    "github_actions": {
+      "total_workflows": 2,
+      "workflow_names": [
+        "Upload Python Package",
+        "Python package"
+      ],
+      "with_badges": true,
+      "runs_data": {
+        "total_runs": 10,
+        "success_runs": 10,
+        "failure_runs": 0,
+        "success_rate": 100.0
+      }
+    },
+    "build_status": null
+  },
+  {
+    "repo": "NVlabs/Sana",
+    "stars": 4781,
+    "ci_systems": {
+      "uses_github_actions": true,
+      "uses_travis_ci": false,
+      "uses_circle_ci": false,
+      "github_actions_workflows": 2,
+      "github_actions_files": [
+        ".github/workflows/bot-autolint.yaml",
+        ".github/workflows/ci.yaml"
+      ]
+    },
+    "test_files": {
+      "unit_tests": 1,
+      "integration_tests": 0,
+      "e2e_tests": 0,
+      "conftest": 0,
+      "total_test_files": 1
+    },
+    "quality_tools": {},
+    "github_actions": {
+      "total_workflows": 3,
+      "workflow_names": [
+        "Auto Lint (triggered by \"auto lint\" label)",
+        "ci",
+        "pages-build-deployment"
+      ],
+      "with_badges": false,
+      "runs_data": {
+        "total_runs": 10,
+        "success_runs": 2,
+        "failure_runs": 1,
+        "success_rate": 20.0
+      }
+    },
+    "build_status": null
+  },
+  {
+    "repo": "transformerlab/transformerlab-app",
+    "stars": 4581,
+    "ci_systems": {
+      "uses_github_actions": true,
+      "uses_travis_ci": false,
+      "uses_circle_ci": false,
+      "github_actions_workflows": 15,
+      "github_actions_files": [
+        ".github/workflows/check-sdk-version.yml",
+        ".github/workflows/codeql-analysis.yml",
+        ".github/workflows/codeql.yml"
+      ]
+    },
+    "test_files": {
+      "unit_tests": 50,
+      "integration_tests": 0,
+      "e2e_tests": 0,
+      "conftest": 3,
+      "total_test_files": 53
+    },
+    "quality_tools": {},
+    "github_actions": {
+      "total_workflows": 19,
+      "workflow_names": [
+        "Check SDK Version for Release",
+        "CodeQL",
+        "CodeQL",
+        "Build and Push Docker Images",
+        "Lint",
+        ".github/workflows/netlify-docs-build.yml",
+        "Prettier Check",
+        "Publish",
+        "Pyright Check",
+        "SDK Tests",
+        "Test for Install and Serving (macOS)",
+        "Test for Install and Serving (Ubuntu)",
+        "Pytest",
+        "Build and Upload SDK Python Package",
+        "Ruff",
+        "Test Docker Login",
+        "Test",
+        "Copilot code review",
+        "Dependabot Updates"
+      ],
+      "with_badges": true,
+      "runs_data": {
+        "total_runs": 10,
+        "success_runs": 9,
+        "failure_runs": 1,
+        "success_rate": 90.0
+      }
+    },
+    "build_status": null
+  },
+  {
+    "repo": "lyuwenyu/RT-DETR",
+    "stars": 4557,
+    "ci_systems": {
+      "uses_github_actions": false,
+      "uses_travis_ci": false,
+      "uses_circle_ci": false,
+      "github_actions_workflows": 0,
+      "github_actions_files": []
+    },
+    "test_files": {
+      "unit_tests": 3,
+      "integration_tests": 0,
+      "e2e_tests": 0,
+      "conftest": 0,
+      "total_test_files": 3
+    },
+    "quality_tools": {},
+    "github_actions": {
+      "total_workflows": 0,
+      "workflow_names": [],
+      "with_badges": true,
+      "runs_data": null
+    },
+    "build_status": null
+  },
+  {
+    "repo": "huawei-noah/Efficient-AI-Backbones",
+    "stars": 4353,
+    "ci_systems": {
+      "uses_github_actions": false,
+      "uses_travis_ci": false,
+      "uses_circle_ci": false,
+      "github_actions_workflows": 0,
+      "github_actions_files": []
+    },
+    "test_files": {
+      "unit_tests": 0,
+      "integration_tests": 0,
+      "e2e_tests": 0,
+      "conftest": 0,
+      "total_test_files": 0
+    },
+    "quality_tools": {},
+    "github_actions": {
+      "total_workflows": 0,
+      "workflow_names": [],
+      "with_badges": false,
+      "runs_data": null
+    },
+    "build_status": null
+  },
+  {
+    "repo": "hyunwoongko/transformer",
+    "stars": 4308,
+    "ci_systems": {
+      "uses_github_actions": false,
+      "uses_travis_ci": false,
+      "uses_circle_ci": false,
+      "github_actions_workflows": 0,
+      "github_actions_files": []
+    },
+    "test_files": {
+      "unit_tests": 0,
+      "integration_tests": 0,
+      "e2e_tests": 0,
+      "conftest": 0,
+      "total_test_files": 0
+    },
+    "quality_tools": {},
+    "github_actions": {
+      "total_workflows": 0,
+      "workflow_names": [],
+      "with_badges": false,
+      "runs_data": null
+    },
+    "build_status": null
+  },
+  {
+    "repo": "kimiyoung/transformer-xl",
+    "stars": 3680,
+    "ci_systems": {
+      "uses_github_actions": false,
+      "uses_travis_ci": false,
+      "uses_circle_ci": false,
+      "github_actions_workflows": 0,
+      "github_actions_files": []
+    },
+    "test_files": {
+      "unit_tests": 0,
+      "integration_tests": 0,
+      "e2e_tests": 0,
+      "conftest": 0,
+      "total_test_files": 0
+    },
+    "quality_tools": {},
+    "github_actions": {
+      "total_workflows": 0,
+      "workflow_names": [],
+      "with_badges": false,
+      "runs_data": null
+    },
+    "build_status": null
+  },
+  {
+    "repo": "HRNet/HRNet-Semantic-Segmentation",
+    "stars": 3305,
+    "ci_systems": {
+      "uses_github_actions": false,
+      "uses_travis_ci": false,
+      "uses_circle_ci": false,
+      "github_actions_workflows": 0,
+      "github_actions_files": []
+    },
+    "test_files": {
+      "unit_tests": 1,
+      "integration_tests": 0,
+      "e2e_tests": 0,
+      "conftest": 0,
+      "total_test_files": 1
+    },
+    "quality_tools": {},
+    "github_actions": {
+      "total_workflows": 0,
+      "workflow_names": [],
+      "with_badges": false,
+      "runs_data": null
+    },
+    "build_status": null
+  },
+  {
+    "repo": "SwanHubX/SwanLab",
+    "stars": 3230,
+    "ci_systems": {
+      "uses_github_actions": true,
+      "uses_travis_ci": false,
+      "uses_circle_ci": false,
+      "github_actions_workflows": 3,
+      "github_actions_files": [
+        ".github/workflows/publish-to-pypi.yml",
+        ".github/workflows/test-core.yml",
+        ".github/workflows/test-when-pr.yml"
+      ]
+    },
+    "test_files": {
+      "unit_tests": 126,
+      "integration_tests": 18,
+      "e2e_tests": 0,
+      "conftest": 2,
+      "total_test_files": 146
+    },
+    "quality_tools": {},
+    "github_actions": {
+      "total_workflows": 5,
+      "workflow_names": [
+        "Publish to PyPI",
+        "Check swanlab-core",
+        "Test When PR",
+        "Copilot code review",
+        "Copilot coding agent"
+      ],
+      "with_badges": true,
+      "runs_data": {
+        "total_runs": 10,
+        "success_runs": 7,
+        "failure_runs": 3,
+        "success_rate": 70.0
+      }
+    },
+    "build_status": null
+  },
+  {
+    "repo": "NVlabs/SegFormer",
+    "stars": 3228,
+    "ci_systems": {
+      "uses_github_actions": false,
+      "uses_travis_ci": false,
+      "uses_circle_ci": false,
+      "github_actions_workflows": 0,
+      "github_actions_files": []
+    },
+    "test_files": {
+      "unit_tests": 23,
+      "integration_tests": 0,
+      "e2e_tests": 0,
+      "conftest": 0,
+      "total_test_files": 23
+    },
+    "quality_tools": {},
+    "github_actions": {
+      "total_workflows": 0,
+      "workflow_names": [],
+      "with_badges": true,
+      "runs_data": null
+    },
+    "build_status": null
+  },
+  {
+    "repo": "facebookresearch/Mask2Former",
+    "stars": 3133,
+    "ci_systems": {
+      "uses_github_actions": false,
+      "uses_travis_ci": false,
+      "uses_circle_ci": false,
+      "github_actions_workflows": 0,
+      "github_actions_files": []
+    },
+    "test_files": {
+      "unit_tests": 2,
+      "integration_tests": 0,
+      "e2e_tests": 0,
+      "conftest": 0,
+      "total_test_files": 2
+    },
+    "quality_tools": {},
+    "github_actions": {
+      "total_workflows": 0,
+      "workflow_names": [],
+      "with_badges": true,
+      "runs_data": null
+    },
+    "build_status": null
+  },
+  {
+    "repo": "lucasjinreal/yolov7_d2",
+    "stars": 3124,
+    "ci_systems": {
+      "uses_github_actions": false,
+      "uses_travis_ci": false,
+      "uses_circle_ci": false,
+      "github_actions_workflows": 0,
+      "github_actions_files": []
+    },
+    "test_files": {
+      "unit_tests": 6,
+      "integration_tests": 0,
+      "e2e_tests": 0,
+      "conftest": 0,
+      "total_test_files": 6
+    },
+    "quality_tools": {},
+    "github_actions": {
+      "total_workflows": 0,
+      "workflow_names": [],
+      "with_badges": true,
+      "runs_data": null
+    },
+    "build_status": null
+  },
+  {
+    "repo": "Beckschen/TransUNet",
+    "stars": 3020,
+    "ci_systems": {
+      "uses_github_actions": false,
+      "uses_travis_ci": false,
+      "uses_circle_ci": false,
+      "github_actions_workflows": 0,
+      "github_actions_files": []
+    },
+    "test_files": {
+      "unit_tests": 1,
+      "integration_tests": 0,
+      "e2e_tests": 0,
+      "conftest": 0,
+      "total_test_files": 1
+    },
+    "quality_tools": {},
+    "github_actions": {
+      "total_workflows": 0,
+      "workflow_names": [],
+      "with_badges": false,
+      "runs_data": null
+    },
+    "build_status": null
+  },
+  {
+    "repo": "microsoft/table-transformer",
+    "stars": 2798,
+    "ci_systems": {
+      "uses_github_actions": true,
+      "uses_travis_ci": false,
+      "uses_circle_ci": true,
+      "github_actions_workflows": 1,
+      "github_actions_files": [
+        ".github/workflows/codeql-analysis.yml"
+      ]
+    },
+    "test_files": {
+      "unit_tests": 1,
+      "integration_tests": 0,
+      "e2e_tests": 0,
+      "conftest": 0,
+      "total_test_files": 1
+    },
+    "quality_tools": {},
+    "github_actions": {
+      "total_workflows": 1,
+      "workflow_names": [
+        "CodeQL"
+      ],
+      "with_badges": false,
+      "runs_data": {
+        "total_runs": 10,
+        "success_runs": 10,
+        "failure_runs": 0,
+        "success_rate": 100.0
+      }
+    },
+    "build_status": null
+  },
+  {
+    "repo": "kzl/decision-transformer",
+    "stars": 2718,
+    "ci_systems": {
+      "uses_github_actions": false,
+      "uses_travis_ci": false,
+      "uses_circle_ci": false,
+      "github_actions_workflows": 0,
+      "github_actions_files": []
+    },
+    "test_files": {
+      "unit_tests": 0,
+      "integration_tests": 0,
+      "e2e_tests": 0,
+      "conftest": 0,
+      "total_test_files": 0
+    },
+    "quality_tools": {},
+    "github_actions": {
+      "total_workflows": 0,
+      "workflow_names": [],
+      "with_badges": false,
+      "runs_data": null
+    },
+    "build_status": null
+  },
+  {
+    "repo": "X-PLUG/mPLUG-Owl",
+    "stars": 2536,
+    "ci_systems": {
+      "uses_github_actions": false,
+      "uses_travis_ci": false,
+      "uses_circle_ci": false,
+      "github_actions_workflows": 0,
+      "github_actions_files": []
+    },
+    "test_files": {
+      "unit_tests": 0,
+      "integration_tests": 0,
+      "e2e_tests": 0,
+      "conftest": 0,
+      "total_test_files": 0
+    },
+    "quality_tools": {},
+    "github_actions": {
+      "total_workflows": 0,
+      "workflow_names": [],
+      "with_badges": false,
+      "runs_data": null
+    },
+    "build_status": null
+  },
+  {
+    "repo": "young-geng/EasyLM",
+    "stars": 2502,
+    "ci_systems": {
+      "uses_github_actions": false,
+      "uses_travis_ci": false,
+      "uses_circle_ci": false,
+      "github_actions_workflows": 0,
+      "github_actions_files": []
+    },
+    "test_files": {
+      "unit_tests": 0,
+      "integration_tests": 0,
+      "e2e_tests": 0,
+      "conftest": 0,
+      "total_test_files": 0
+    },
+    "quality_tools": {},
+    "github_actions": {
+      "total_workflows": 0,
+      "workflow_names": [],
+      "with_badges": false,
+      "runs_data": null
+    },
+    "build_status": null
+  },
+  {
+    "repo": "microsoft/DialoGPT",
+    "stars": 2411,
+    "ci_systems": {
+      "uses_github_actions": false,
+      "uses_travis_ci": false,
+      "uses_circle_ci": false,
+      "github_actions_workflows": 0,
+      "github_actions_files": []
+    },
+    "test_files": {
+      "unit_tests": 0,
+      "integration_tests": 0,
+      "e2e_tests": 0,
+      "conftest": 0,
+      "total_test_files": 0
+    },
+    "quality_tools": {},
+    "github_actions": {
+      "total_workflows": 1,
+      "workflow_names": [
+        "CodeQL"
+      ],
+      "with_badges": false,
+      "runs_data": {
+        "total_runs": 10,
+        "success_runs": 10,
+        "failure_runs": 0,
+        "success_rate": 100.0
+      }
+    },
+    "build_status": null
+  },
+  {
+    "repo": "vllm-project/llm-compressor",
+    "stars": 2367,
+    "ci_systems": {
+      "uses_github_actions": true,
+      "uses_travis_ci": false,
+      "uses_circle_ci": false,
+      "github_actions_workflows": 8,
+      "github_actions_files": [
+        ".github/workflows/build-and-publish-release-images.yaml",
+        ".github/workflows/linkcheck.yml",
+        ".github/workflows/linkspector/linkspector.yml"
+      ]
+    },
+    "test_files": {
+      "unit_tests": 114,
+      "integration_tests": 5,
+      "e2e_tests": 0,
+      "conftest": 4,
+      "total_test_files": 123
+    },
+    "quality_tools": {},
+    "github_actions": {
+      "total_workflows": 9,
+      "workflow_names": [
+        "Build and Publish Docker Images",
+        "Check Markdown links",
+        "Quality Checks",
+        "Test Checks (Base/PyTorch)",
+        "PR Reminder Comment Bot",
+        "Commit",
+        "Test Checks (Transformers)",
+        "pages-build-deployment",
+        "Check Ready Label"
+      ],
+      "with_badges": true,
+      "runs_data": {
+        "total_runs": 10,
+        "success_runs": 7,
+        "failure_runs": 3,
+        "success_rate": 70.0
+      }
+    },
+    "build_status": null
+  },
+  {
+    "repo": "HuCaoFighting/Swin-Unet",
+    "stars": 2251,
+    "ci_systems": {
+      "uses_github_actions": false,
+      "uses_travis_ci": false,
+      "uses_circle_ci": false,
+      "github_actions_workflows": 0,
+      "github_actions_files": []
+    },
+    "test_files": {
+      "unit_tests": 1,
+      "integration_tests": 0,
+      "e2e_tests": 0,
+      "conftest": 0,
+      "total_test_files": 1
+    },
+    "quality_tools": {},
+    "github_actions": {
+      "total_workflows": 0,
+      "workflow_names": [],
+      "with_badges": false,
+      "runs_data": null
+    },
+    "build_status": null
+  },
+  {
+    "repo": "aigc-apps/EasyAnimate",
+    "stars": 2239,
+    "ci_systems": {
+      "uses_github_actions": true,
+      "uses_travis_ci": false,
+      "uses_circle_ci": false,
+      "github_actions_workflows": 1,
+      "github_actions_files": [
+        ".github/workflows/publish.yml"
+      ]
+    },
+    "test_files": {
+      "unit_tests": 0,
+      "integration_tests": 0,
+      "e2e_tests": 0,
+      "conftest": 0,
+      "total_test_files": 0
+    },
+    "quality_tools": {},
+    "github_actions": {
+      "total_workflows": 2,
+      "workflow_names": [
+        "Publish to Comfy registry",
+        "Secret Leaks"
+      ],
+      "with_badges": true,
+      "runs_data": {
+        "total_runs": 2,
+        "success_runs": 2,
+        "failure_runs": 0,
+        "success_rate": 100.0
+      }
+    },
+    "build_status": null
+  },
+  {
+    "repo": "allenai/longformer",
+    "stars": 2176,
+    "ci_systems": {
+      "uses_github_actions": false,
+      "uses_travis_ci": false,
+      "uses_circle_ci": false,
+      "github_actions_workflows": 0,
+      "github_actions_files": []
+    },
+    "test_files": {
+      "unit_tests": 4,
+      "integration_tests": 1,
+      "e2e_tests": 0,
+      "conftest": 0,
+      "total_test_files": 5
+    },
+    "quality_tools": {},
+    "github_actions": {
+      "total_workflows": 0,
+      "workflow_names": [],
+      "with_badges": false,
+      "runs_data": null
+    },
+    "build_status": null
+  },
+  {
+    "repo": "intel/intel-extension-for-transformers",
+    "stars": 2169,
+    "ci_systems": {
+      "uses_github_actions": true,
+      "uses_travis_ci": false,
+      "uses_circle_ci": false,
+      "github_actions_workflows": 27,
+      "github_actions_files": [
+        ".github/workflows/scaner_bdba.yaml",
+        ".github/workflows/scaner_coverity.yaml",
+        ".github/workflows/scaner_trivy.yaml"
+      ]
+    },
+    "test_files": {
+      "unit_tests": 293,
+      "integration_tests": 0,
+      "e2e_tests": 0,
+      "conftest": 0,
+      "total_test_files": 293
+    },
+    "quality_tools": {},
+    "github_actions": {
+      "total_workflows": 28,
+      "workflow_names": [
+        "Scanner BDBA",
+        "Scanner Coverity PYTHON",
+        "Trivy Scan for Containers",
+        "ITREX Containers Weekly Builder",
+        "Chatbot finetune on mosaicml/mpt-7b-chat with hpu",
+        "Chatbot finetune on mosaicml/mpt-7b-chat",
+        "Chatbot inference on llama-2-7b-chat-hf",
+        "Chatbot inference on llama-2-7b-chat-hf with hpu and deepspeed",
+        "Chatbot inference on mosaicml/mpt-7b-chat with hpu",
+        "Chatbot inference on mosaicml/mpt-7b-chat",
+        "Chat Bot Test",
+        "Chat Bot Finetuning Test",
+        "Deploy Model Test",
+        "Format Scan",
+        "LLM Model Test",
+        "Optimize Model Test",
+        "CI-Summary",
+        "Publish",
+        "Scorecard supply-chain security",
+        "SparseLib",
+        "Trellix Command Line Scanner",
+        "Engine Unit Test",
+        "Kernel Unit Test",
+        "NeuralChat Unit Test",
+        "Neural Speed Unit Test",
+        "Optimize Unit Test",
+        "Windows Binary Test",
+        "CodeQL"
+      ],
+      "with_badges": true,
+      "runs_data": {
+        "total_runs": 3,
+        "success_runs": 2,
+        "failure_runs": 1,
+        "success_rate": 66.66666666666667
+      }
+    },
+    "build_status": null
+  },
+  {
+    "repo": "NVlabs/MambaVision",
+    "stars": 1933,
+    "ci_systems": {
+      "uses_github_actions": false,
+      "uses_travis_ci": false,
+      "uses_circle_ci": false,
+      "github_actions_workflows": 0,
+      "github_actions_files": []
+    },
+    "test_files": {
+      "unit_tests": 7,
+      "integration_tests": 0,
+      "e2e_tests": 0,
+      "conftest": 0,
+      "total_test_files": 7
+    },
+    "quality_tools": {},
+    "github_actions": {
+      "total_workflows": 0,
+      "workflow_names": [],
+      "with_badges": true,
+      "runs_data": null
+    },
+    "build_status": null
+  },
+  {
+    "repo": "kyegomez/BitNet",
+    "stars": 1894,
+    "ci_systems": {
+      "uses_github_actions": true,
+      "uses_travis_ci": false,
+      "uses_circle_ci": false,
+      "github_actions_workflows": 18,
+      "github_actions_files": [
+        ".github/workflows/code_quality_control.yml",
+        ".github/workflows/cos_integration.yml",
+        ".github/workflows/docs.yml"
+      ]
+    },
+    "test_files": {
+      "unit_tests": 5,
+      "integration_tests": 0,
+      "e2e_tests": 0,
+      "conftest": 0,
+      "total_test_files": 5
+    },
+    "quality_tools": {},
+    "github_actions": {
+      "total_workflows": 19,
+      "workflow_names": [
+        "Linting and Formatting",
+        "Continuous Integration",
+        "Docs WorkFlow",
+        "Documentation Tests",
+        "Labeler",
+        "Linting",
+        "Pull Request Checks",
+        "readthedocs/actions",
+        "Pylint",
+        "Upload Python Package",
+        "Quality",
+        "Ruff",
+        "Python application test",
+        "Mark stale issues and pull requests",
+        "test",
+        "Unit Tests",
+        "build",
+        "Welcome WorkFlow",
+        "Dependabot Updates"
+      ],
+      "with_badges": false,
+      "runs_data": {
+        "total_runs": 10,
+        "success_runs": 10,
+        "failure_runs": 0,
+        "success_rate": 100.0
+      }
+    },
+    "build_status": null
+  },
+  {
+    "repo": "whai362/PVT",
+    "stars": 1867,
+    "ci_systems": {
+      "uses_github_actions": false,
+      "uses_travis_ci": false,
+      "uses_circle_ci": true,
+      "github_actions_workflows": 0,
+      "github_actions_files": []
+    },
+    "test_files": {
+      "unit_tests": 1,
+      "integration_tests": 0,
+      "e2e_tests": 0,
+      "conftest": 0,
+      "total_test_files": 1
+    },
+    "quality_tools": {},
+    "github_actions": {
+      "total_workflows": 0,
+      "workflow_names": [],
+      "with_badges": false,
+      "runs_data": null
+    },
+    "build_status": null
+  },
+  {
+    "repo": "ViTAE-Transformer/ViTPose",
+    "stars": 1853,
+    "ci_systems": {
+      "uses_github_actions": false,
+      "uses_travis_ci": false,
+      "uses_circle_ci": false,
+      "github_actions_workflows": 0,
+      "github_actions_files": []
+    },
+    "test_files": {
+      "unit_tests": 100,
+      "integration_tests": 0,
+      "e2e_tests": 0,
+      "conftest": 0,
+      "total_test_files": 100
+    },
+    "quality_tools": {},
+    "github_actions": {
+      "total_workflows": 0,
+      "workflow_names": [],
+      "with_badges": true,
+      "runs_data": null
+    },
+    "build_status": null
+  },
+  {
+    "repo": "Yuanshi9815/OminiControl",
+    "stars": 1848,
+    "ci_systems": {
+      "uses_github_actions": false,
+      "uses_travis_ci": false,
+      "uses_circle_ci": false,
+      "github_actions_workflows": 0,
+      "github_actions_files": []
+    },
+    "test_files": {
+      "unit_tests": 0,
+      "integration_tests": 0,
+      "e2e_tests": 0,
+      "conftest": 0,
+      "total_test_files": 0
+    },
+    "quality_tools": {},
+    "github_actions": {
+      "total_workflows": 0,
+      "workflow_names": [],
+      "with_badges": true,
+      "runs_data": null
+    },
+    "build_status": null
+  },
+  {
+    "repo": "microsoft/Cream",
+    "stars": 1811,
+    "ci_systems": {
+      "uses_github_actions": false,
+      "uses_travis_ci": false,
+      "uses_circle_ci": false,
+      "github_actions_workflows": 0,
+      "github_actions_files": []
+    },
+    "test_files": {
+      "unit_tests": 19,
+      "integration_tests": 0,
+      "e2e_tests": 0,
+      "conftest": 0,
+      "total_test_files": 19
+    },
+    "quality_tools": {},
+    "github_actions": {
+      "total_workflows": 1,
+      "workflow_names": [
+        "CodeQL"
+      ],
+      "with_badges": false,
+      "runs_data": {
+        "total_runs": 10,
+        "success_runs": 10,
+        "failure_runs": 0,
+        "success_rate": 100.0
+      }
+    },
+    "build_status": null
+  },
+  {
+    "repo": "showlab/Show-o",
+    "stars": 1809,
+    "ci_systems": {
+      "uses_github_actions": false,
+      "uses_travis_ci": false,
+      "uses_circle_ci": false,
+      "github_actions_workflows": 0,
+      "github_actions_files": []
+    },
+    "test_files": {
+      "unit_tests": 0,
+      "integration_tests": 0,
+      "e2e_tests": 0,
+      "conftest": 0,
+      "total_test_files": 0
+    },
+    "quality_tools": {},
+    "github_actions": {
+      "total_workflows": 1,
+      "workflow_names": [
+        "pages-build-deployment"
+      ],
+      "with_badges": true,
+      "runs_data": {
+        "total_runs": 1,
+        "success_runs": 1,
+        "failure_runs": 0,
+        "success_rate": 100.0
+      }
+    },
+    "build_status": null
+  },
+  {
+    "repo": "zai-org/CogView",
+    "stars": 1794,
+    "ci_systems": {
+      "uses_github_actions": false,
+      "uses_travis_ci": false,
+      "uses_circle_ci": false,
+      "github_actions_workflows": 0,
+      "github_actions_files": []
+    },
+    "test_files": {
+      "unit_tests": 1,
+      "integration_tests": 0,
+      "e2e_tests": 0,
+      "conftest": 0,
+      "total_test_files": 1
+    },
+    "quality_tools": {},
+    "github_actions": {
+      "total_workflows": 0,
+      "workflow_names": [],
+      "with_badges": true,
+      "runs_data": null
+    },
+    "build_status": null
+  },
+  {
+    "repo": "feizc/FluxMusic",
+    "stars": 1712,
+    "ci_systems": {
+      "uses_github_actions": false,
+      "uses_travis_ci": false,
+      "uses_circle_ci": false,
+      "github_actions_workflows": 0,
+      "github_actions_files": []
+    },
+    "test_files": {
+      "unit_tests": 1,
+      "integration_tests": 0,
+      "e2e_tests": 0,
+      "conftest": 0,
+      "total_test_files": 1
+    },
+    "quality_tools": {},
+    "github_actions": {
+      "total_workflows": 0,
+      "workflow_names": [],
+      "with_badges": false,
+      "runs_data": null
+    },
+    "build_status": null
+  },
+  {
+    "repo": "Xiaojiu-z/EasyControl",
+    "stars": 1703,
+    "ci_systems": {
+      "uses_github_actions": true,
+      "uses_travis_ci": false,
+      "uses_circle_ci": false,
+      "github_actions_workflows": 1,
+      "github_actions_files": [
+        ".github/workflows/typecheck.yaml"
+      ]
+    },
+    "test_files": {
+      "unit_tests": 0,
+      "integration_tests": 0,
+      "e2e_tests": 0,
+      "conftest": 0,
+      "total_test_files": 0
+    },
+    "quality_tools": {},
+    "github_actions": {
+      "total_workflows": 1,
+      "workflow_names": [
+        "Typecheck"
+      ],
+      "with_badges": true,
+      "runs_data": {
+        "total_runs": 1,
+        "success_runs": 1,
+        "failure_runs": 0,
+        "success_rate": 100.0
+      }
+    },
+    "build_status": null
+  },
+  {
+    "repo": "VITA-Group/TransGAN",
+    "stars": 1688,
+    "ci_systems": {
+      "uses_github_actions": false,
+      "uses_travis_ci": false,
+      "uses_circle_ci": false,
+      "github_actions_workflows": 0,
+      "github_actions_files": []
+    },
+    "test_files": {
+      "unit_tests": 3,
+      "integration_tests": 0,
+      "e2e_tests": 0,
+      "conftest": 0,
+      "total_test_files": 3
+    },
+    "quality_tools": {},
+    "github_actions": {
+      "total_workflows": 0,
+      "workflow_names": [],
+      "with_badges": false,
+      "runs_data": null
+    },
+    "build_status": null
+  },
+  {
+    "repo": "lucidrains/titans-pytorch",
+    "stars": 1655,
+    "ci_systems": {
+      "uses_github_actions": true,
+      "uses_travis_ci": false,
+      "uses_circle_ci": false,
+      "github_actions_workflows": 2,
+      "github_actions_files": [
+        ".github/workflows/python-publish.yml",
+        ".github/workflows/test.yaml"
+      ]
+    },
+    "test_files": {
+      "unit_tests": 1,
+      "integration_tests": 0,
+      "e2e_tests": 0,
+      "conftest": 0,
+      "total_test_files": 1
+    },
+    "quality_tools": {},
+    "github_actions": {
+      "total_workflows": 2,
+      "workflow_names": [
+        "Upload Python Package",
+        "Tests the examples in README"
+      ],
+      "with_badges": false,
+      "runs_data": {
+        "total_runs": 10,
+        "success_runs": 10,
+        "failure_runs": 0,
+        "success_rate": 100.0
+      }
+    },
+    "build_status": null
+  },
+  {
+    "repo": "invictus717/MetaTransformer",
+    "stars": 1644,
+    "ci_systems": {
+      "uses_github_actions": false,
+      "uses_travis_ci": false,
+      "uses_circle_ci": false,
+      "github_actions_workflows": 0,
+      "github_actions_files": []
+    },
+    "test_files": {
+      "unit_tests": 12,
+      "integration_tests": 0,
+      "e2e_tests": 0,
+      "conftest": 0,
+      "total_test_files": 12
+    },
+    "quality_tools": {},
+    "github_actions": {
+      "total_workflows": 0,
+      "workflow_names": [],
+      "with_badges": true,
+      "runs_data": null
+    },
+    "build_status": null
+  },
+  {
+    "repo": "google-research/robotics_transformer",
+    "stars": 1642,
+    "ci_systems": {
+      "uses_github_actions": false,
+      "uses_travis_ci": false,
+      "uses_circle_ci": false,
+      "github_actions_workflows": 0,
+      "github_actions_files": []
+    },
+    "test_files": {
+      "unit_tests": 12,
+      "integration_tests": 0,
+      "e2e_tests": 0,
+      "conftest": 0,
+      "total_test_files": 12
+    },
+    "quality_tools": {},
+    "github_actions": {
+      "total_workflows": 0,
+      "workflow_names": [],
+      "with_badges": false,
+      "runs_data": null
+    },
+    "build_status": null
+  },
+  {
+    "repo": "PKU-Alignment/safe-rlhf",
+    "stars": 1563,
+    "ci_systems": {
+      "uses_github_actions": true,
+      "uses_travis_ci": false,
+      "uses_circle_ci": false,
+      "github_actions_workflows": 1,
+      "github_actions_files": [
+        ".github/workflows/lint.yml"
+      ]
+    },
+    "test_files": {
+      "unit_tests": 0,
+      "integration_tests": 0,
+      "e2e_tests": 0,
+      "conftest": 0,
+      "total_test_files": 0
+    },
+    "quality_tools": {},
+    "github_actions": {
+      "total_workflows": 2,
+      "workflow_names": [
+        "Lint",
+        "Dependabot Updates"
+      ],
+      "with_badges": false,
+      "runs_data": {
+        "total_runs": 10,
+        "success_runs": 8,
+        "failure_runs": 2,
+        "success_rate": 80.0
+      }
+    },
+    "build_status": null
+  },
+  {
+    "repo": "thu-ml/RoboticsDiffusionTransformer",
+    "stars": 1549,
+    "ci_systems": {
+      "uses_github_actions": false,
+      "uses_travis_ci": false,
+      "uses_circle_ci": false,
+      "github_actions_workflows": 0,
+      "github_actions_files": []
+    },
+    "test_files": {
+      "unit_tests": 1,
+      "integration_tests": 0,
+      "e2e_tests": 0,
+      "conftest": 0,
+      "total_test_files": 1
+    },
+    "quality_tools": {},
+    "github_actions": {
+      "total_workflows": 0,
+      "workflow_names": [],
+      "with_badges": false,
+      "runs_data": null
+    },
+    "build_status": null
+  },
+  {
+    "repo": "shubham-goel/4D-Humans",
+    "stars": 1486,
+    "ci_systems": {
+      "uses_github_actions": false,
+      "uses_travis_ci": false,
+      "uses_circle_ci": false,
+      "github_actions_workflows": 0,
+      "github_actions_files": []
+    },
+    "test_files": {
+      "unit_tests": 0,
+      "integration_tests": 0,
+      "e2e_tests": 0,
+      "conftest": 0,
+      "total_test_files": 0
+    },
+    "quality_tools": {},
+    "github_actions": {
+      "total_workflows": 0,
+      "workflow_names": [],
+      "with_badges": true,
+      "runs_data": null
+    },
+    "build_status": null
+  },
+  {
+    "repo": "salesforce/CodeTF",
+    "stars": 1479,
+    "ci_systems": {
+      "uses_github_actions": true,
+      "uses_travis_ci": false,
+      "uses_circle_ci": false,
+      "github_actions_workflows": 1,
+      "github_actions_files": [
+        ".github/workflows/docs.yaml"
+      ]
+    },
+    "test_files": {
+      "unit_tests": 19,
+      "integration_tests": 0,
+      "e2e_tests": 0,
+      "conftest": 0,
+      "total_test_files": 19
+    },
+    "quality_tools": {},
+    "github_actions": {
+      "total_workflows": 1,
+      "workflow_names": [
+        "docs"
+      ],
+      "with_badges": true,
+      "runs_data": {
+        "total_runs": 2,
+        "success_runs": 0,
+        "failure_runs": 1,
+        "success_rate": 0.0
+      }
+    },
+    "build_status": null
+  },
+  {
+    "repo": "CStanKonrad/long_llama",
+    "stars": 1463,
+    "ci_systems": {
+      "uses_github_actions": false,
+      "uses_travis_ci": false,
+      "uses_circle_ci": false,
+      "github_actions_workflows": 0,
+      "github_actions_files": []
+    },
+    "test_files": {
+      "unit_tests": 0,
+      "integration_tests": 0,
+      "e2e_tests": 0,
+      "conftest": 0,
+      "total_test_files": 0
+    },
+    "quality_tools": {},
+    "github_actions": {
+      "total_workflows": 0,
+      "workflow_names": [],
+      "with_badges": true,
+      "runs_data": null
+    },
+    "build_status": null
+  },
+  {
+    "repo": "octo-models/octo",
+    "stars": 1455,
+    "ci_systems": {
+      "uses_github_actions": true,
+      "uses_travis_ci": false,
+      "uses_circle_ci": false,
+      "github_actions_workflows": 1,
+      "github_actions_files": [
+        ".github/workflows/pre-commit.yaml"
+      ]
+    },
+    "test_files": {
+      "unit_tests": 1,
+      "integration_tests": 0,
+      "e2e_tests": 0,
+      "conftest": 0,
+      "total_test_files": 1
+    },
+    "quality_tools": {},
+    "github_actions": {
+      "total_workflows": 1,
+      "workflow_names": [
+        "pre-commit"
+      ],
+      "with_badges": true,
+      "runs_data": null
+    },
+    "build_status": null
+  },
+  {
+    "repo": "czczup/ViT-Adapter",
+    "stars": 1447,
+    "ci_systems": {
+      "uses_github_actions": false,
+      "uses_travis_ci": false,
+      "uses_circle_ci": false,
+      "github_actions_workflows": 0,
+      "github_actions_files": []
+    },
+    "test_files": {
+      "unit_tests": 4,
+      "integration_tests": 0,
+      "e2e_tests": 0,
+      "conftest": 0,
+      "total_test_files": 4
+    },
+    "quality_tools": {},
+    "github_actions": {
+      "total_workflows": 0,
+      "workflow_names": [],
+      "with_badges": true,
+      "runs_data": null
+    },
+    "build_status": null
+  },
+  {
+    "repo": "hustvl/MapTR",
+    "stars": 1427,
+    "ci_systems": {
+      "uses_github_actions": true,
+      "uses_travis_ci": false,
+      "uses_circle_ci": false,
+      "github_actions_workflows": 2,
+      "github_actions_files": [
+        "mmdetection3d/.github/workflows/build.yml",
+        "mmdetection3d/.github/workflows/deploy.yml"
+      ]
+    },
+    "test_files": {
+      "unit_tests": 72,
+      "integration_tests": 0,
+      "e2e_tests": 0,
+      "conftest": 0,
+      "total_test_files": 72
+    },
+    "quality_tools": {},
+    "github_actions": {
+      "total_workflows": 0,
+      "workflow_names": [],
+      "with_badges": false,
+      "runs_data": null
+    },
+    "build_status": null
+  },
+  {
+    "repo": "bigscience-workshop/Megatron-DeepSpeed",
+    "stars": 1426,
+    "ci_systems": {
+      "uses_github_actions": true,
+      "uses_travis_ci": false,
+      "uses_circle_ci": false,
+      "github_actions_workflows": 1,
+      "github_actions_files": [
+        ".github/workflows/main.yml"
+      ]
+    },
+    "test_files": {
+      "unit_tests": 24,
+      "integration_tests": 0,
+      "e2e_tests": 0,
+      "conftest": 1,
+      "total_test_files": 25
+    },
+    "quality_tools": {},
+    "github_actions": {
+      "total_workflows": 1,
+      "workflow_names": [
+        "Run all tests"
+      ],
+      "with_badges": false,
+      "runs_data": null
+    },
+    "build_status": null
+  },
+  {
+    "repo": "explosion/spacy-transformers",
+    "stars": 1402,
+    "ci_systems": {
+      "uses_github_actions": true,
+      "uses_travis_ci": false,
+      "uses_circle_ci": false,
+      "github_actions_workflows": 5,
+      "github_actions_files": [
+        ".github/workflows/cibuildwheel.yml",
+        ".github/workflows/explosionbot.yml",
+        ".github/workflows/issue-manager.yml"
+      ]
+    },
+    "test_files": {
+      "unit_tests": 18,
+      "integration_tests": 0,
+      "e2e_tests": 0,
+      "conftest": 0,
+      "total_test_files": 18
+    },
+    "quality_tools": {},
+    "github_actions": {
+      "total_workflows": 6,
+      "workflow_names": [
+        "Build",
+        "Explosion Bot",
+        "Issue Manager",
+        ".github/workflows/publish_pypi.yml",
+        "tests",
+        "Dependabot Updates"
+      ],
+      "with_badges": true,
+      "runs_data": {
+        "total_runs": 10,
+        "success_runs": 10,
+        "failure_runs": 0,
+        "success_rate": 100.0
+      }
+    },
+    "build_status": null
+  },
+  {
+    "repo": "dorarad/gansformer",
+    "stars": 1341,
+    "ci_systems": {
+      "uses_github_actions": false,
+      "uses_travis_ci": false,
+      "uses_circle_ci": false,
+      "github_actions_workflows": 0,
+      "github_actions_files": []
+    },
+    "test_files": {
+      "unit_tests": 0,
+      "integration_tests": 0,
+      "e2e_tests": 0,
+      "conftest": 0,
+      "total_test_files": 0
+    },
+    "quality_tools": {},
+    "github_actions": {
+      "total_workflows": 0,
+      "workflow_names": [],
+      "with_badges": true,
+      "runs_data": null
+    },
+    "build_status": null
+  },
+  {
+    "repo": "caiyuanhao1998/Retinexformer",
+    "stars": 1327,
+    "ci_systems": {
+      "uses_github_actions": false,
+      "uses_travis_ci": false,
+      "uses_circle_ci": false,
+      "github_actions_workflows": 0,
+      "github_actions_files": []
+    },
+    "test_files": {
+      "unit_tests": 3,
+      "integration_tests": 0,
+      "e2e_tests": 0,
+      "conftest": 0,
+      "total_test_files": 3
+    },
+    "quality_tools": {},
+    "github_actions": {
+      "total_workflows": 0,
+      "workflow_names": [],
+      "with_badges": true,
+      "runs_data": null
+    },
+    "build_status": null
+  },
+  {
+    "repo": "autonomousvision/unimatch",
+    "stars": 1317,
+    "ci_systems": {
+      "uses_github_actions": false,
+      "uses_travis_ci": false,
+      "uses_circle_ci": false,
+      "github_actions_workflows": 0,
+      "github_actions_files": []
+    },
+    "test_files": {
+      "unit_tests": 1,
+      "integration_tests": 0,
+      "e2e_tests": 0,
+      "conftest": 0,
+      "total_test_files": 1
+    },
+    "quality_tools": {},
+    "github_actions": {
+      "total_workflows": 0,
+      "workflow_names": [],
+      "with_badges": false,
+      "runs_data": null
+    },
+    "build_status": null
+  },
+  {
+    "repo": "BR-IDL/PaddleViT",
+    "stars": 1235,
+    "ci_systems": {
+      "uses_github_actions": false,
+      "uses_travis_ci": false,
+      "uses_circle_ci": false,
+      "github_actions_workflows": 0,
+      "github_actions_files": []
+    },
+    "test_files": {
+      "unit_tests": 41,
+      "integration_tests": 0,
+      "e2e_tests": 0,
+      "conftest": 0,
+      "total_test_files": 41
+    },
+    "quality_tools": {},
+    "github_actions": {
+      "total_workflows": 0,
+      "workflow_names": [],
+      "with_badges": true,
+      "runs_data": null
+    },
+    "build_status": null
+  },
+  {
+    "repo": "SHI-Labs/Neighborhood-Attention-Transformer",
+    "stars": 1163,
+    "ci_systems": {
+      "uses_github_actions": false,
+      "uses_travis_ci": false,
+      "uses_circle_ci": false,
+      "github_actions_workflows": 0,
+      "github_actions_files": []
+    },
+    "test_files": {
+      "unit_tests": 2,
+      "integration_tests": 0,
+      "e2e_tests": 0,
+      "conftest": 0,
+      "total_test_files": 2
+    },
+    "quality_tools": {},
+    "github_actions": {
+      "total_workflows": 0,
+      "workflow_names": [],
+      "with_badges": true,
+      "runs_data": null
+    },
+    "build_status": null
+  },
+  {
+    "repo": "unitaryai/detoxify",
+    "stars": 1151,
+    "ci_systems": {
+      "uses_github_actions": true,
+      "uses_travis_ci": false,
+      "uses_circle_ci": false,
+      "github_actions_workflows": 3,
+      "github_actions_files": [
+        ".github/workflows/ci-testing.yml",
+        ".github/workflows/pyright.yml",
+        ".github/workflows/update_wheels.yml"
+      ]
+    },
+    "test_files": {
+      "unit_tests": 4,
+      "integration_tests": 0,
+      "e2e_tests": 0,
+      "conftest": 0,
+      "total_test_files": 4
+    },
+    "quality_tools": {},
+    "github_actions": {
+      "total_workflows": 4,
+      "workflow_names": [
+        "CI testing",
+        "Pyright Type Checking",
+        "Release",
+        "Dependabot Updates"
+      ],
+      "with_badges": true,
+      "runs_data": {
+        "total_runs": 10,
+        "success_runs": 3,
+        "failure_runs": 7,
+        "success_rate": 30.0
+      }
+    },
+    "build_status": null
+  },
+  {
+    "repo": "fudan-zvg/SETR",
+    "stars": 1103,
+    "ci_systems": {
+      "uses_github_actions": false,
+      "uses_travis_ci": false,
+      "uses_circle_ci": false,
+      "github_actions_workflows": 0,
+      "github_actions_files": []
+    },
+    "test_files": {
+      "unit_tests": 32,
+      "integration_tests": 0,
+      "e2e_tests": 0,
+      "conftest": 0,
+      "total_test_files": 32
+    },
+    "quality_tools": {},
+    "github_actions": {
+      "total_workflows": 0,
+      "workflow_names": [],
+      "with_badges": false,
+      "runs_data": null
+    },
+    "build_status": null
+  }
+]

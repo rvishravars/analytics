@@ -1,0 +1,2489 @@
+[
+  {
+    "name": "minGPT",
+    "owner": "karpathy",
+    "url": "https://github.com/karpathy/minGPT",
+    "stars": 23117,
+    "forks": 3029,
+    "description": "A minimal PyTorch re-implementation of the OpenAI GPT (Generative Pretrained Transformer) training",
+    "topics": [],
+    "language": "Python",
+    "created_at": "2020-08-17T07:08:48Z",
+    "updated_at": "2025-12-10T03:49:11Z",
+    "has_training": true,
+    "training_files_sample": [
+      "mingpt/trainer.py"
+    ],
+    "has_testing": true,
+    "testing_files_sample": [
+      "tests/test_huggingface_import.py"
+    ],
+    "open_issues": 79,
+    "license": "MIT License"
+  },
+  {
+    "name": "sentence-transformers",
+    "owner": "huggingface",
+    "url": "https://github.com/huggingface/sentence-transformers",
+    "stars": 17979,
+    "forks": 2715,
+    "description": "State-of-the-Art Text Embeddings",
+    "topics": [],
+    "language": "Python",
+    "created_at": "2019-07-24T10:53:51Z",
+    "updated_at": "2025-12-10T04:42:17Z",
+    "has_training": true,
+    "training_files_sample": [
+      "docs/cross_encoder/pretrained_models.md",
+      "docs/cross_encoder/training/examples.rst",
+      "docs/cross_encoder/training_overview.md",
+      "docs/cross_encoder/training_overview.md",
+      "docs/img/adaptive_pre-training.png"
+    ],
+    "has_testing": true,
+    "testing_files_sample": [
+      ".github/workflows/tests.yml",
+      "docs/img/backends_benchmark_cpu.png",
+      "docs/img/backends_benchmark_gpu.png",
+      "docs/img/ce_backends_benchmark_cpu.png",
+      "docs/img/ce_backends_benchmark_gpu.png"
+    ],
+    "open_issues": 1339,
+    "license": "Apache License 2.0"
+  },
+  {
+    "name": "trl",
+    "owner": "huggingface",
+    "url": "https://github.com/huggingface/trl",
+    "stars": 16587,
+    "forks": 2342,
+    "description": "Train transformer language models with reinforcement learning.",
+    "topics": [],
+    "language": "Python",
+    "created_at": "2020-03-27T10:54:55Z",
+    "updated_at": "2025-12-10T03:17:17Z",
+    "has_training": true,
+    "training_files_sample": [
+      ".github/issue_template/new-trainer-addition.yml",
+      "docs/source/bco_trainer.md",
+      "docs/source/cpo_trainer.md",
+      "docs/source/distributing_training.md",
+      "docs/source/dpo_trainer.md"
+    ],
+    "has_testing": true,
+    "testing_files_sample": [
+      ".github/workflows/slow-tests.yml",
+      ".github/workflows/tests-experimental.yml",
+      ".github/workflows/tests.yml",
+      ".github/workflows/tests_latest.yml",
+      "tests/__init__.py"
+    ],
+    "open_issues": 602,
+    "license": "Apache License 2.0"
+  },
+  {
+    "name": "Swin-Transformer",
+    "owner": "microsoft",
+    "url": "https://github.com/microsoft/Swin-Transformer",
+    "stars": 15517,
+    "forks": 2202,
+    "description": "This is an official implementation for \"Swin Transformer: Hierarchical Vision Transformer using Shifted Windows\".",
+    "topics": [
+      "ade20k",
+      "image-classification",
+      "imagenet",
+      "mask-rcnn",
+      "mscoco",
+      "object-detection",
+      "semantic-segmentation",
+      "swin-transformer"
+    ],
+    "language": "Python",
+    "created_at": "2021-03-25T12:42:36Z",
+    "updated_at": "2025-12-10T02:28:18Z",
+    "has_training": true,
+    "training_files_sample": [
+      "configs/simmim/simmim_finetune__swin_base__img224_window7__800ep.yaml",
+      "configs/simmim/simmim_finetune__swinv2_base__img224_window14__800ep.yaml",
+      "configs/simmim/simmim_pretrain__swin_base__img192_window6__800ep.yaml",
+      "configs/simmim/simmim_pretrain__swin_base__img192_window6__800ep.yaml",
+      "configs/simmim/simmim_pretrain__swinv2_base__img192_window12__800ep.yaml"
+    ],
+    "has_testing": true,
+    "testing_files_sample": [
+      "kernels/window_process/unit_test.py"
+    ],
+    "open_issues": 202,
+    "license": "MIT License"
+  },
+  {
+    "name": "detr",
+    "owner": "facebookresearch",
+    "url": "https://github.com/facebookresearch/detr",
+    "stars": 14945,
+    "forks": 2639,
+    "description": "End-to-End Object Detection with Transformers",
+    "topics": [],
+    "language": "Python",
+    "created_at": "2020-05-26T23:54:52Z",
+    "updated_at": "2025-12-10T04:47:58Z",
+    "has_training": true,
+    "training_files_sample": [
+      "d2/train_net.py",
+      "d2/train_net.py"
+    ],
+    "has_testing": true,
+    "testing_files_sample": [
+      "datasets/coco_eval.py",
+      "datasets/panoptic_eval.py",
+      "test_all.py"
+    ],
+    "open_issues": 255,
+    "license": "Apache License 2.0"
+  },
+  {
+    "name": "Megatron-LM",
+    "owner": "NVIDIA",
+    "url": "https://github.com/NVIDIA/Megatron-LM",
+    "stars": 14492,
+    "forks": 3358,
+    "description": "Ongoing research training transformer models at scale",
+    "topics": [
+      "large-language-models",
+      "model-para",
+      "transformers"
+    ],
+    "language": "Python",
+    "created_at": "2019-03-21T16:15:52Z",
+    "updated_at": "2025-12-10T05:16:53Z",
+    "has_training": true,
+    "training_files_sample": [
+      "examples/academic_paper_scripts/detxoify_lm/finetune_gpt.py",
+      "examples/academic_paper_scripts/detxoify_lm/finetune_gpt_distributed-1.3b.sh",
+      "examples/bert/train_bert_340m_distributed.sh",
+      "examples/bert/train_bert_340m_distributed.sh",
+      "examples/gpt3/train_gpt3_175b_distributed.sh"
+    ],
+    "has_testing": true,
+    "testing_files_sample": [
+      ".github/workflows/_build_test_publish_wheel.yml",
+      ".github/workflows/build-test-publish-wheel.yml",
+      ".github/workflows/cicd-approve-test-queue.yml",
+      ".github/workflows/install-test.yml",
+      ".github/workflows/trigger-mbridge-tests.yml"
+    ],
+    "open_issues": 572,
+    "license": "Other"
+  },
+  {
+    "name": "RWKV-LM",
+    "owner": "BlinkDL",
+    "url": "https://github.com/BlinkDL/RWKV-LM",
+    "stars": 14214,
+    "forks": 978,
+    "description": "RWKV (pronounced RwaKuv) is an RNN with great LLM performance, which can also be directly trained like a GPT transformer (parallelizable). We are at RWKV-7 \"Goose\". So it's combining the best of RNN and transformer - great performance, linear time, constant space (no kv-cache), fast training, infinite ctx_len, and free sentence embedding.",
+    "topics": [
+      "attention-mechanism",
+      "chatgpt",
+      "deep-learning",
+      "gpt",
+      "gpt-2",
+      "gpt-3",
+      "language-model",
+      "linear-attention",
+      "lstm",
+      "pytorch",
+      "rnn",
+      "rwkv",
+      "transformer",
+      "transformers"
+    ],
+    "language": "Python",
+    "created_at": "2021-08-08T06:05:27Z",
+    "updated_at": "2025-12-10T04:01:03Z",
+    "has_training": true,
+    "training_files_sample": [
+      "rwkv-v1/src/trainer.py",
+      "rwkv-v1/train.py",
+      "rwkv-v1/train.py",
+      "rwkv-v2-rnn/src/trainer.py",
+      "rwkv-v2-rnn/train.py"
+    ],
+    "has_testing": true,
+    "testing_files_sample": [
+      "rwkv-v7/misc/lambada_test.jsonl",
+      "rwkv-v7/mmlu_test_dataset/data-00000-of-00001.arrow",
+      "rwkv-v7/mmlu_test_dataset/dataset_info.json",
+      "rwkv-v7/mmlu_test_dataset/state.json",
+      "rwkv-v7/rwkv_mmlu_eval.py"
+    ],
+    "open_issues": 141,
+    "license": "Apache License 2.0"
+  },
+  {
+    "name": "segmentation_models.pytorch",
+    "owner": "qubvel-org",
+    "url": "https://github.com/qubvel-org/segmentation_models.pytorch",
+    "stars": 11145,
+    "forks": 1810,
+    "description": "Semantic segmentation models with 500+ pretrained convolutional and transformer-based backbones.",
+    "topics": [
+      "computer-vision",
+      "deeplab-v3-plus",
+      "deeplabv3",
+      "dpt",
+      "fpn",
+      "image-processing",
+      "image-segmentation",
+      "imagenet",
+      "models",
+      "pretrained-weights",
+      "pspnet",
+      "pytorch",
+      "segformer",
+      "segmentation",
+      "segmentation-models",
+      "semantic-segmentation",
+      "transformers",
+      "unet",
+      "unet-pytorch",
+      "unetplusplus"
+    ],
+    "language": "Python",
+    "created_at": "2019-03-01T16:21:21Z",
+    "updated_at": "2025-12-09T08:53:35Z",
+    "has_training": true,
+    "training_files_sample": [
+      "examples/dpt_inference_pretrained.ipynb",
+      "examples/segformer_inference_pretrained.ipynb",
+      "examples/upernet_inference_pretrained.ipynb",
+      "segmentation_models_pytorch/encoders/_legacy_pretrained_settings.py",
+      "segmentation_models_pytorch/utils/train.py"
+    ],
+    "has_testing": true,
+    "testing_files_sample": [
+      ".github/workflows/tests.yml",
+      "misc/generate_test_models.py",
+      "requirements/test.txt",
+      "tests/__init__.py",
+      "tests/base/test_freeze_encoder.py"
+    ],
+    "open_issues": 86,
+    "license": "MIT License"
+  },
+  {
+    "name": "xformers",
+    "owner": "facebookresearch",
+    "url": "https://github.com/facebookresearch/xformers",
+    "stars": 10167,
+    "forks": 744,
+    "description": "Hackable and optimized Transformers building blocks, supporting a composable construction.",
+    "topics": [],
+    "language": "Python",
+    "created_at": "2021-10-13T18:08:50Z",
+    "updated_at": "2025-12-09T18:03:33Z",
+    "has_training": true,
+    "training_files_sample": [
+      "xformers/ops/fmha/merge_training.py"
+    ],
+    "has_testing": true,
+    "testing_files_sample": [
+      ".github/gpu_benchmark_diff.py",
+      ".github/run_benchmark_wrapper.py",
+      ".github/workflows/gpu_test_gh.yml",
+      "requirements-test.txt",
+      "stubs/torch_stub_tests.py"
+    ],
+    "open_issues": 366,
+    "license": "Other"
+  },
+  {
+    "name": "petals",
+    "owner": "bigscience-workshop",
+    "url": "https://github.com/bigscience-workshop/petals",
+    "stars": 9851,
+    "forks": 586,
+    "description": "\ud83c\udf38 Run LLMs at home, BitTorrent-style. Fine-tuning and inference up to 10x faster than offloading",
+    "topics": [
+      "bloom",
+      "chatbot",
+      "deep-learning",
+      "distributed-systems",
+      "falcon",
+      "gpt",
+      "guanaco",
+      "language-models",
+      "large-language-models",
+      "llama",
+      "machine-learning",
+      "mixtral",
+      "neural-networks",
+      "nlp",
+      "pipeline-parallelism",
+      "pretrained-models",
+      "pytorch",
+      "tensor-parallelism",
+      "transformer",
+      "volunteer-computing"
+    ],
+    "language": "Python",
+    "created_at": "2022-06-12T00:10:27Z",
+    "updated_at": "2025-12-09T08:50:16Z",
+    "has_training": true,
+    "training_files_sample": [
+      "benchmarks/benchmark_training.py",
+      "src/petals/client/from_pretrained.py",
+      "src/petals/server/from_pretrained.py"
+    ],
+    "has_testing": true,
+    "testing_files_sample": [
+      ".github/workflows/run-tests.yaml",
+      "benchmarks/benchmark_forward.py",
+      "benchmarks/benchmark_inference.py",
+      "benchmarks/benchmark_training.py",
+      "tests/bootstrap.id"
+    ],
+    "open_issues": 111,
+    "license": "MIT License"
+  },
+  {
+    "name": "manga-image-translator",
+    "owner": "zyddnys",
+    "url": "https://github.com/zyddnys/manga-image-translator",
+    "stars": 9000,
+    "forks": 883,
+    "description": "Translate manga/image \u4e00\u952e\u7ffb\u8bd1\u5404\u7c7b\u56fe\u7247\u5185\u6587\u5b57 https://cotrans.touhou.ai/ (no longer working)",
+    "topics": [
+      "anime",
+      "auto-translation",
+      "chinese-translation",
+      "deep-learning",
+      "image-processing",
+      "inpainting",
+      "japanese-translations",
+      "machine-translation",
+      "manga",
+      "neural-network",
+      "ocr",
+      "pytorch-implementation",
+      "text-detection",
+      "text-detection-recognition",
+      "transformer"
+    ],
+    "language": "Python",
+    "created_at": "2021-02-18T03:03:23Z",
+    "updated_at": "2025-12-10T03:29:23Z",
+    "has_training": true,
+    "training_files_sample": [
+      "training/all-fonts.txt",
+      "training/inpainting/readme.md",
+      "training/ocr/readme.md",
+      "training/ocr/custom_ctc.cc",
+      "training/ocr/custom_ctc.py"
+    ],
+    "has_testing": true,
+    "testing_files_sample": [
+      "pytest.ini",
+      "test/readme.md",
+      "test/api_test.html",
+      "test/conftest.py",
+      "test/test_render.py"
+    ],
+    "open_issues": 235,
+    "license": "GNU General Public License v3.0"
+  },
+  {
+    "name": "trax",
+    "owner": "google",
+    "url": "https://github.com/google/trax",
+    "stars": 8294,
+    "forks": 827,
+    "description": "Trax \u2014 Deep Learning with Clear Code and Speed",
+    "topics": [
+      "deep-learning",
+      "deep-reinforcement-learning",
+      "jax",
+      "machine-learning",
+      "numpy",
+      "reinforcement-learning",
+      "transformer"
+    ],
+    "language": "Python",
+    "created_at": "2019-10-05T15:09:14Z",
+    "updated_at": "2025-12-08T16:44:36Z",
+    "has_training": true,
+    "training_files_sample": [
+      "trax/data/testdata/c4/en/2.3.0/c4-train.tfrecord-00000-of-00001",
+      "trax/data/testdata/para_crawl/ende/1.2.0/para_crawl-train.tfrecord-00000-of-00001",
+      "trax/data/testdata/squad/v1.1/3.0.0/squad-train.tfrecord-00000-of-00001",
+      "trax/models/reformer/testdata/translate_ende_wmt32k-train-00000-of-00001",
+      "trax/models/research/testdata/translate_ende_wmt32k-train-00000-of-00001"
+    ],
+    "has_testing": true,
+    "testing_files_sample": [
+      "oss_scripts/oss_tests.sh",
+      "trax/data/inputs_test.py",
+      "trax/data/testdata/bert_uncased_vocab.txt",
+      "trax/data/testdata/c4/en/2.3.0/c4-train.tfrecord-00000-of-00001",
+      "trax/data/testdata/c4/en/2.3.0/c4-validation.tfrecord-00000-of-00001"
+    ],
+    "open_issues": 125,
+    "license": "Apache License 2.0"
+  },
+  {
+    "name": "jukebox",
+    "owner": "openai",
+    "url": "https://github.com/openai/jukebox",
+    "stars": 8034,
+    "forks": 1456,
+    "description": "Code for the paper \"Jukebox: A Generative Model for Music\"",
+    "topics": [
+      "audio",
+      "generative-model",
+      "music",
+      "paper",
+      "pytorch",
+      "transformer",
+      "vq-vae"
+    ],
+    "language": "Python",
+    "created_at": "2020-04-29T17:16:12Z",
+    "updated_at": "2025-12-09T13:37:44Z",
+    "has_training": true,
+    "training_files_sample": [
+      "jukebox/train.py",
+      "jukebox/train.py",
+      "tensorboardx/examples/chainer/extension_logger/train_dcgan.py",
+      "tensorboardx/examples/chainer/extension_logger/train_dcgan.py",
+      "tensorboardx/examples/chainer/plain_logger/train_vae.py"
+    ],
+    "has_testing": true,
+    "testing_files_sample": [
+      "apex/tests/l0/run_amp/__init__.py",
+      "apex/tests/l0/run_amp/test_add_param_group.py",
+      "apex/tests/l0/run_amp/test_basic_casts.py",
+      "apex/tests/l0/run_amp/test_cache.py",
+      "apex/tests/l0/run_amp/test_multi_tensor_axpby.py"
+    ],
+    "open_issues": 207,
+    "license": "Other"
+  },
+  {
+    "name": "GPT2-Chinese",
+    "owner": "Morizeyao",
+    "url": "https://github.com/Morizeyao/GPT2-Chinese",
+    "stars": 7601,
+    "forks": 1699,
+    "description": "Chinese version of GPT2 training code, using BERT tokenizer.",
+    "topics": [
+      "chinese",
+      "gpt-2",
+      "nlp",
+      "text-generation",
+      "transformer"
+    ],
+    "language": "Python",
+    "created_at": "2019-05-31T02:07:50Z",
+    "updated_at": "2025-12-09T14:23:50Z",
+    "has_training": true,
+    "training_files_sample": [
+      "scripts/train.sh",
+      "train.py",
+      "train.py",
+      "train.sh"
+    ],
+    "has_testing": true,
+    "testing_files_sample": [
+      "config/model_config_test.json"
+    ],
+    "open_issues": 109,
+    "license": "MIT License"
+  },
+  {
+    "name": "gpt-neox",
+    "owner": "EleutherAI",
+    "url": "https://github.com/EleutherAI/gpt-neox",
+    "stars": 7348,
+    "forks": 1092,
+    "description": "An implementation of model parallel autoregressive transformers on GPUs, based on the Megatron and DeepSpeed libraries",
+    "topics": [
+      "deepspeed-library",
+      "gpt-3",
+      "language-model",
+      "transformers"
+    ],
+    "language": "Python",
+    "created_at": "2020-12-22T14:37:54Z",
+    "updated_at": "2025-12-10T02:49:53Z",
+    "has_training": true,
+    "training_files_sample": [
+      "configs/finetuning_configs/6-9b.yml",
+      "configs/llama/train_config.yml",
+      "configs/llama/train_config.yml",
+      "megatron/tokenizer/train_tokenizer.py",
+      "megatron/tokenizer/train_tokenizer.py"
+    ],
+    "has_testing": true,
+    "testing_files_sample": [
+      "eval.py",
+      "tests/readme.md",
+      "tests/__init__.py",
+      "tests/common.py",
+      "tests/config/test_setup.yml"
+    ],
+    "open_issues": 87,
+    "license": "Apache License 2.0"
+  },
+  {
+    "name": "BERT-pytorch",
+    "owner": "codertimo",
+    "url": "https://github.com/codertimo/BERT-pytorch",
+    "stars": 6505,
+    "forks": 1329,
+    "description": "Google AI 2018 BERT pytorch implementation",
+    "topics": [
+      "bert",
+      "language-model",
+      "nlp",
+      "pytorch",
+      "transformer"
+    ],
+    "language": "Python",
+    "created_at": "2018-10-15T12:58:15Z",
+    "updated_at": "2025-12-10T02:25:35Z",
+    "has_training": true,
+    "training_files_sample": [
+      "bert/pretrain/__init__.py",
+      "bert/pretrain/dataset.py",
+      "bert/pretrain/feature.py",
+      "bert/pretrain/utils.py",
+      "scripts/create_pretraining_dataset.py"
+    ],
+    "has_testing": true,
+    "testing_files_sample": [
+      "tests/__init__.py",
+      "tests/test_model.py",
+      "tests/test_sample.py"
+    ],
+    "open_issues": 68,
+    "license": "Apache License 2.0"
+  },
+  {
+    "name": "ProPainter",
+    "owner": "sczhou",
+    "url": "https://github.com/sczhou/ProPainter",
+    "stars": 6401,
+    "forks": 754,
+    "description": "[ICCV 2023] ProPainter: Improving Propagation and Transformer for Video Inpainting",
+    "topics": [
+      "object-removal",
+      "video-completion",
+      "video-inpainting",
+      "video-outpainting",
+      "watermark-removal"
+    ],
+    "language": "Python",
+    "created_at": "2023-09-01T13:11:57Z",
+    "updated_at": "2025-12-10T04:30:20Z",
+    "has_training": true,
+    "training_files_sample": [
+      "configs/train_flowcomp.json",
+      "configs/train_flowcomp.json",
+      "configs/train_propainter.json",
+      "configs/train_propainter.json",
+      "core/trainer.py"
+    ],
+    "has_testing": true,
+    "testing_files_sample": [
+      "datasets/davis/test.json",
+      "datasets/youtube-vos/test.json",
+      "scripts/evaluate_flow_completion.py",
+      "scripts/evaluate_propainter.py",
+      "web-demos/hugging_face/test_sample/test-sample0.mp4"
+    ],
+    "open_issues": 73,
+    "license": "Other"
+  },
+  {
+    "name": "x-transformers",
+    "owner": "lucidrains",
+    "url": "https://github.com/lucidrains/x-transformers",
+    "stars": 5710,
+    "forks": 497,
+    "description": "A concise but complete full-attention transformer with a set of promising experimental features from various papers",
+    "topics": [
+      "artificial-intelligence",
+      "attention-mechanism",
+      "deep-learning",
+      "transformers"
+    ],
+    "language": "Python",
+    "created_at": "2020-10-24T22:13:25Z",
+    "updated_at": "2025-12-08T08:19:07Z",
+    "has_training": true,
+    "training_files_sample": [
+      "train_belief_state.py",
+      "train_belief_state.py",
+      "train_copy.py",
+      "train_copy.py",
+      "train_entropy_tokenizer.py"
+    ],
+    "has_testing": true,
+    "testing_files_sample": [
+      ".github/workflows/python-test.yaml",
+      "tests/test_x_transformers.py"
+    ],
+    "open_issues": 71,
+    "license": "MIT License"
+  },
+  {
+    "name": "Sana",
+    "owner": "NVlabs",
+    "url": "https://github.com/NVlabs/Sana",
+    "stars": 4781,
+    "forks": 313,
+    "description": "SANA: Efficient High-Resolution Image Synthesis with Linear Diffusion Transformer",
+    "topics": [
+      "diffusion",
+      "dit",
+      "pytorch",
+      "sana",
+      "text-to-image-generation",
+      "transformers"
+    ],
+    "language": "Python",
+    "created_at": "2024-10-11T20:19:45Z",
+    "updated_at": "2025-12-10T04:06:25Z",
+    "has_training": true,
+    "training_files_sample": [
+      "asset/samples/longsana_train.txt",
+      "diffusion/longsana/pipeline/sana_switch_training_pipeline.py",
+      "diffusion/longsana/pipeline/sana_switch_training_pipeline.py",
+      "diffusion/longsana/pipeline/sana_training_pipeline.py",
+      "diffusion/longsana/pipeline/sana_training_pipeline.py"
+    ],
+    "has_testing": true,
+    "testing_files_sample": [
+      "scripts/inference_geneval.py",
+      "scripts/inference_sana_sprint_geneval.py",
+      "tests/bash/entry.sh",
+      "tests/bash/inference/test_inference.sh",
+      "tests/bash/setup_test_data.sh"
+    ],
+    "open_issues": 92,
+    "license": "Apache License 2.0"
+  },
+  {
+    "name": "transformerlab-app",
+    "owner": "transformerlab",
+    "url": "https://github.com/transformerlab/transformerlab-app",
+    "stars": 4581,
+    "forks": 465,
+    "description": "Open Source Application for Advanced LLM + Diffusion Engineering: interact, train, fine-tune, and evaluate large language models on your own computer.",
+    "topics": [
+      "diffusion",
+      "diffusion-models",
+      "electron",
+      "llama",
+      "llms",
+      "lora",
+      "mlx",
+      "rlhf",
+      "stability-diffusion",
+      "transformers"
+    ],
+    "language": "Python",
+    "created_at": "2023-12-24T22:09:14Z",
+    "updated_at": "2025-12-09T23:54:28Z",
+    "has_training": true,
+    "training_files_sample": [
+      "api/scripts/xml-rpc-client-example/train_example.py",
+      "api/scripts/xml-rpc-client-example/train_example.py",
+      "api/scripts/xml-rpc-client-example/training_client_example.py",
+      "api/scripts/xml-rpc-client-example/training_client_example.py",
+      "api/test/api/test_train.py"
+    ],
+    "has_testing": true,
+    "testing_files_sample": [
+      ".github/workflows/pytest-sdk.yml",
+      ".github/workflows/pytest-server-test-macos.yml",
+      ".github/workflows/pytest-server-test.yml",
+      ".github/workflows/pytest.yml",
+      ".github/workflows/test.yml"
+    ],
+    "open_issues": 68,
+    "license": "GNU Affero General Public License v3.0"
+  },
+  {
+    "name": "RT-DETR",
+    "owner": "lyuwenyu",
+    "url": "https://github.com/lyuwenyu/RT-DETR",
+    "stars": 4557,
+    "forks": 534,
+    "description": "[CVPR 2024] Official RT-DETR (RTDETR paddle pytorch), Real-Time DEtection TRansformer, DETRs Beat YOLOs on Real-time Object Detection. \ud83d\udd25 \ud83d\udd25 \ud83d\udd25 ",
+    "topics": [
+      "rtdetr",
+      "rtdetrv2"
+    ],
+    "language": "Python",
+    "created_at": "2023-05-10T06:35:56Z",
+    "updated_at": "2025-12-10T03:19:05Z",
+    "has_training": true,
+    "training_files_sample": [
+      "rtdetr_paddle/ppdet/engine/trainer.py",
+      "rtdetr_paddle/tools/train.py",
+      "rtdetr_paddle/tools/train.py",
+      "rtdetr_pytorch/tools/train.py",
+      "rtdetr_pytorch/tools/train.py"
+    ],
+    "has_testing": true,
+    "testing_files_sample": [
+      "rtdetr_paddle/ppdet/modeling/transformers/ext_op/test_ms_deformable_attn_op.py",
+      "rtdetr_paddle/tools/eval.py",
+      "rtdetr_pytorch/src/data/coco/coco_eval.py",
+      "rtdetr_pytorch/src/nn/backbone/test_resnet.py",
+      "rtdetrv2_pytorch/src/data/dataset/coco_eval.py"
+    ],
+    "open_issues": 402,
+    "license": "Apache License 2.0"
+  },
+  {
+    "name": "Efficient-AI-Backbones",
+    "owner": "huawei-noah",
+    "url": "https://github.com/huawei-noah/Efficient-AI-Backbones",
+    "stars": 4353,
+    "forks": 735,
+    "description": "Efficient AI Backbones including GhostNet, TNT and MLP, developed by Huawei Noah's Ark Lab.",
+    "topics": [
+      "convolutional-neural-networks",
+      "efficient-inference",
+      "ghostnet",
+      "imagenet",
+      "model-compression",
+      "pretrained-models",
+      "pytorch",
+      "tensorflow",
+      "transformer",
+      "vision-transformer"
+    ],
+    "language": "Python",
+    "created_at": "2019-11-16T14:21:35Z",
+    "updated_at": "2025-12-09T15:26:57Z",
+    "has_training": true,
+    "training_files_sample": [
+      "augvit_pytorch/train.py",
+      "augvit_pytorch/train.py",
+      "cmt_pytorch/train.py",
+      "cmt_pytorch/train.py",
+      "ghostnetv2_pytorch/train.py"
+    ],
+    "has_testing": true,
+    "testing_files_sample": [
+      "snnmlp_pytorch/train_scripts/test.sh",
+      "tinynet_pytorch/eval.py"
+    ],
+    "open_issues": 94,
+    "license": "Unknown"
+  },
+  {
+    "name": "transformer",
+    "owner": "hyunwoongko",
+    "url": "https://github.com/hyunwoongko/transformer",
+    "stars": 4308,
+    "forks": 612,
+    "description": "Transformer: PyTorch Implementation of \"Attention Is All You Need\"",
+    "topics": [
+      "attention",
+      "dataset",
+      "pytorch",
+      "transformer"
+    ],
+    "language": "Python",
+    "created_at": "2019-10-15T10:36:00Z",
+    "updated_at": "2025-12-09T16:18:58Z",
+    "has_training": true,
+    "training_files_sample": [
+      "saved/transformer-base/train.txt",
+      "saved/transformer-base/train_result.jpg",
+      "saved/transformer-base/train_result.jpg",
+      "train.py",
+      "train.py"
+    ],
+    "has_testing": true,
+    "testing_files_sample": [
+      "saved/transformer-base/test.txt"
+    ],
+    "open_issues": 18,
+    "license": "Unknown"
+  },
+  {
+    "name": "transformer-xl",
+    "owner": "kimiyoung",
+    "url": "https://github.com/kimiyoung/transformer-xl",
+    "stars": 3680,
+    "forks": 765,
+    "description": null,
+    "topics": [],
+    "language": "Python",
+    "created_at": "2019-01-08T12:20:24Z",
+    "updated_at": "2025-11-27T05:58:07Z",
+    "has_training": true,
+    "training_files_sample": [
+      "pytorch/train.py",
+      "pytorch/train.py",
+      "tf/train.py",
+      "tf/train.py",
+      "tf/train_gpu.py"
+    ],
+    "has_testing": true,
+    "testing_files_sample": [
+      "pytorch/eval.py"
+    ],
+    "open_issues": 97,
+    "license": "Apache License 2.0"
+  },
+  {
+    "name": "HRNet-Semantic-Segmentation",
+    "owner": "HRNet",
+    "url": "https://github.com/HRNet/HRNet-Semantic-Segmentation",
+    "stars": 3305,
+    "forks": 697,
+    "description": "The OCR approach is rephrased as Segmentation Transformer: https://arxiv.org/abs/1909.11065. This is an official implementation of semantic segmentation for HRNet. https://arxiv.org/abs/1908.07919",
+    "topics": [
+      "cityscapes",
+      "high-resolution",
+      "high-resolution-net",
+      "hrnets",
+      "lip",
+      "pascal-context",
+      "segmentation",
+      "segmentation-transformer",
+      "semantic-segmentation",
+      "transformer"
+    ],
+    "language": "Python",
+    "created_at": "2019-04-09T13:24:09Z",
+    "updated_at": "2025-12-08T14:11:52Z",
+    "has_training": true,
+    "training_files_sample": [
+      "data/list/cityscapes/train.lst",
+      "data/list/cityscapes/trainval.lst",
+      "data/list/lip/trainlist.txt",
+      "experiments/cityscapes/seg_hrnet_w48_train_512x1024_sgd_lr1e-2_wd5e-4_bs_12_epoch484.yaml",
+      "experiments/cityscapes/seg_hrnet_w48_train_512x1024_sgd_lr1e-2_wd5e-4_bs_12_epoch484.yaml"
+    ],
+    "has_testing": true,
+    "testing_files_sample": [
+      "data/list/cityscapes/test.lst",
+      "data/list/lip/testvallist.txt",
+      "tools/test.py"
+    ],
+    "open_issues": 163,
+    "license": "Other"
+  },
+  {
+    "name": "SwanLab",
+    "owner": "SwanHubX",
+    "url": "https://github.com/SwanHubX/SwanLab",
+    "stars": 3230,
+    "forks": 176,
+    "description": "\u26a1\ufe0fSwanLab - an open-source, modern-design AI training tracking and visualization tool. Supports Cloud / Self-hosted use. Integrated with PyTorch / Transformers / LLaMA Factory / veRL/ Swift / Ultralytics / MMEngine / Keras etc.",
+    "topics": [
+      "data-science",
+      "deep-learning",
+      "logging",
+      "machine-learning",
+      "mlops",
+      "model-versioning",
+      "python",
+      "pytorch",
+      "tensorboard",
+      "tensorflow",
+      "tracking",
+      "transformers",
+      "visualization"
+    ],
+    "language": "Python",
+    "created_at": "2023-11-24T08:54:45Z",
+    "updated_at": "2025-12-10T01:38:33Z",
+    "has_training": true,
+    "training_files_sample": [
+      "test/integration/accelerate/accelerate_train.py",
+      "test/integration/accelerate/accelerate_train.py",
+      "test/integration/fastai/fastai_train.py",
+      "test/integration/fastai/fastai_train.py",
+      "test/integration/keras/keras_train.py"
+    ],
+    "has_testing": true,
+    "testing_files_sample": [
+      ".github/workflows/test-core.yml",
+      ".github/workflows/test-when-pr.yml",
+      "core/internal/api/parse_test.go",
+      "test/config/config.json",
+      "test/config/load.yaml"
+    ],
+    "open_issues": 52,
+    "license": "Apache License 2.0"
+  },
+  {
+    "name": "SegFormer",
+    "owner": "NVlabs",
+    "url": "https://github.com/NVlabs/SegFormer",
+    "stars": 3228,
+    "forks": 412,
+    "description": "Official PyTorch implementation of SegFormer",
+    "topics": [
+      "ade20k",
+      "cityscapes",
+      "semantic-segmentation",
+      "transformer"
+    ],
+    "language": "Python",
+    "created_at": "2021-06-11T17:22:07Z",
+    "updated_at": "2025-12-10T02:08:37Z",
+    "has_training": true,
+    "training_files_sample": [
+      "docs/train.md",
+      "docs/tutorials/training_tricks.md",
+      "docs/tutorials/training_tricks.md",
+      "mmseg/apis/train.py",
+      "mmseg/apis/train.py"
+    ],
+    "has_testing": true,
+    "testing_files_sample": [
+      "mmseg/apis/test.py",
+      "mmseg/datasets/pipelines/test_time_aug.py",
+      "pytest.ini",
+      "requirements/tests.txt",
+      "tests/test_config.py"
+    ],
+    "open_issues": 109,
+    "license": "Other"
+  },
+  {
+    "name": "Mask2Former",
+    "owner": "facebookresearch",
+    "url": "https://github.com/facebookresearch/Mask2Former",
+    "stars": 3133,
+    "forks": 483,
+    "description": "Code release for \"Masked-attention Mask Transformer for Universal Image Segmentation\"",
+    "topics": [],
+    "language": "Python",
+    "created_at": "2021-11-24T16:00:44Z",
+    "updated_at": "2025-12-10T02:20:30Z",
+    "has_training": true,
+    "training_files_sample": [
+      "tools/convert-pretrained-swin-model-to-d2.py",
+      "train_net.py",
+      "train_net.py",
+      "train_net_video.py",
+      "train_net_video.py"
+    ],
+    "has_testing": true,
+    "testing_files_sample": [
+      "mask2former/modeling/pixel_decoder/ops/test.py",
+      "mask2former/test_time_augmentation.py",
+      "mask2former_video/data_video/datasets/ytvis_api/ytvoseval.py",
+      "mask2former_video/data_video/ytvis_eval.py",
+      "tools/evaluate_coco_boundary_ap.py"
+    ],
+    "open_issues": 164,
+    "license": "MIT License"
+  },
+  {
+    "name": "yolov7_d2",
+    "owner": "lucasjinreal",
+    "url": "https://github.com/lucasjinreal/yolov7_d2",
+    "stars": 3124,
+    "forks": 476,
+    "description": "\ud83d\udd25\ud83d\udd25\ud83d\udd25\ud83d\udd25 (Earlier YOLOv7 not official one) YOLO with Transformers and Instance Segmentation, with TensorRT acceleration! \ud83d\udd25\ud83d\udd25\ud83d\udd25",
+    "topics": [
+      "detection",
+      "detextron2",
+      "detr",
+      "face",
+      "instance-segmentation",
+      "object-detection",
+      "onnx",
+      "tensorrt",
+      "transformers",
+      "yolo",
+      "yolov6",
+      "yolov7",
+      "yolox"
+    ],
+    "language": "Python",
+    "created_at": "2021-06-23T11:35:35Z",
+    "updated_at": "2025-12-10T00:54:53Z",
+    "has_training": true,
+    "training_files_sample": [
+      "configs/common/train.py",
+      "configs/common/train.py",
+      "tools/lazyconfig_train_net.py",
+      "tools/lazyconfig_train_net.py",
+      "tools/train_detr.py"
+    ],
+    "has_testing": true,
+    "testing_files_sample": [
+      "deploy/quant_fx/fx_ptq_test.py",
+      "deploy/quant_fx/qt_mq_test.py",
+      "deploy/quant_fx/qt_q_test.py",
+      "deploy/quant_fx/quant_ptq_test.py",
+      "deploy/quant_fx/test.py"
+    ],
+    "open_issues": 69,
+    "license": "GNU General Public License v3.0"
+  },
+  {
+    "name": "TransUNet",
+    "owner": "Beckschen",
+    "url": "https://github.com/Beckschen/TransUNet",
+    "stars": 3020,
+    "forks": 567,
+    "description": "This repository includes the official project of TransUNet, presented in our paper: TransUNet: Transformers Make Strong Encoders for Medical Image Segmentation.",
+    "topics": [],
+    "language": "Python",
+    "created_at": "2021-02-08T06:12:54Z",
+    "updated_at": "2025-12-09T15:00:44Z",
+    "has_training": true,
+    "training_files_sample": [
+      "lists/lists_synapse/train.txt",
+      "train.py",
+      "train.py",
+      "trainer.py"
+    ],
+    "has_testing": true,
+    "testing_files_sample": [
+      "lists/lists_synapse/test_vol.txt",
+      "test.py"
+    ],
+    "open_issues": 137,
+    "license": "Apache License 2.0"
+  },
+  {
+    "name": "table-transformer",
+    "owner": "microsoft",
+    "url": "https://github.com/microsoft/table-transformer",
+    "stars": 2798,
+    "forks": 304,
+    "description": "Table Transformer (TATR) is a deep learning model for extracting tables from unstructured documents (PDFs and images). This is also the official repository for the PubTables-1M dataset and GriTS evaluation metric.",
+    "topics": [
+      "table-detection",
+      "table-extraction",
+      "table-functional-analysis",
+      "table-structure-recognition"
+    ],
+    "language": "Python",
+    "created_at": "2021-05-17T19:01:34Z",
+    "updated_at": "2025-12-10T02:18:20Z",
+    "has_training": true,
+    "training_files_sample": [
+      "detr/d2/train_net.py",
+      "detr/d2/train_net.py"
+    ],
+    "has_testing": true,
+    "testing_files_sample": [
+      "detr/datasets/coco_eval.py",
+      "detr/datasets/panoptic_eval.py",
+      "detr/test_all.py",
+      "src/eval.py"
+    ],
+    "open_issues": 106,
+    "license": "MIT License"
+  },
+  {
+    "name": "decision-transformer",
+    "owner": "kzl",
+    "url": "https://github.com/kzl/decision-transformer",
+    "stars": 2718,
+    "forks": 504,
+    "description": "Official codebase for Decision Transformer: Reinforcement Learning via Sequence Modeling.",
+    "topics": [],
+    "language": "Python",
+    "created_at": "2021-06-02T09:35:37Z",
+    "updated_at": "2025-12-09T16:52:43Z",
+    "has_training": true,
+    "training_files_sample": [
+      "atari/mingpt/trainer_atari.py",
+      "gym/decision_transformer/training/act_trainer.py",
+      "gym/decision_transformer/training/seq_trainer.py",
+      "gym/decision_transformer/training/trainer.py"
+    ],
+    "has_testing": true,
+    "testing_files_sample": [
+      "gym/decision_transformer/evaluation/evaluate_episodes.py"
+    ],
+    "open_issues": 37,
+    "license": "MIT License"
+  },
+  {
+    "name": "mPLUG-Owl",
+    "owner": "X-PLUG",
+    "url": "https://github.com/X-PLUG/mPLUG-Owl",
+    "stars": 2536,
+    "forks": 191,
+    "description": "mPLUG-Owl: The Powerful Multi-modal Large Language Model  Family",
+    "topics": [
+      "alpaca",
+      "chatbot",
+      "chatgpt",
+      "damo",
+      "dialogue",
+      "gpt",
+      "gpt4",
+      "gpt4-api",
+      "huggingface",
+      "instruction-tuning",
+      "large-language-models",
+      "llama",
+      "mplug",
+      "mplug-owl",
+      "multimodal",
+      "pretraining",
+      "pytorch",
+      "transformer",
+      "video",
+      "visual-recognition"
+    ],
+    "language": "Python",
+    "created_at": "2023-04-25T02:31:04Z",
+    "updated_at": "2025-12-10T03:32:31Z",
+    "has_training": true,
+    "training_files_sample": [
+      "mplug-owl/pipeline/train.py",
+      "mplug-owl/pipeline/train.py",
+      "mplug-owl/scripts/train_it.sh",
+      "mplug-owl/scripts/train_it.sh",
+      "mplug-owl/scripts/train_it_wo_lora.sh"
+    ],
+    "has_testing": true,
+    "testing_files_sample": [
+      "mplug-owl2/mplug_owl2/evaluate/evaluate_caption.py",
+      "mplug-owl2/mplug_owl2/evaluate/evaluate_mmbench.py",
+      "mplug-owl2/mplug_owl2/evaluate/evaluate_mme.py",
+      "mplug-owl2/mplug_owl2/evaluate/evaluate_mmmu.py",
+      "mplug-owl2/mplug_owl2/evaluate/evaluate_vqa.py"
+    ],
+    "open_issues": 100,
+    "license": "MIT License"
+  },
+  {
+    "name": "EasyLM",
+    "owner": "young-geng",
+    "url": "https://github.com/young-geng/EasyLM",
+    "stars": 2502,
+    "forks": 258,
+    "description": "Large language models (LLMs) made easy, EasyLM is a one stop solution for pre-training, finetuning, evaluating and serving LLMs in JAX/Flax.",
+    "topics": [
+      "chatbot",
+      "deep-learning",
+      "flax",
+      "jax",
+      "language-model",
+      "large-language-models",
+      "llama",
+      "natural-language-processing",
+      "transformer"
+    ],
+    "language": "Python",
+    "created_at": "2022-11-22T12:55:20Z",
+    "updated_at": "2025-11-30T01:17:20Z",
+    "has_training": true,
+    "training_files_sample": [
+      "easylm/models/llama/llama_train.py",
+      "easylm/models/llama/llama_train.py",
+      "examples/pretrain_llama_7b.sh",
+      "examples/pretrain_llama_7b.sh"
+    ],
+    "has_testing": true,
+    "testing_files_sample": [
+      "easylm/scripts/benchmark_attention.py"
+    ],
+    "open_issues": 31,
+    "license": "Apache License 2.0"
+  },
+  {
+    "name": "DialoGPT",
+    "owner": "microsoft",
+    "url": "https://github.com/microsoft/DialoGPT",
+    "stars": 2411,
+    "forks": 350,
+    "description": "Large-scale pretraining for dialogue",
+    "topics": [
+      "data-processing",
+      "dialogpt",
+      "dialogue",
+      "gpt-2",
+      "machine-learning",
+      "pytorch",
+      "text-data",
+      "text-generation",
+      "transformer"
+    ],
+    "language": "Python",
+    "created_at": "2019-08-29T21:07:46Z",
+    "updated_at": "2025-11-25T19:28:18Z",
+    "has_training": true,
+    "training_files_sample": [
+      "lsp_train.py",
+      "lsp_train.py",
+      "data/train_raw.tsv",
+      "data/train_raw.tsv",
+      "gpt2_training/distributed.py"
+    ],
+    "has_testing": true,
+    "testing_files_sample": [
+      "dstc/batch_eval.py",
+      "dstc/data/processed/test_real.keys.txt",
+      "pycocoevalcap/eval.py",
+      "reddit_extractor/data/keys-test.gz",
+      "reddit_extractor/data/test-multi-refs-ids.txt"
+    ],
+    "open_issues": 64,
+    "license": "MIT License"
+  },
+  {
+    "name": "llm-compressor",
+    "owner": "vllm-project",
+    "url": "https://github.com/vllm-project/llm-compressor",
+    "stars": 2367,
+    "forks": 312,
+    "description": "Transformers-compatible library for applying various compression algorithms to LLMs for optimized deployment with vLLM",
+    "topics": [
+      "compression",
+      "quantization",
+      "sparsity"
+    ],
+    "language": "Python",
+    "created_at": "2024-06-20T20:13:34Z",
+    "updated_at": "2025-12-10T04:48:23Z",
+    "has_training": true,
+    "training_files_sample": [
+      "examples/finetuning/configure_fsdp.md",
+      "examples/finetuning/example_alternating_recipe.yaml",
+      "examples/finetuning/example_fsdp_config.yaml",
+      "examples/finetuning/example_single_gpu_config.yaml"
+    ],
+    "has_testing": true,
+    "testing_files_sample": [
+      ".github/workflows/test-check-transformers.yaml",
+      ".github/workflows/test-check.yaml",
+      "tests/__init__.py",
+      "tests/e2e/__init__.py",
+      "tests/e2e/e2e_utils.py"
+    ],
+    "open_issues": 120,
+    "license": "Apache License 2.0"
+  },
+  {
+    "name": "Swin-Unet",
+    "owner": "HuCaoFighting",
+    "url": "https://github.com/HuCaoFighting/Swin-Unet",
+    "stars": 2251,
+    "forks": 356,
+    "description": "[ECCVW 2022] The codes for the work \"Swin-Unet: Unet-like Pure Transformer for Medical Image Segmentation\"",
+    "topics": [],
+    "language": "Python",
+    "created_at": "2021-05-03T07:37:40Z",
+    "updated_at": "2025-12-10T02:49:26Z",
+    "has_training": true,
+    "training_files_sample": [
+      "lists/lists_synapse/train.txt",
+      "train.py",
+      "train.py",
+      "train.sh",
+      "trainer.py"
+    ],
+    "has_testing": true,
+    "testing_files_sample": [
+      "lists/lists_synapse/test_vol.txt",
+      "test.py",
+      "test.sh"
+    ],
+    "open_issues": 88,
+    "license": "Unknown"
+  },
+  {
+    "name": "EasyAnimate",
+    "owner": "aigc-apps",
+    "url": "https://github.com/aigc-apps/EasyAnimate",
+    "stars": 2239,
+    "forks": 178,
+    "description": "\ud83d\udcfa An End-to-End Solution for High-Resolution and Long Video Generation Based on Transformer Diffusion",
+    "topics": [],
+    "language": "Python",
+    "created_at": "2024-04-11T08:52:50Z",
+    "updated_at": "2025-12-08T06:21:23Z",
+    "has_training": true,
+    "training_files_sample": [
+      "easyanimate/reward/mps/trainer/models/base_model.py",
+      "easyanimate/reward/mps/trainer/models/clip_model.py",
+      "easyanimate/reward/mps/trainer/models/cross_modeling.py",
+      "easyanimate/video_caption/filter_meta_train.py",
+      "easyanimate/video_caption/filter_meta_train.py"
+    ],
+    "has_testing": true,
+    "testing_files_sample": [
+      "easyanimate/vae/ldm/modules/image_degradation/utils/test.png"
+    ],
+    "open_issues": 96,
+    "license": "Apache License 2.0"
+  },
+  {
+    "name": "longformer",
+    "owner": "allenai",
+    "url": "https://github.com/allenai/longformer",
+    "stars": 2176,
+    "forks": 288,
+    "description": "Longformer: The Long-Document Transformer",
+    "topics": [],
+    "language": "Python",
+    "created_at": "2020-03-31T21:07:29Z",
+    "updated_at": "2025-12-08T13:51:15Z",
+    "has_training": true,
+    "training_files_sample": [
+      "scripts/pretrain.py",
+      "scripts/pretrain.py"
+    ],
+    "has_testing": true,
+    "testing_files_sample": [
+      "scripts/test_tpu.py",
+      "tests/test_integration.py",
+      "tests/test_readme.py",
+      "tests/test_sliding_chunks.py",
+      "tests/test_var_global_attn.py"
+    ],
+    "open_issues": 139,
+    "license": "Apache License 2.0"
+  },
+  {
+    "name": "intel-extension-for-transformers",
+    "owner": "intel",
+    "url": "https://github.com/intel/intel-extension-for-transformers",
+    "stars": 2169,
+    "forks": 216,
+    "description": "\u26a1 Build your chatbot within minutes on your favorite device; offer SOTA compression techniques for LLMs; run LLMs efficiently on Intel Platforms\u26a1",
+    "topics": [
+      "4-bits",
+      "autoround",
+      "chatbot",
+      "chatpdf",
+      "gaudi3",
+      "habana",
+      "intel-optimized-llamacpp",
+      "large-language-model",
+      "llm-cpu",
+      "llm-inference",
+      "neural-chat",
+      "neural-chat-7b",
+      "rag",
+      "retrieval",
+      "speculative-decoding",
+      "streamingllm"
+    ],
+    "language": "Python",
+    "created_at": "2022-11-11T05:32:27Z",
+    "updated_at": "2025-12-02T02:53:29Z",
+    "has_training": true,
+    "training_files_sample": [
+      ".github/workflows/chatbot-finetune-mpt-7b-chat-hpu.yml",
+      ".github/workflows/chatbot-finetune-mpt-7b-chat.yml",
+      ".github/workflows/chatbot_finetuning.yml",
+      "docs/api_doc/optimization/trainer.rst",
+      "docs/tutorials/pytorch/question-answering/bert-large-uncased-whole-word-masking-finetuned-squad.ipynb"
+    ],
+    "has_testing": true,
+    "testing_files_sample": [
+      ".github/workflows/chatbot-test.yml",
+      ".github/workflows/deploy-test.yml",
+      ".github/workflows/docker/unittest.dockerfile",
+      ".github/workflows/llm-test.yml",
+      ".github/workflows/optimize-test.yml"
+    ],
+    "open_issues": 56,
+    "license": "Apache License 2.0"
+  },
+  {
+    "name": "MambaVision",
+    "owner": "NVlabs",
+    "url": "https://github.com/NVlabs/MambaVision",
+    "stars": 1933,
+    "forks": 113,
+    "description": "[CVPR 2025] Official PyTorch Implementation of MambaVision: A Hybrid Mamba-Transformer Vision Backbone",
+    "topics": [
+      "deep-learning",
+      "foundation-models",
+      "huggingface-transformers",
+      "hybrid-models",
+      "image-classification",
+      "instance-segmentation",
+      "mamba",
+      "object-detection",
+      "self-attention",
+      "semantic-segmentation",
+      "transformers",
+      "vision-transformer",
+      "visual-recognition"
+    ],
+    "language": "Python",
+    "created_at": "2024-06-10T17:46:08Z",
+    "updated_at": "2025-12-10T04:07:27Z",
+    "has_training": true,
+    "training_files_sample": [
+      "mambavision/train.py",
+      "mambavision/train.py",
+      "mambavision/train.sh",
+      "object_detection/tools/train.py",
+      "object_detection/tools/train.py"
+    ],
+    "has_testing": true,
+    "testing_files_sample": [
+      "mambavision/dummy_test.py",
+      "object_detection/tools/analysis_tools/robustness_eval.py",
+      "object_detection/tools/analysis_tools/test_robustness.py",
+      "object_detection/tools/deployment/test_torchserver.py",
+      "object_detection/tools/misc/gen_coco_panoptic_test_info.py"
+    ],
+    "open_issues": 25,
+    "license": "Other"
+  },
+  {
+    "name": "BitNet",
+    "owner": "kyegomez",
+    "url": "https://github.com/kyegomez/BitNet",
+    "stars": 1894,
+    "forks": 169,
+    "description": "Implementation of \"BitNet: Scaling 1-bit Transformers for Large Language Models\" in pytorch",
+    "topics": [
+      "artificial-intelligence",
+      "deep-neural-networks",
+      "deeplearning",
+      "gpt4",
+      "machine-learning",
+      "multimodal",
+      "multimodal-deep-learning"
+    ],
+    "language": "Python",
+    "created_at": "2023-10-18T16:19:06Z",
+    "updated_at": "2025-12-08T16:44:42Z",
+    "has_training": true,
+    "training_files_sample": [
+      "train.py",
+      "train.py"
+    ],
+    "has_testing": true,
+    "testing_files_sample": [
+      ".github/workflows/docs_test.yml",
+      ".github/workflows/run_test.yml",
+      ".github/workflows/test.yml",
+      ".github/workflows/testing.yml",
+      ".github/workflows/unit-test.yml"
+    ],
+    "open_issues": 5,
+    "license": "MIT License"
+  },
+  {
+    "name": "PVT",
+    "owner": "whai362",
+    "url": "https://github.com/whai362/PVT",
+    "stars": 1867,
+    "forks": 254,
+    "description": "Official implementation of PVT series",
+    "topics": [
+      "backbone",
+      "detection",
+      "pvt",
+      "pvtv2",
+      "segmentation",
+      "transformer"
+    ],
+    "language": "Python",
+    "created_at": "2021-02-24T02:01:37Z",
+    "updated_at": "2025-11-30T10:58:46Z",
+    "has_training": true,
+    "training_files_sample": [
+      "detection/dist_train.sh",
+      "detection/train.py",
+      "detection/train.py",
+      "dist_train.sh"
+    ],
+    "has_testing": true,
+    "testing_files_sample": [
+      "detection/dist_test.sh",
+      "detection/test.py"
+    ],
+    "open_issues": 40,
+    "license": "Apache License 2.0"
+  },
+  {
+    "name": "ViTPose",
+    "owner": "ViTAE-Transformer",
+    "url": "https://github.com/ViTAE-Transformer/ViTPose",
+    "stars": 1853,
+    "forks": 230,
+    "description": "The official repo for [NeurIPS'22] \"ViTPose: Simple Vision Transformer Baselines for Human Pose Estimation\" and [TPAMI'23] \"ViTPose++: Vision Transformer for Generic Body Pose Estimation\"",
+    "topics": [
+      "deep-learning",
+      "distillation",
+      "mae",
+      "pose-estimation",
+      "pytorch",
+      "self-supervised-learning",
+      "vision-transformer"
+    ],
+    "language": "Python",
+    "created_at": "2022-04-27T01:09:19Z",
+    "updated_at": "2025-12-09T03:09:56Z",
+    "has_training": true,
+    "training_files_sample": [
+      "docs/en/tutorials/1_finetune.md",
+      "docs/zh_cn/tutorials/1_finetune.md",
+      "mmpose/apis/train.py",
+      "mmpose/apis/train.py",
+      "tests/data/jhmdb/goalkeeper_training_day_@_7_catch_f_cm_np1_ri_med_0/00001.png"
+    ],
+    "has_testing": true,
+    "testing_files_sample": [
+      "mmpose/apis/test.py",
+      "mmpose/core/evaluation/bottom_up_eval.py",
+      "mmpose/core/evaluation/mesh_eval.py",
+      "mmpose/core/evaluation/pose3d_eval.py",
+      "mmpose/core/evaluation/top_down_eval.py"
+    ],
+    "open_issues": 106,
+    "license": "Apache License 2.0"
+  },
+  {
+    "name": "OminiControl",
+    "owner": "Yuanshi9815",
+    "url": "https://github.com/Yuanshi9815/OminiControl",
+    "stars": 1848,
+    "forks": 140,
+    "description": "[ICCV 2025 Highlight] OminiControl: Minimal and Universal Control for Diffusion Transformer",
+    "topics": [],
+    "language": "Python",
+    "created_at": "2024-11-17T08:53:18Z",
+    "updated_at": "2025-12-09T10:47:30Z",
+    "has_training": true,
+    "training_files_sample": [
+      "omini/train_flux/train_custom.py",
+      "omini/train_flux/train_custom.py",
+      "omini/train_flux/train_multi_condition.py",
+      "omini/train_flux/train_multi_condition.py",
+      "omini/train_flux/train_spatial_alignment.py"
+    ],
+    "has_testing": true,
+    "testing_files_sample": [
+      "assets/test_in.jpg",
+      "assets/test_out.jpg"
+    ],
+    "open_issues": 62,
+    "license": "Apache License 2.0"
+  },
+  {
+    "name": "Cream",
+    "owner": "microsoft",
+    "url": "https://github.com/microsoft/Cream",
+    "stars": 1811,
+    "forks": 239,
+    "description": "This is a collection of our NAS and Vision Transformer work.",
+    "topics": [
+      "automl",
+      "efficiency",
+      "knowledge-distillation",
+      "nas",
+      "rpe",
+      "vision-transformer",
+      "vit-compression"
+    ],
+    "language": "Python",
+    "created_at": "2020-10-12T09:30:03Z",
+    "updated_at": "2025-12-09T08:03:01Z",
+    "has_training": true,
+    "training_files_sample": [
+      "autoformer/supernet_train.py",
+      "autoformer/supernet_train.py",
+      "cdarts/cdarts/retrain.py",
+      "cdarts/cdarts/retrain.py",
+      "cdarts/cdarts_detection/mmdet/apis/train.py"
+    ],
+    "has_testing": true,
+    "testing_files_sample": [
+      "cdarts/cdarts/test.py",
+      "cdarts/cdarts_detection/mmcv/runner/parallel_test.py",
+      "cdarts/cdarts_detection/mmdet/datasets/pipelines/test_aug.py",
+      "cdarts/cdarts_detection/mmdet/models/detectors/test_mixins.py",
+      "cdarts/cdarts_detection/test.py"
+    ],
+    "open_issues": 34,
+    "license": "MIT License"
+  },
+  {
+    "name": "Show-o",
+    "owner": "showlab",
+    "url": "https://github.com/showlab/Show-o",
+    "stars": 1809,
+    "forks": 80,
+    "description": "[ICLR & NeurIPS 2025] Repository for Show-o series, One Single Transformer to Unify Multimodal Understanding and Generation.",
+    "topics": [
+      "diffusion-models",
+      "large-language-models",
+      "multimodal"
+    ],
+    "language": "Python",
+    "created_at": "2024-08-09T05:26:23Z",
+    "updated_at": "2025-12-10T03:16:40Z",
+    "has_training": true,
+    "training_files_sample": [
+      "configs/showo_pretraining_stage1.yaml",
+      "configs/showo_pretraining_stage1.yaml",
+      "configs/showo_pretraining_stage2.yaml",
+      "configs/showo_pretraining_stage2.yaml",
+      "configs/showo_pretraining_stage3.yaml"
+    ],
+    "has_testing": true,
+    "testing_files_sample": [
+      "show-o2/evaluation/inference_geneval.py"
+    ],
+    "open_issues": 62,
+    "license": "Apache License 2.0"
+  },
+  {
+    "name": "CogView",
+    "owner": "zai-org",
+    "url": "https://github.com/zai-org/CogView",
+    "stars": 1794,
+    "forks": 179,
+    "description": "Text-to-Image generation. The repo for NeurIPS 2021 paper \"CogView: Mastering Text-to-Image Generation via Transformers\".",
+    "topics": [
+      "pretrained-models",
+      "pytorch",
+      "text-to-image",
+      "transformers"
+    ],
+    "language": "Python",
+    "created_at": "2021-05-25T14:48:31Z",
+    "updated_at": "2025-12-09T13:45:40Z",
+    "has_training": true,
+    "training_files_sample": [
+      "finetune/__init__.py",
+      "pretrain_gpt2.py",
+      "pretrain_gpt2.py",
+      "pretrained/chinese_sentencepiece/cog-pretrain.model",
+      "pretrained/chinese_sentencepiece/cog-pretrain.vocab"
+    ],
+    "has_testing": true,
+    "testing_files_sample": [
+      "test_lmdb.py"
+    ],
+    "open_issues": 19,
+    "license": "Apache License 2.0"
+  },
+  {
+    "name": "FluxMusic",
+    "owner": "feizc",
+    "url": "https://github.com/feizc/FluxMusic",
+    "stars": 1712,
+    "forks": 128,
+    "description": "Text-to-Music Generation with Rectified Flow Transformers",
+    "topics": [],
+    "language": "Python",
+    "created_at": "2024-08-06T09:41:07Z",
+    "updated_at": "2025-12-03T11:31:50Z",
+    "has_training": true,
+    "training_files_sample": [
+      "audioldm2/clap/open_clip/pretrained.py",
+      "audioldm2/clap/training/__init__.py",
+      "audioldm2/clap/training/__pycache__/__init__.cpython-310.pyc",
+      "audioldm2/clap/training/__pycache__/data.cpython-310.pyc",
+      "audioldm2/clap/training/audioset_textmap.npy"
+    ],
+    "has_testing": true,
+    "testing_files_sample": [
+      "test.py"
+    ],
+    "open_issues": 19,
+    "license": "Other"
+  },
+  {
+    "name": "EasyControl",
+    "owner": "Xiaojiu-z",
+    "url": "https://github.com/Xiaojiu-z/EasyControl",
+    "stars": 1703,
+    "forks": 127,
+    "description": "Implementation of \"EasyControl: Adding Efficient and Flexible Control for Diffusion Transformer\"(ICCV2025)",
+    "topics": [],
+    "language": "Python",
+    "created_at": "2025-03-06T09:33:30Z",
+    "updated_at": "2025-12-09T03:36:33Z",
+    "has_training": true,
+    "training_files_sample": [
+      "train/default_config.yaml",
+      "train/examples/openpose_data/1.png",
+      "train/examples/openpose_data/2.png",
+      "train/examples/pose.jsonl",
+      "train/examples/style.jsonl"
+    ],
+    "has_testing": true,
+    "testing_files_sample": [
+      "test_imgs/canny.png",
+      "test_imgs/depth.png",
+      "test_imgs/ghibli.png",
+      "test_imgs/inpainting.png",
+      "test_imgs/openpose.png"
+    ],
+    "open_issues": 23,
+    "license": "Apache License 2.0"
+  },
+  {
+    "name": "TransGAN",
+    "owner": "VITA-Group",
+    "url": "https://github.com/VITA-Group/TransGAN",
+    "stars": 1688,
+    "forks": 204,
+    "description": "[NeurIPS\u20182021] \"TransGAN: Two Pure Transformers Can Make One Strong GAN, and That Can Scale Up\", Yifan Jiang, Shiyu Chang, Zhangyang Wang",
+    "topics": [
+      "gan",
+      "pytorch",
+      "transformer",
+      "transformer-encoder",
+      "transformer-models"
+    ],
+    "language": "Python",
+    "created_at": "2021-02-10T18:11:54Z",
+    "updated_at": "2025-11-25T10:54:36Z",
+    "has_training": true,
+    "training_files_sample": [
+      "exps/celeba_hq_256_train.py",
+      "exps/celeba_hq_256_train.py",
+      "exps/church_256_train.py",
+      "exps/church_256_train.py",
+      "exps/cifar_train.py"
+    ],
+    "has_testing": true,
+    "testing_files_sample": [
+      "exps/celeba_hq_256_test.py",
+      "exps/cifar_test.py",
+      "test.py"
+    ],
+    "open_issues": 15,
+    "license": "Other"
+  },
+  {
+    "name": "titans-pytorch",
+    "owner": "lucidrains",
+    "url": "https://github.com/lucidrains/titans-pytorch",
+    "stars": 1655,
+    "forks": 158,
+    "description": "Unofficial implementation of Titans, SOTA memory for transformers, in Pytorch",
+    "topics": [
+      "artificial-intelligence",
+      "deep-learning",
+      "long-term-memory",
+      "test-time-training"
+    ],
+    "language": "Python",
+    "created_at": "2025-01-08T15:26:27Z",
+    "updated_at": "2025-12-10T05:01:11Z",
+    "has_training": true,
+    "training_files_sample": [
+      "train_implicit_mlp_attn.py",
+      "train_implicit_mlp_attn.py",
+      "train_mac.py",
+      "train_mac.py"
+    ],
+    "has_testing": true,
+    "testing_files_sample": [
+      ".github/workflows/test.yaml",
+      "tests/test_titans.py"
+    ],
+    "open_issues": 31,
+    "license": "MIT License"
+  },
+  {
+    "name": "MetaTransformer",
+    "owner": "invictus717",
+    "url": "https://github.com/invictus717/MetaTransformer",
+    "stars": 1644,
+    "forks": 117,
+    "description": "Meta-Transformer for Unified Multimodal Learning",
+    "topics": [
+      "artificial-intelligence",
+      "computer-vision",
+      "foundationmodel",
+      "machine-learning",
+      "multimedia",
+      "multimodal",
+      "transformers"
+    ],
+    "language": "Python",
+    "created_at": "2023-07-08T12:40:54Z",
+    "updated_at": "2025-12-05T03:19:08Z",
+    "has_training": true,
+    "training_files_sample": [
+      "audio/src/traintest.py",
+      "autonomousdriving/data/kitti/imagesets/train.txt",
+      "autonomousdriving/data/lyft/imagesets/train.txt",
+      "autonomousdriving/data/once/imagesets/train.txt",
+      "autonomousdriving/data/waymo/imagesets/train.txt"
+    ],
+    "has_testing": true,
+    "testing_files_sample": [
+      "audio/src/traintest.py",
+      "autonomousdriving/data/kitti/imagesets/test.txt",
+      "autonomousdriving/data/lyft/imagesets/test.txt",
+      "autonomousdriving/data/once/imagesets/test.txt",
+      "autonomousdriving/pcdet/datasets/kitti/kitti_eval.py"
+    ],
+    "open_issues": 4,
+    "license": "Apache License 2.0"
+  },
+  {
+    "name": "robotics_transformer",
+    "owner": "google-research",
+    "url": "https://github.com/google-research/robotics_transformer",
+    "stars": 1642,
+    "forks": 189,
+    "description": null,
+    "topics": [],
+    "language": "Python",
+    "created_at": "2022-12-05T00:39:23Z",
+    "updated_at": "2025-12-10T02:30:22Z",
+    "has_training": true,
+    "training_files_sample": [
+      "film_efficientnet/pretrained_efficientnet_encoder.py",
+      "film_efficientnet/pretrained_efficientnet_encoder_test.py",
+      "trained_checkpoints/rt1main/assets/metadata.textproto",
+      "trained_checkpoints/rt1main/checkpoint",
+      "trained_checkpoints/rt1main/ckpt-424760.data-00000-of-00001"
+    ],
+    "has_testing": true,
+    "testing_files_sample": [
+      "film_efficientnet/film_conditioning_layer_test.py",
+      "film_efficientnet/film_efficientnet_encoder_test.py",
+      "film_efficientnet/preprocessors_test.py",
+      "film_efficientnet/pretrained_efficientnet_encoder_test.py",
+      "sequence_agent_test.py"
+    ],
+    "open_issues": 23,
+    "license": "Apache License 2.0"
+  },
+  {
+    "name": "safe-rlhf",
+    "owner": "PKU-Alignment",
+    "url": "https://github.com/PKU-Alignment/safe-rlhf",
+    "stars": 1563,
+    "forks": 128,
+    "description": "Safe RLHF: Constrained Value Alignment via Safe Reinforcement Learning from Human Feedback",
+    "topics": [
+      "ai-safety",
+      "alpaca",
+      "beaver",
+      "datasets",
+      "deepspeed",
+      "gpt",
+      "large-language-models",
+      "llama",
+      "llm",
+      "llms",
+      "reinforcement-learning",
+      "reinforcement-learning-from-human-feedback",
+      "rlhf",
+      "safe-reinforcement-learning",
+      "safe-reinforcement-learning-from-human-feedback",
+      "safe-rlhf",
+      "safety",
+      "transformer",
+      "transformers",
+      "vicuna"
+    ],
+    "language": "Python",
+    "created_at": "2023-05-15T11:47:08Z",
+    "updated_at": "2025-12-08T09:07:03Z",
+    "has_training": true,
+    "training_files_sample": [
+      "safe_rlhf/algorithms/dpo/trainer.py",
+      "safe_rlhf/algorithms/ppo/trainer.py",
+      "safe_rlhf/algorithms/ppo_lag/trainer.py",
+      "safe_rlhf/algorithms/ppo_reward_shaping/trainer.py",
+      "safe_rlhf/configs/ds_train_config_template.json"
+    ],
+    "has_testing": true,
+    "testing_files_sample": [
+      "safe_rlhf/evaluate/bigbench/eval.py",
+      "safe_rlhf/evaluate/gpt4/eval.py"
+    ],
+    "open_issues": 18,
+    "license": "Apache License 2.0"
+  },
+  {
+    "name": "RoboticsDiffusionTransformer",
+    "owner": "thu-ml",
+    "url": "https://github.com/thu-ml/RoboticsDiffusionTransformer",
+    "stars": 1549,
+    "forks": 145,
+    "description": "RDT-1B: a Diffusion Foundation Model for Bimanual Manipulation",
+    "topics": [],
+    "language": "Python",
+    "created_at": "2024-10-07T10:08:30Z",
+    "updated_at": "2025-12-09T06:06:29Z",
+    "has_training": true,
+    "training_files_sample": [
+      "configs/finetune_datasets.json",
+      "configs/finetune_sample_weights.json",
+      "configs/pretrain_datasets.json",
+      "configs/pretrain_datasets.json",
+      "configs/pretrain_sample_weights.json"
+    ],
+    "has_testing": true,
+    "testing_files_sample": [
+      "docs/test_6drot.py"
+    ],
+    "open_issues": 40,
+    "license": "MIT License"
+  },
+  {
+    "name": "4D-Humans",
+    "owner": "shubham-goel",
+    "url": "https://github.com/shubham-goel/4D-Humans",
+    "stars": 1486,
+    "forks": 143,
+    "description": "4DHumans: Reconstructing and Tracking Humans with Transformers",
+    "topics": [
+      "3d-reconstruction"
+    ],
+    "language": "Python",
+    "created_at": "2023-05-31T21:05:33Z",
+    "updated_at": "2025-12-10T00:22:26Z",
+    "has_training": true,
+    "training_files_sample": [
+      "fetch_training_data.sh",
+      "fetch_training_data.sh",
+      "hmr2/configs_hydra/train.yaml",
+      "hmr2/configs_hydra/trainer/cpu.yaml",
+      "hmr2/configs_hydra/trainer/ddp.yaml"
+    ],
+    "has_testing": true,
+    "testing_files_sample": [
+      "eval.py"
+    ],
+    "open_issues": 35,
+    "license": "MIT License"
+  },
+  {
+    "name": "CodeTF",
+    "owner": "salesforce",
+    "url": "https://github.com/salesforce/CodeTF",
+    "stars": 1479,
+    "forks": 97,
+    "description": "CodeTF: One-stop Transformer Library for State-of-the-art Code LLM",
+    "topics": [
+      "ai4code",
+      "ai4se",
+      "code-generation",
+      "code-intelligence",
+      "code-learning-datasets",
+      "code-representation-learning",
+      "code-understanding",
+      "human-eval",
+      "multilingual-parsers",
+      "transformers",
+      "tree-sitter"
+    ],
+    "language": "Python",
+    "created_at": "2023-05-02T05:05:27Z",
+    "updated_at": "2025-11-25T10:39:34Z",
+    "has_training": true,
+    "training_files_sample": [
+      "codetf/configs/training/causal_lm.yaml",
+      "codetf/configs/training/codet5.yaml",
+      "codetf/trainer/base_trainer.py",
+      "codetf/trainer/causal_lm_trainer.py",
+      "codetf/trainer/codet5_trainer.py"
+    ],
+    "has_testing": true,
+    "testing_files_sample": [
+      "test_code_utilities/__init__.py",
+      "test_code_utilities/test_extract_code_attributes.py",
+      "test_code_utilities/test_parse_code.py",
+      "test_code_utilities/test_remove_comments.py",
+      "test_code_utilities/test_variable_renaming.py"
+    ],
+    "open_issues": 28,
+    "license": "Apache License 2.0"
+  },
+  {
+    "name": "long_llama",
+    "owner": "CStanKonrad",
+    "url": "https://github.com/CStanKonrad/long_llama",
+    "stars": 1463,
+    "forks": 85,
+    "description": "LongLLaMA is a large language model capable of handling long contexts. It is based on OpenLLaMA and fine-tuned with the Focused Transformer (FoT) method.",
+    "topics": [],
+    "language": "Python",
+    "created_at": "2023-07-06T14:54:15Z",
+    "updated_at": "2025-11-21T13:13:43Z",
+    "has_training": true,
+    "training_files_sample": [
+      "fot_continued_pretraining/easylm/__init__.py",
+      "fot_continued_pretraining/easylm/bpt.py",
+      "fot_continued_pretraining/easylm/checkpoint.py",
+      "fot_continued_pretraining/easylm/data.py",
+      "fot_continued_pretraining/easylm/jax_utils.py"
+    ],
+    "has_testing": true,
+    "testing_files_sample": [
+      "fot_continued_pretraining/configs/setup_test.json"
+    ],
+    "open_issues": 18,
+    "license": "Apache License 2.0"
+  },
+  {
+    "name": "octo",
+    "owner": "octo-models",
+    "url": "https://github.com/octo-models/octo",
+    "stars": 1455,
+    "forks": 240,
+    "description": "Octo is a transformer-based robot policy trained on a diverse mix of 800k robot trajectories.",
+    "topics": [],
+    "language": "Python",
+    "created_at": "2023-12-13T09:58:56Z",
+    "updated_at": "2025-12-10T02:38:23Z",
+    "has_training": true,
+    "training_files_sample": [
+      "examples/01_inference_pretrained.ipynb",
+      "examples/02_finetune_new_observation_action.py",
+      "examples/03_eval_finetuned.py",
+      "examples/04_eval_finetuned_on_robot.py",
+      "octo/utils/train_callbacks.py"
+    ],
+    "has_testing": true,
+    "testing_files_sample": [
+      "tests/debug_config.py",
+      "tests/debug_dataset/bridge_dataset/1.0.0/bridge_dataset-train.tfrecord-00000-of-00001",
+      "tests/debug_dataset/bridge_dataset/1.0.0/bridge_dataset-val.tfrecord-00000-of-00001",
+      "tests/debug_dataset/bridge_dataset/1.0.0/dataset_info.json",
+      "tests/debug_dataset/bridge_dataset/1.0.0/features.json"
+    ],
+    "open_issues": 92,
+    "license": "MIT License"
+  },
+  {
+    "name": "ViT-Adapter",
+    "owner": "czczup",
+    "url": "https://github.com/czczup/ViT-Adapter",
+    "stars": 1447,
+    "forks": 151,
+    "description": "[ICLR 2023 Spotlight] Vision Transformer Adapter for Dense Predictions",
+    "topics": [
+      "adapter",
+      "object-detection",
+      "semantic-segmentation",
+      "vision-transformer"
+    ],
+    "language": "Python",
+    "created_at": "2022-05-16T17:32:59Z",
+    "updated_at": "2025-12-07T21:42:16Z",
+    "has_training": true,
+    "training_files_sample": [
+      "detection/dist_train.sh",
+      "detection/slurm_train.sh",
+      "detection/train.py",
+      "detection/train.py",
+      "segmentation/dist_train.sh"
+    ],
+    "has_testing": true,
+    "testing_files_sample": [
+      "detection/dist_test.sh",
+      "detection/ops/test.py",
+      "detection/slurm_test.sh",
+      "detection/test.py",
+      "segmentation/dist_test.sh"
+    ],
+    "open_issues": 81,
+    "license": "Other"
+  },
+  {
+    "name": "MapTR",
+    "owner": "hustvl",
+    "url": "https://github.com/hustvl/MapTR",
+    "stars": 1427,
+    "forks": 229,
+    "description": "[ICLR'23 Spotlight & ECCV'24 & IJCV'24] MapTR: Structured Modeling and Learning for Online Vectorized HD Map Construction",
+    "topics": [
+      "autonomous-driving",
+      "bev",
+      "end-to-end",
+      "iclr2023",
+      "online-hdmap-construction",
+      "real-time",
+      "shape-representation",
+      "transformer",
+      "vectorized-hdmap"
+    ],
+    "language": "Python",
+    "created_at": "2022-07-28T02:20:43Z",
+    "updated_at": "2025-12-09T11:14:04Z",
+    "has_training": true,
+    "training_files_sample": [
+      "docs/train_eval.md",
+      "docs/train_eval.md",
+      "mmdetection3d/.dev_scripts/train_benchmark.sh",
+      "mmdetection3d/.dev_scripts/train_benchmark.sh",
+      "mmdetection3d/configs/fcos3d/fcos3d_r101_caffe_fpn_gn-head_dcn_2x8_1x_nus-mono3d_finetune.py"
+    ],
+    "has_testing": true,
+    "testing_files_sample": [
+      "mmdetection3d/.dev_scripts/gen_benchmark_script.py",
+      "mmdetection3d/.dev_scripts/test_benchmark.sh",
+      "mmdetection3d/mmdet3d/apis/test.py",
+      "mmdetection3d/mmdet3d/core/evaluation/indoor_eval.py",
+      "mmdetection3d/mmdet3d/core/evaluation/kitti_utils/eval.py"
+    ],
+    "open_issues": 134,
+    "license": "MIT License"
+  },
+  {
+    "name": "Megatron-DeepSpeed",
+    "owner": "bigscience-workshop",
+    "url": "https://github.com/bigscience-workshop/Megatron-DeepSpeed",
+    "stars": 1426,
+    "forks": 228,
+    "description": "Ongoing research training transformer language models at scale, including: BERT & GPT-2",
+    "topics": [],
+    "language": "Python",
+    "created_at": "2021-07-02T17:40:35Z",
+    "updated_at": "2025-11-26T06:51:29Z",
+    "has_training": true,
+    "training_files_sample": [
+      "examples/curriculum_learning/pretrain_gpt_cl.sh",
+      "examples/curriculum_learning/pretrain_gpt_cl.sh",
+      "examples/finetune_mnli_distributed.sh",
+      "examples/finetune_race_distributed.sh",
+      "examples/pretrain_bert.sh"
+    ],
+    "has_testing": true,
+    "testing_files_sample": [
+      "examples/evaluate_ict_zeroshot_nq.sh",
+      "examples/evaluate_zeroshot_gpt.sh",
+      "megatron/data/test/test_indexed_dataset.py",
+      "megatron/data/test/test_preprocess_data.sh",
+      "megatron/fused_kernels/tests/__init__.py"
+    ],
+    "open_issues": 123,
+    "license": "Other"
+  },
+  {
+    "name": "spacy-transformers",
+    "owner": "explosion",
+    "url": "https://github.com/explosion/spacy-transformers",
+    "stars": 1402,
+    "forks": 176,
+    "description": "\ud83d\udef8 Use pretrained transformers like BERT, XLNet and GPT-2 in spaCy",
+    "topics": [
+      "bert",
+      "google",
+      "gpt-2",
+      "huggingface",
+      "language-model",
+      "machine-learning",
+      "natural-language-processing",
+      "natural-language-understanding",
+      "nlp",
+      "openai",
+      "pytorch",
+      "pytorch-model",
+      "spacy",
+      "spacy-extension",
+      "spacy-pipeline",
+      "transfer-learning",
+      "xlnet"
+    ],
+    "language": "Python",
+    "created_at": "2019-07-26T19:12:34Z",
+    "updated_at": "2025-11-19T10:46:06Z",
+    "has_training": true,
+    "training_files_sample": [
+      "build-constraints.txt"
+    ],
+    "has_testing": true,
+    "testing_files_sample": [
+      ".github/workflows/tests.yml",
+      "spacy_transformers/tests/__init__.py",
+      "spacy_transformers/tests/enable_gpu.py",
+      "spacy_transformers/tests/regression/__init__.py",
+      "spacy_transformers/tests/regression/test_spacy_issue6401.py"
+    ],
+    "open_issues": 0,
+    "license": "MIT License"
+  },
+  {
+    "name": "gansformer",
+    "owner": "dorarad",
+    "url": "https://github.com/dorarad/gansformer",
+    "stars": 1341,
+    "forks": 151,
+    "description": "Generative Adversarial Transformers",
+    "topics": [
+      "attention",
+      "compositionality",
+      "gans",
+      "generative-adversarial-networks",
+      "image-generation",
+      "scene-generation",
+      "transformers"
+    ],
+    "language": "Python",
+    "created_at": "2021-03-01T13:39:07Z",
+    "updated_at": "2025-11-20T17:21:05Z",
+    "has_training": true,
+    "training_files_sample": [
+      "pretrained_networks.py",
+      "pytorch_version/torch_utils/training_stats.py",
+      "pytorch_version/torch_utils/training_stats.py",
+      "pytorch_version/training/__init__.py",
+      "pytorch_version/training/dataset.py"
+    ],
+    "has_testing": true,
+    "testing_files_sample": [
+      "test_nvcc.cu"
+    ],
+    "open_issues": 15,
+    "license": "MIT License"
+  },
+  {
+    "name": "Retinexformer",
+    "owner": "caiyuanhao1998",
+    "url": "https://github.com/caiyuanhao1998/Retinexformer",
+    "stars": 1327,
+    "forks": 109,
+    "description": "\"Retinexformer: One-stage Retinex-based Transformer for Low-light Image Enhancement\" (ICCV 2023) & (NTIRE 2024 Runner-Up)",
+    "topics": [
+      "basicsr",
+      "detection",
+      "iccv2023",
+      "image-restoration",
+      "low-light-enhance",
+      "low-light-enhancement",
+      "low-light-enhancer",
+      "low-light-image-enhancement",
+      "low-light-vision",
+      "nighttime-enhancement",
+      "ntire",
+      "object-detection",
+      "transformer"
+    ],
+    "language": "Python",
+    "created_at": "2023-07-15T10:53:06Z",
+    "updated_at": "2025-12-10T01:46:13Z",
+    "has_training": true,
+    "training_files_sample": [
+      "basicsr/data/meta_info/meta_info_vimeo90k_train_gt.txt",
+      "basicsr/data/meta_info/meta_info_vimeo90k_train_gt.txt",
+      "basicsr/train.py",
+      "basicsr/train.py",
+      "train_multigpu.sh"
+    ],
+    "has_testing": true,
+    "testing_files_sample": [
+      "enhancement/test_from_dataset.py",
+      "basicsr/data/meta_info/meta_info_reds4_test_gt.txt",
+      "basicsr/data/meta_info/meta_info_redsofficial4_test_gt.txt",
+      "basicsr/data/meta_info/meta_info_redsval_official_test_gt.txt",
+      "basicsr/data/meta_info/meta_info_vimeo90k_test_gt.txt"
+    ],
+    "open_issues": 2,
+    "license": "MIT License"
+  },
+  {
+    "name": "unimatch",
+    "owner": "autonomousvision",
+    "url": "https://github.com/autonomousvision/unimatch",
+    "stars": 1317,
+    "forks": 131,
+    "description": "[TPAMI'23] Unifying Flow, Stereo and Depth Estimation",
+    "topics": [
+      "correspondence",
+      "cross-attention",
+      "depth",
+      "matching",
+      "optical-flow",
+      "stereo",
+      "transformer",
+      "unified-model"
+    ],
+    "language": "Python",
+    "created_at": "2022-11-04T04:47:31Z",
+    "updated_at": "2025-12-05T07:03:35Z",
+    "has_training": true,
+    "training_files_sample": [
+      "dataloader/depth/download_demon_train.sh",
+      "dataloader/depth/prepare_demon_train.py",
+      "dataloader/depth/prepare_demon_train.py",
+      "dataloader/depth/scannet_banet_train_pairs.txt",
+      "dataloader/depth/scannet_banet_train_pairs.txt"
+    ],
+    "has_testing": true,
+    "testing_files_sample": [
+      "dataloader/depth/download_demon_test.sh",
+      "dataloader/depth/prepare_demon_test.py",
+      "dataloader/depth/scannet_banet_test_pairs.txt",
+      "evaluate_depth.py",
+      "evaluate_flow.py"
+    ],
+    "open_issues": 12,
+    "license": "MIT License"
+  },
+  {
+    "name": "PaddleViT",
+    "owner": "BR-IDL",
+    "url": "https://github.com/BR-IDL/PaddleViT",
+    "stars": 1235,
+    "forks": 327,
+    "description": ":robot: PaddleViT: State-of-the-art Visual Transformer and MLP Models for PaddlePaddle 2.0+",
+    "topics": [
+      "classification",
+      "computer-vision",
+      "cv",
+      "deep-learning",
+      "detection",
+      "encoder-decoder",
+      "gan",
+      "mlp",
+      "object-detection",
+      "paddlepaddle",
+      "segmentation",
+      "semantic-segmentation",
+      "transformer",
+      "vit"
+    ],
+    "language": "Python",
+    "created_at": "2021-08-30T06:47:47Z",
+    "updated_at": "2025-11-07T02:14:01Z",
+    "has_training": true,
+    "training_files_sample": [
+      "gan/styleformer/run_train.sh",
+      "gan/styleformer/run_train_multi.sh",
+      "gan/styleformer/run_train_multi.sh",
+      "gan/transgan/run_train.sh",
+      "image_classification/botnet/run_train.sh"
+    ],
+    "has_testing": true,
+    "testing_files_sample": [
+      "image_classification/cait/tests/__init__.py",
+      "image_classification/cait/tests/test_cait.py",
+      "image_classification/convmixer/tests/__init__.py",
+      "image_classification/convmixer/tests/test_onecyclelr.py",
+      "image_classification/crossvit/port_weights/load_pytorch_weights_multi_test.py"
+    ],
+    "open_issues": 39,
+    "license": "Apache License 2.0"
+  },
+  {
+    "name": "Neighborhood-Attention-Transformer",
+    "owner": "SHI-Labs",
+    "url": "https://github.com/SHI-Labs/Neighborhood-Attention-Transformer",
+    "stars": 1163,
+    "forks": 88,
+    "description": "Neighborhood Attention Transformer, arxiv 2022 / CVPR 2023. Dilated Neighborhood Attention Transformer, arxiv 2022",
+    "topics": [
+      "neighborhood-attention",
+      "pytorch"
+    ],
+    "language": "Python",
+    "created_at": "2022-04-14T06:40:50Z",
+    "updated_at": "2025-12-05T05:26:46Z",
+    "has_training": true,
+    "training_files_sample": [
+      "classification/dist_train.sh",
+      "classification/train.py",
+      "classification/train.py",
+      "detection/dist_train.sh",
+      "detection/train.py"
+    ],
+    "has_testing": true,
+    "testing_files_sample": [
+      "detection/dist_test.sh",
+      "detection/test.py",
+      "segmentation/dist_test.sh",
+      "segmentation/test.py"
+    ],
+    "open_issues": 5,
+    "license": "MIT License"
+  },
+  {
+    "name": "detoxify",
+    "owner": "unitaryai",
+    "url": "https://github.com/unitaryai/detoxify",
+    "stars": 1151,
+    "forks": 135,
+    "description": "Trained models & code to predict toxic comments on all 3 Jigsaw Toxic Comment Challenges. Built using \u26a1 Pytorch Lightning and \ud83e\udd17 Transformers. For access to our API, please email us at contact@unitary.ai.",
+    "topics": [
+      "bert",
+      "bert-model",
+      "hate-speech",
+      "hate-speech-detection",
+      "hatespeech",
+      "huggingface",
+      "huggingface-transformers",
+      "kaggle-competition",
+      "nlp",
+      "pytorch-lightning",
+      "sentence-classification",
+      "toxic-comment-classification",
+      "toxic-comments",
+      "toxicity",
+      "toxicity-classification"
+    ],
+    "language": "Python",
+    "created_at": "2020-09-23T15:24:21Z",
+    "updated_at": "2025-12-09T12:10:22Z",
+    "has_training": true,
+    "training_files_sample": [
+      "tests/dummy_data/jigsaw-toxic-comment-classification-challenge/train.csv",
+      "tests/test_trainer.py",
+      "train.py",
+      "train.py"
+    ],
+    "has_testing": true,
+    "testing_files_sample": [
+      ".github/workflows/ci-testing.yml",
+      "tests/__init__.py",
+      "tests/dummy_data/jigsaw-toxic-comment-classification-challenge/test.csv",
+      "tests/dummy_data/jigsaw-toxic-comment-classification-challenge/train.csv",
+      "tests/requirements.txt"
+    ],
+    "open_issues": 38,
+    "license": "Apache License 2.0"
+  },
+  {
+    "name": "SETR",
+    "owner": "fudan-zvg",
+    "url": "https://github.com/fudan-zvg/SETR",
+    "stars": 1103,
+    "forks": 148,
+    "description": "[CVPR 2021 & IJCV 2024] Rethinking Semantic Segmentation from a Sequence-to-Sequence Perspective with Transformers",
+    "topics": [],
+    "language": "Python",
+    "created_at": "2020-12-30T10:18:45Z",
+    "updated_at": "2025-12-05T13:26:19Z",
+    "has_training": true,
+    "training_files_sample": [
+      "docs/tutorials/training_tricks.md",
+      "docs/tutorials/training_tricks.md",
+      "hlg-detection/configs/cascade_rcnn/cascade_mask_rcnn_r101_caffe_fpn_mstrain_3x_coco.py",
+      "hlg-detection/configs/cascade_rcnn/cascade_mask_rcnn_r101_caffe_fpn_mstrain_3x_coco.py",
+      "hlg-detection/configs/cascade_rcnn/cascade_mask_rcnn_r101_fpn_mstrain_3x_coco.py"
+    ],
+    "has_testing": true,
+    "testing_files_sample": [
+      "hlg-detection/configs/centripetalnet/centripetalnet_hourglass104_mstest_16x6_210e_coco.py",
+      "hlg-detection/configs/cornernet/cornernet_hourglass104_mstest_10x5_210e_coco.py",
+      "hlg-detection/configs/cornernet/cornernet_hourglass104_mstest_32x3_210e_coco.py",
+      "hlg-detection/configs/cornernet/cornernet_hourglass104_mstest_8x6_210e_coco.py",
+      "hlg-detection/mmdet/apis/test.py"
+    ],
+    "open_issues": 16,
+    "license": "MIT License"
+  }
+]
