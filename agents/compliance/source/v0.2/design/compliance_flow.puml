@@ -1,0 +1,56 @@
+@startuml
+title Agent Compliance Flow (MCP)
+
+participant "Worker Agent\n(Client Process)" as Worker
+participant "MCP Client Session" as ClientSession
+participant "MCP Server\n(Gateway)" as Server
+participant "Compliance Agent\n(Server Process)" as Compliance
+participant "External API" as External
+
+== Initialization ==
+note over Worker, ClientSession: Client Process
+note over Server, Compliance: Server Process
+
+Worker -> ClientSession: Connect via Stdio
+ClientSession <-> Server: Initialize Session
+
+== Execution Flow ==
+Worker -> Worker: call_external(url)
+Worker -> ClientSession: call_tool("fetch", url)
+ClientSession -> Server: JSON-RPC Request (tool/call "fetch")
+
+activate Server
+    Server -> Compliance: inspect_request(caller_id, url)
+    activate Compliance
+        Compliance -> Compliance: Check Allowlist
+        Compliance -> Compliance: Check HTTPS Scheme
+        Compliance -> Compliance: check_ssl_protocol(hostname)
+        
+        alt TLS < 1.2
+            Compliance --> Server: False (Blocked)
+        else TLS >= 1.2
+            Compliance --> Server: True (Allowed)
+        end
+    deactivate Compliance
+
+    alt Request Allowed
+        Server -> External: HTTP Request (GET/POST)
+        activate External
+        External --> Server: HTTP Response
+        deactivate External
+
+        Server -> Compliance: inspect_response(caller_id, url, response)
+        activate Compliance
+            Compliance -> Compliance: DLP Check (Placeholder)
+        deactivate Compliance
+
+        Server --> ClientSession: JSON-RPC Response (Success)
+    else Request Blocked
+        Server --> ClientSession: JSON-RPC Response (Error: Blocked)
+    end
+deactivate Server
+
+ClientSession --> Worker: Return Result
+Worker -> Worker: Process Response
+
+@enduml

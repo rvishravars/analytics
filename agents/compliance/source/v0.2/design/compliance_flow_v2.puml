@@ -1,0 +1,141 @@
+@startuml
+title Agent Compliance Flow with Evolutionary Computing (v2)
+
+participant "Worker Agent\n(Client Process)" as Worker
+participant "MCP Client Session" as ClientSession
+participant "MCP Server\n(Gateway)" as Server
+participant "Evolutionary Compliance Agent" as Compliance
+participant "Population Manager" as Population
+participant "Decision Engine" as Decision
+participant "Fitness Evaluator" as Fitness
+participant "External API" as External
+
+== Initialization ==
+note over Worker, ClientSession: Client Process
+note over Server, Fitness: Server Process
+
+Worker -> ClientSession: Connect via Stdio
+ClientSession <-> Server: Initialize Session
+Server -> Compliance: Initialize Evolutionary Agent
+Compliance -> Population: Initialize Population
+Population -> Population: Generate Initial Policies
+Compliance -> Decision: Load Rule-Based Fallback
+
+== Request Processing Flow ==
+Worker -> Worker: call_external(url)
+Worker -> ClientSession: call_tool("fetch", url)
+ClientSession -> Server: JSON-RPC Request (tool/fetch)
+
+activate Server
+    Server -> Compliance: evaluate_compliance(caller_id, url, method, data)
+    activate Compliance
+
+        Compliance -> Decision: make_decision(request_features, context)
+        activate Decision
+
+            Decision -> Decision: Extract Request Features
+            Decision -> Decision: Check Decision Cache
+
+            alt Cache Hit
+                Decision --> Compliance: Return Cached Decision
+            else Cache Miss
+                Decision -> Decision: ML Model Inference
+                activate Decision
+                    Decision -> Population: Get Best Evolved Policy
+                    Population --> Decision: Current Best Genome
+                    Decision -> Decision: Apply Policy to Features
+                    Decision -> Decision: Calculate Confidence Score
+                deactivate Decision
+
+                alt High Confidence (>= threshold)
+                    Decision --> Compliance: ML-Based Decision
+                else Low Confidence
+                    Decision -> Decision: Fallback to Rule-Based
+                    Decision --> Compliance: Rule-Based Decision
+                end
+            end
+
+        deactivate Decision
+
+        alt Decision == BLOCK
+            Compliance -> Compliance: Log Security Event
+            Compliance -> Fitness: Queue for Fitness Evaluation
+            activate Fitness
+                Fitness -> Fitness: Calculate Reward/Penalty
+                Fitness -> Fitness: Update Training Data
+            deactivate Fitness
+            Compliance --> Server: BLOCK (403 Forbidden)
+        else Decision == ALLOW/MONITOR
+            Compliance -> Compliance: Log Compliance Event
+            Compliance -> Fitness: Queue for Fitness Evaluation
+            activate Fitness
+                Fitness -> Fitness: Calculate Reward/Penalty
+                Fitness -> Fitness: Update Training Data
+            deactivate Fitness
+
+            alt Decision == MONITOR
+                Compliance -> Server: ALLOW with Monitoring
+                Server -> External: HTTP Request (with monitoring)
+            else Decision == ALLOW
+                Compliance -> Server: ALLOW
+                Server -> External: HTTP Request
+            end
+
+            activate External
+            External --> Server: HTTP Response
+            deactivate External
+
+            Server -> Compliance: inspect_response(caller_id, url, response)
+            activate Compliance
+                Compliance -> Decision: Evaluate Response Compliance
+                Decision -> Fitness: Update Response Metrics
+                Compliance -> Compliance: Log Response Event
+            deactivate Compliance
+        end
+
+    deactivate Compliance
+
+    ClientSession --> Server: JSON-RPC Response (Result)
+deactivate Server
+
+ClientSession --> Worker: Return Result
+Worker -> Worker: Process Response
+
+== Evolutionary Optimization (Background Process) ==
+loop Every N minutes
+    Population -> Population: Check Evolution Trigger
+    alt Sufficient Training Data
+        Population -> Fitness: Evaluate Population Fitness
+        activate Fitness
+            Fitness -> Fitness: Calculate Multi-Objective Fitness\n(Security + Performance + Adaptability + HIPAA)
+            Fitness --> Population: Fitness Scores
+        deactivate Fitness
+
+        Population -> Population: Select Parents (Tournament/Roulette)
+        Population -> Population: Apply Crossover
+        Population -> Population: Apply Mutation
+        Population -> Population: Preserve Elite Individuals
+        Population -> Population: Generate New Generation
+
+        Population -> Decision: Update Best Policy
+        Decision -> Decision: Clear Stale Cache Entries
+        Population -> Population: Log Evolution Metrics
+    end
+end
+
+== Learning Data Pipeline ==
+Compliance -> Fitness: Stream Security Events
+activate Fitness
+    Fitness -> Fitness: Feature Extraction
+    Fitness -> Fitness: Data Validation
+    Fitness -> Fitness: Store Training Samples
+    alt Batch Size Reached
+        Fitness -> Population: Trigger Model Update
+        Population -> Population: Incremental Learning
+        Fitness -> Fitness: Reset Batch
+    end
+deactivate Fitness
+
+note right: Evolutionary process continuously improves\ncompliance policies through genetic algorithms\nand reinforcement learning feedback
+
+@enduml

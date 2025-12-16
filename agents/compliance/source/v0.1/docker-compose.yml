@@ -1,0 +1,58 @@
+version: '3.8'
+
+services:
+  mock-server:
+    build: .
+    container_name: hipaa-mock-server
+    command: python3 server.py
+    ports:
+      - "8000:8000"
+    networks:
+      - hipaa-net
+
+  requester-agent:
+    build: .
+    container_name: hipaa-requester-agent
+    command: python3 requester_agent.py
+    ports:
+      - "8001:8001"
+    depends_on:
+      - mock-server
+    networks:
+      - hipaa-net
+    environment:
+      # In docker network, mock-server is accessible via service name
+      # However, our certs are for 'localhost'. 
+      # For strict TLS verification in docker, we'd need certs for 'mock-server'.
+      # The agent code currently disables verify=False for auth check, 
+      # but check_tls_version uses ssl.create_default_context().
+      # We might need to adjust the agent or certs for docker environment.
+      # For this demo, we'll keep using localhost certs and rely on port mapping 
+      # or accept that internal docker calls might need 'verify=False'.
+      TARGET_URL: "https://mock-server:8000/secure-data"
+
+  billing-server:
+    build: .
+    container_name: hipaa-billing-server
+    command: python3 src/billing_server.py
+    ports:
+      - "8002:8002"
+    networks:
+      - hipaa-net
+
+  billing-agent:
+    build: .
+    container_name: hipaa-billing-agent
+    command: python3 src/billing_agent.py
+    ports:
+      - "8003:8003"
+    depends_on:
+      - billing-server
+    networks:
+      - hipaa-net
+    environment:
+      BILLING_API_URL: "https://billing-server:8002/process-payment"
+
+networks:
+  hipaa-net:
+    driver: bridge
