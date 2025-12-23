@@ -1,0 +1,101 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>INFO411 Presentation Part2</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js@5/dist/reveal.css">
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js@5/dist/theme/beige.css" id="theme">
+
+  <style>
+    /* Headings */
+.reveal h1 {
+  font-size: 2.2em; /* Slightly reduced from default (~2.5em) */
+  letter-spacing: .5px;
+}
+
+.reveal h2 {
+  font-size: 1.3em; /* Reduced from default (~1.6em) */
+  letter-spacing: .5px;
+}
+
+/* Paragraphs */
+.reveal p {
+  font-size: 0.60em; /* Compact paragraphs */
+  margin: 0.2em 0;
+}
+
+/* Utility classes */
+.accent {
+  color: var(--accent);
+}
+
+.tiny {
+  font-size: .65em;
+  opacity: .7;
+}
+
+.reveal p.tiny {
+  margin-top: 0.1em;
+  margin-bottom: 0.2em;
+  line-height: 1.2;
+}
+
+.muted {
+  opacity: .8;
+}
+
+.mono {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+               "Liberation Mono", "Courier New", monospace;
+  font-size: 1.0em;
+}
+
+/* Lists */
+.reveal ul {
+  font-size: .95em;
+}
+
+/* Images */
+img.model-img {
+  max-width: 100%;
+  max-height: 70vh;
+  height: auto;
+  margin-top: .1rem;
+  border: 2px solid #ccc;
+  border-radius: 6px;
+}
+
+  </style>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+      <section data-markdown="Presentation.md"
+               data-separator="^\r?\n---\r?\n$"
+               data-separator-vertical="^\r?\n----\r?\n$"
+               data-charset="utf-8">
+      </section>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/reveal.js@5/dist/reveal.js"></script>
+  <script src="https://unpkg.com/reveal.js@5/plugin/markdown/markdown.js"></script>
+  <script src="https://unpkg.com/reveal.js@5/plugin/math/math.js"></script>
+  <script>
+    // 3. This initializes reveal.js and enables the Markdown plugin
+    Reveal.initialize({
+      // Set the presentation size and scaling behavior
+      width: 960,
+      height: 700,
+      margin: 0.04,
+      minScale: 0.2,
+      maxScale: 2.0,
+      transition: 'slide',
+      hash: true,
+      plugins: [ RevealMarkdown, RevealMath.KaTeX ]
+      });
+  </script>
+</body>
+</html>
