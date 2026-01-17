@@ -24,34 +24,34 @@ The system is divided into three main planes:
 
 ```mermaid
 graph TD
-    User["User/Dev"] -->|Uploads Rules| Dashboard["Dashboard UI"]
+    User["User / Dev"] -->|Uploads Rules| Dashboard["Dashboard UI"]
     User -->|Configures Test| API["Control Design API"]
-    
-    subgraph ControlPlane ["Control Plane"]
+
+    subgraph control_plane["Control Plane"]
         Dashboard --> API
-        API --> DB[("Primary DB")]
-        API --> ObjectStore[("Rule Artifacts")]
+        API --> DB["Primary DB"]
+        API --> ObjectStore["Rule Artifacts"]
     end
-    
-    subgraph ExecutionPlane ["Execution Plane"]
-        API -->|"Submit Job"| Orchestrator["Orchestrator / Queue"]
-        Orchestrator -->|"Distribute"| WorkerPool["Worker Pool (Auto-scaling)"]
-        
-        subgraph WorkerNode ["Worker Node"]
+
+    subgraph execution_plane["Execution Plane"]
+        API -->|Submit Job| Orchestrator["Orchestrator / Queue"]
+        Orchestrator -->|Distribute| WorkerPool["Worker Pool (Auto-scaling)"]
+
+        subgraph worker_node["Worker Node"]
             Runner["Test Runner"]
-            SandBox["Rule Sandbox"]
-            Runner -->|"Loads"| SandBox
-            SandBox -->|"Calls"| TargetAgent["Target Agentic API"]
+            Sandbox["Rule Sandbox"]
+            Runner -->|Loads| Sandbox
+            Sandbox -->|Calls| TargetAgent["Target Agentic API"]
         end
     end
-    
-    subgraph DataPlane ["Data Plane"]
-        Runner -->|"Stream Results"| Ingest["Data Ingestion"]
-        Ingest -->|"Store"| AnalyticsDB[("Analytics DB")]
-        Ingest -->|"Logs"| LogStore[("Logs/Blob Storage")]
+
+    subgraph data_plane["Data Plane"]
+        Runner -->|Stream Results| Ingest["Data Ingestion"]
+        Ingest -->|Store| AnalyticsDB["Analytics DB"]
+        Ingest -->|Logs| LogStore["Logs / Blob Storage"]
     end
-    
-    Dashboard -->|"Query"| AnalyticsDB
+
+    Dashboard -->|Query| AnalyticsDB
 ```
 
 ## 3. Pluggable Interface Design (The "SDK")
@@ -93,7 +93,21 @@ class BaseEvalRule(ABC):
         pass
 ```
 
-### 3.1. Rule Authoring & Editing
+### 3.2. Target Authentication
+The system supports multiple authentication standards to connect to the target Agentic APIs. Credentials are strictly separated from rule code.
+
+**Supported Schemes:**
+1.  **API Key**: Injected as a custom header (e.g., `x-api-key`, `Authorization`) or query parameter.
+2.  **Bearer Token**: Standard OAuth2/JWT tokens (`Authorization: Bearer <token>`).
+3.  **Basic Auth**: Standard username/password scheme.
+4.  **mTLS**: Client certificates for highly secure internal environments.
+
+**Mechanism:**
+- **Configuration**: Admins configure "Secrets" per Project/Target in the Dashboard.
+- **Injection**: The `EvaluationContext` is hydrated with an authenticated HTTP client, or secrets are injected as environment variables (`TARGET_API_KEY`) into the sandbox for the rule to use explicitly.
+- **Security**: Secrets are stored in HashiCorp Vault or K8s Secrets, never in plain text in the DB.
+
+### 3.3. Rule Authoring & Editing
 - **Code-First**: Developers use the SDK to write rules in their IDE and push to git/storage.
 - **Dashboard Editor**: authenticated users with `EDITOR` or `ADMIN` roles can edit rule code directly in the Dashboard.
     - *Mechanism*: The Dashboard fetches the rule content from the API, user edits in Monaco Editor (VS Code web), and saves. The API versions the rule and updates the Object Store.
