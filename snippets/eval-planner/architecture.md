@@ -54,6 +54,136 @@ graph TD
     Dashboard -->|Query| AnalyticsDB
 ```
 
+### System Diagram v2 (Enhanced)
+
+```mermaid
+graph TD
+    User["👤 Eval Engineer"] -->|1. Upload Rule| Dashboard
+    User -->|2. Configure Job| Dashboard
+    
+    subgraph control["🎛️ Control Plane"]
+        Dashboard["Dashboard UI"]
+        API["REST API"]
+        DB[("PostgreSQL")]
+        ObjectStore[("S3/MinIO")]
+        
+        Dashboard --> API
+        API --> DB
+        API --> ObjectStore
+    end
+    
+    subgraph execution["⚙️ Execution Plane"]
+        Queue["Job Queue"]
+        Orchestrator["Orchestrator"]
+        Workers["Worker Pool"]
+        
+        API -->|3. Submit Job| Queue
+        Queue --> Orchestrator
+        Orchestrator -->|4. Distribute Tasks| Workers
+        
+        subgraph worker_node["Worker Pod"]
+            Runtime["Python Runtime"]
+            Sandbox["Rule Sandbox"]
+            Runtime --> Sandbox
+        end
+        
+        Workers --> worker_node
+        Sandbox -->|5. Invoke| Agent["🤖 Target Agentic API"]
+        Agent --> Sandbox
+    end
+    
+    subgraph data_plane["💾 Data Plane"]
+        Stream["Stream Processor"]
+        Analytics[("ClickHouse/BigQuery")]
+        Logs[("S3/MinIO Logs")]
+        
+        worker_node -->|6. Stream Results| Stream
+        Stream --> Analytics
+        Stream --> Logs
+    end
+    
+    Dashboard -.->|7. Query Results| Analytics
+    Dashboard -.-> Logs
+    
+    subgraph security["🔒 Security Layer"]
+        Vault["HashiCorp Vault"]
+        Auth["OIDC/Auth"]
+    end
+    
+    API -.-> Vault
+    Dashboard -.-> Auth
+    Sandbox -.-> Vault
+    
+    style control fill:#e1f5ff,stroke:#0277bd,stroke-width:2px
+    style execution fill:#fff4e1,stroke:#f57c00,stroke-width:2px
+    style data_plane fill:#e8f5e9,stroke:#388e3c,stroke-width:2px
+    style security fill:#fce4ec,stroke:#c2185b,stroke-width:2px
+    style Agent fill:#fff3e0,stroke:#e65100,stroke-width:3px
+```
+
+### Evaluation Flow Sequence Diagram
+
+```mermaid
+sequenceDiagram
+    actor User as Eval Engineer
+    participant Dashboard
+    participant API as Control API
+    participant DB as PostgreSQL
+    participant S3 as Object Store
+    participant Queue as Job Queue
+    participant Worker
+    participant Vault
+    participant Agent as Target Agent
+    participant Analytics as ClickHouse
+
+    Note over User,Analytics: Phase 1: Rule Upload and Job Configuration
+    User->>Dashboard: Upload evaluation rule (Python)
+    Dashboard->>API: POST /rules
+    API->>S3: Store rule artifact
+    API->>DB: Save rule metadata
+    API-->>Dashboard: Rule ID
+    
+    User->>Dashboard: Configure test job (target URL, auth, parameters)
+    Dashboard->>API: POST /jobs
+    API->>DB: Persist job configuration
+    API->>Queue: Enqueue evaluation tasks
+    API-->>Dashboard: Job ID
+    Dashboard-->>User: Job submitted successfully
+
+    Note over Queue,Analytics: Phase 2: Distributed Execution
+    Queue->>Worker: Assign task to available worker
+    activate Worker
+    Worker->>S3: Fetch rule code
+    Worker->>Vault: Retrieve target API credentials
+    Vault-->>Worker: API key/token
+    Worker->>Worker: Load rule into sandbox
+    
+    loop For each test case
+        Worker->>Agent: Execute evaluation (with authenticated request)
+        Agent-->>Worker: Agent response
+        Worker->>Worker: Compute score and metadata
+        Worker->>Analytics: Stream result (async)
+    end
+    
+    Worker->>Queue: Mark task complete
+    deactivate Worker
+    Worker->>DB: Update job status
+
+    Note over Dashboard,Analytics: Phase 3: Results and Analysis
+    Dashboard->>DB: Poll job status
+    DB-->>Dashboard: Status: COMPLETED
+    Dashboard->>Analytics: Query evaluation results
+    Analytics-->>Dashboard: Aggregated scores, metrics
+    Dashboard-->>User: Display dashboard (charts, pass/fail rates)
+    
+    opt User wants to debug
+        User->>Dashboard: Click View Logs
+        Dashboard->>S3: Fetch detailed logs
+        S3-->>Dashboard: Raw execution traces
+        Dashboard-->>User: Show detailed logs
+    end
+```
+
 ## 3. Pluggable Interface Design (The "SDK")
 
 To enable flexible and powerful evaluation rules, we define a standard Python SDK that developers use.
@@ -92,6 +222,74 @@ class BaseEvalRule(ABC):
         """
         pass
 ```
+
+### Anatomy of an Evaluation Rule
+
+The following diagram depicts the necessary elements that constitute a custom evaluation rule:
+
+```mermaid
+graph LR
+    subgraph Inputs ["1. Inputs (Context)"]
+        direction TB
+        Config["config (Dict)"]
+        RunID["run_id (str)"]
+        AgentCall["call_agent (method)"]
+    end
+
+    subgraph Logic ["2. Core Logic"]
+        direction TB
+        Eval["evaluate(ctx)"]
+    end
+
+    subgraph Outputs ["3. Outputs (Result)"]
+        direction TB
+        Score["score (float)"]
+        Passed["passed (bool)"]
+        Metadata["metadata (Dict)"]
+    end
+
+    Inputs ==> Logic
+    Logic ==> Outputs
+    
+    style Logic fill:#f9f,stroke:#333,stroke-width:2px
+    style Outputs fill:#dfd,stroke:#333,stroke-width:2px
+```
+
+**Rule Anatomy Elements:**
+
+| Section | Element | Type | Description |
+| :--- | :--- | :--- | :--- |
+| **1. Inputs** | `config` | `Dict` | Configuration parameters for the specific evaluation rule (e.g., thresholds, prompts). |
+| | `run_id` | `str` | A unique identifier for the current evaluation run, used for logging and correlation. |
+| | `call_agent` | `method` | A helper method to securely invoke the target agentic API. |
+| **2. Logic** | `evaluate(ctx)` | `method` | The core function where the developer implements the evaluation logic using the context provided. |
+| **3. Outputs** | `score` | `float` | A numerical score (typically 0-100) representing the quality of the agent's response. |
+| | `passed` | `bool` | A binary status indicating whether the agent met the evaluation criteria. |
+| | `metadata` | `Dict` | Rich contextual data for analytics, debugging, and dashboard visualization. |
+
+### Conceptual Model
+
+This diagram shows how the core objects integrate during a single evaluation run.
+
+```mermaid
+graph LR
+    Rule[Custom Eval Rule] -->|uses| Ctx[Evaluation Context]
+    Ctx -->|calls| Agent[Target Agent]
+    Agent -->|returns response| Ctx
+    Rule -->|returns| Result[Eval Result]
+    
+    style Rule fill:#f9f,stroke:#333,stroke-width:2px
+    style Result fill:#dfd,stroke:#333,stroke-width:2px
+```
+
+**Core Terms:**
+
+| Term | Role | Responsibility |
+| :--- | :--- | :--- |
+| **Custom Eval Rule** | Logic | Developer-defined code that implements the evaluation logic. |
+| **Evaluation Context** | Bridge | Provides the rule with configuration and a secure way to call the agent. |
+| **Target Agent** | Subject | The external system or API being evaluated. |
+| **Eval Result** | Output | The standardized output containing the `score` and `passed` status. |
 
 ### 3.2. Target Authentication
 The system supports multiple authentication standards to connect to the target Agentic APIs. Credentials are strictly separated from rule code.
