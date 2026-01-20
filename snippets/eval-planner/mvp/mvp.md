@@ -4,17 +4,17 @@
 The goal of this MVP is to establish the fundamental capability to manage evaluation rules. This corresponds to the **Control Plane** of the larger architecture, specifically focusing on the "Rule Authoring" aspect.
 
 **In Scope:**
-*   **Evaluation Rules as Data**: Defining the schema for storing rules.
-*   **CRUD API**: REST API to Create, Read, Update, and Delete rules.
-*   **Management UI**: A web interface for users to manage their library of rules.
+*   **Evaluation Rules**: Defining and managing rules (Python-based).
+*   **Agent Registry**: Registering and managing target agents (SUT).
+*   **Job Management**: associating Rules with Agents to create evaluation runs.
+*   **CRUD API**: REST API for Rules, Agents, and Jobs.
+*   **Management UI**: A web interface for users to manage their library of rules and agents.
 *   **Persistence**: Storing all data in a reliable PostgreSQL database.
 
 **Out of Scope (for MVP):**
-*   Execution Engine (Running the rules).
-*   Orchestrators / Workers / Queues.
+*   Execution Engine (Running the rules actual logic - partially in scope via manual "Run Eval" trigger for binding).
+*   Orchestrators / Workers / Queues (Future).
 *   Results Analytics / Dashboarding.
-*   Object Storage (Rules will be stored as text in DB for MVP).
-*   User Authentication (Assume single-user/dev mode or basic auth).
 
 ## 2. Architecture
 
@@ -28,26 +28,50 @@ graph LR
 ```
 
 ### 2.1. Component Descriptions
-*   **Frontend (UI)**: A generic React-based Single Page Application (SPA). It provides a list view of all rules and a form view to create/edit rules.
-*   **Backend (API)**: A simple REST API (e.g., Python/FastAPI or Node/Express) that handles CRUD operations.
-*   **Database**: PostgreSQL to store rule definitions and metadata.
+*   **Frontend (UI)**: React-based SPA with tabs for Rules, Agents, and Jobs.
+*   **Backend (API)**: FastAPI handling CRUD operations.
+*   **Database**: PostgreSQL to store rule definitions, agent configs, and job links.
 
 ## 3. Data Model
 
-We will use a single primary table `evaluation_rules` in PostgreSQL.
-
+### 3.1. Evaluation Rules
 ```sql
 CREATE TABLE evaluation_rules (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     name VARCHAR(255) NOT NULL UNIQUE,
     description TEXT,
-    code_content TEXT NOT NULL,  -- The actual Python code of the rule
+    code_content TEXT NOT NULL,
+    rule_type VARCHAR(50) DEFAULT 'PYTHON', -- Retained for future
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 ```
 
-*   `code_content`: For the MVP, we store the Python code directly in the database logic column instead of S3 to reduce infrastructure complexity.
+### 3.2. Agents
+```sql
+CREATE TABLE agents (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    name VARCHAR(255) NOT NULL UNIQUE,
+    url VARCHAR(255) NOT NULL,
+    auth_config JSONB DEFAULT '{}',
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+```
+
+### 3.3. Jobs
+```sql
+CREATE TABLE jobs (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    rule_id UUID REFERENCES evaluation_rules(id),
+    agent_id UUID REFERENCES agents(id),
+    status VARCHAR(50) DEFAULT 'PENDING',
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+```
+
+*   `code_content`: Stored directly in DB.
+*   `auth_config`: JSONB field to store auth headers/tokens for the agent.
 
 ## 4. API Specification
 

@@ -21,6 +21,7 @@ class RuleBase(BaseModel):
     name: str
     description: Optional[str] = None
     code_content: str
+    rule_type: str = "PYTHON"
 
 class RuleCreate(RuleBase):
     pass
@@ -84,12 +85,75 @@ def update_rule(rule_id: UUID, rule_update: RuleUpdate, db: Session = Depends(ge
         db.rollback()
         raise HTTPException(status_code=400, detail=str(e))
 
-@app.delete("/api/rules/{rule_id}")
-def delete_rule(rule_id: UUID, db: Session = Depends(get_db)):
-    db_rule = db.query(database.EvalRule).filter(database.EvalRule.id == rule_id).first()
-    if db_rule is None:
-        raise HTTPException(status_code=404, detail="Rule not found")
-    
     db.delete(db_rule)
     db.commit()
     return {"ok": True}
+
+# Agent & Job Models
+class AgentBase(BaseModel):
+    name: str
+    url: str
+    auth_config: Optional[dict] = {}
+
+class AgentCreate(AgentBase):
+    pass
+
+class AgentResponse(AgentBase):
+    id: UUID
+    created_at: datetime
+
+    class Config:
+        from_attributes = True
+
+class JobCreate(BaseModel):
+    rule_id: UUID
+    agent_id: UUID
+    config_overrides: Optional[dict] = {}
+
+class JobResponse(BaseModel):
+    id: UUID
+    status: str
+    created_at: datetime
+    rule_id: UUID
+    agent_id: UUID
+
+    class Config:
+        from_attributes = True
+
+@app.post("/api/agents", response_model=AgentResponse)
+def create_agent(agent: AgentCreate, db: Session = Depends(get_db)):
+    db_agent = database.Agent(name=agent.name, url=agent.url, auth_config=agent.auth_config)
+    try:
+        db.add(db_agent)
+        db.commit()
+        db.refresh(db_agent)
+        return db_agent
+    except Exception as e:
+        db.rollback()
+        raise HTTPException(status_code=400, detail=str(e))
+
+@app.get("/api/agents", response_model=List[AgentResponse])
+def read_agents(skip: int = 0, limit: int = 50, db: Session = Depends(get_db)):
+    agents = db.query(database.Agent).offset(skip).limit(limit).all()
+    return agents
+
+@app.post("/api/jobs", response_model=JobResponse)
+def create_job(job: JobCreate, db: Session = Depends(get_db)):
+    # Verify rule and agent exist
+    rule = db.query(database.EvalRule).filter(database.EvalRule.id == job.rule_id).first()
+    if not rule:
+        raise HTTPException(status_code=404, detail="Rule not found")
+    agent = db.query(database.Agent).filter(database.Agent.id == job.agent_id).first()
+    if not agent:
+        raise HTTPException(status_code=404, detail="Agent not found")
+
+    db_job = database.Job(rule_id=job.rule_id, agent_id=job.agent_id, config_overrides=job.config_overrides)
+    db.add(db_job)
+    db.commit()
+    db.refresh(db_job)
+    return db_job
+
+@app.get("/api/jobs", response_model=List[JobResponse])
+def read_jobs(skip: int = 0, limit: int = 50, db: Session = Depends(get_db)):
+    jobs = db.query(database.Job).offset(skip).limit(limit).all()
+    return jobs

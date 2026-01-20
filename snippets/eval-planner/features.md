@@ -31,7 +31,7 @@ This document outlines the product backlog for the Scalable Agentic Evaluation S
 *   **Story 4.3**: As a **Platform Admin**, I want workers to dynamically fetch rule artifacts, so that we can execute new rules immediately without redeploying the worker fleet.
 *   **Story 4.4**: As a **Platform Admin**, I want the worker pool to auto-scale based on queue depth, so that we can handle bursty testing workloads efficiently.
 *   **Story 4.5**: As an **Eval Engineer**, I want to run long-running multi-turn conversation tests, so that I can evaluate complex agent interactions that span substantial time.
-*   **Story 4.6**: As an **Eval Engineer**, I want to write **Code-based (Deterministic)** rules (e.g., RegEx, JSON Schema), so that I can rigorously validate the structural correctness of agent outputs.
+*   **Story 4.6**: As an **Eval Engineer**, I want to write **Code-based (Python)** rules, so that I can rigorously validate the structural correctness of agent outputs.
 *   **Story 4.7**: As an **Eval Engineer**, I want to use **Model-based (LLM-as-a-Judge)** evaluation, so that I can assess semantic nuances and reasoning quality using a stronger model.
 *   **Story 4.8**: As an **Eval Engineer**, I want to route specific results for **Human Evaluation**, so that I can construct a "Golden Dataset" or validate high-stakes cases where automated grading is insufficient.
 

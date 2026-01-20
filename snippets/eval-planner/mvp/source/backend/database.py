@@ -1,4 +1,5 @@
-from sqlalchemy import create_engine, Column, String, Text, DateTime, text
+from sqlalchemy import create_engine, Column, String, Text, DateTime, text, ForeignKey
+from sqlalchemy.types import JSON
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.dialects.postgresql import UUID
@@ -22,6 +23,27 @@ class EvalRule(Base):
     code_content = Column(Text, nullable=False)
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    rule_type = Column(String, default="PYTHON", nullable=False)
+
+class Agent(Base):
+    __tablename__ = "agents"
+
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    name = Column(String(255), unique=True, index=True, nullable=False)
+    url = Column(String, nullable=False)
+    auth_config = Column(JSON, default={}) # e.g. {"headers": {"Authorization": "Bearer..."}}
+    created_at = Column(DateTime, default=datetime.utcnow)
+
+class Job(Base):
+    __tablename__ = "jobs"
+
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    rule_id = Column(UUID(as_uuid=True), ForeignKey("evaluation_rules.id"))
+    agent_id = Column(UUID(as_uuid=True), ForeignKey("agents.id"))
+    status = Column(String, default="PENDING") # PENDING, RUNNING, COMPLETED, FAILED
+    config_overrides = Column(JSON, default={})
+    created_at = Column(DateTime, default=datetime.utcnow)
+
 
 def init_db():
     Base.metadata.create_all(bind=engine)
