@@ -77,31 +77,36 @@ CREATE TABLE jobs (
 
 | Method | Endpoint | Description | Payload / Params |
 | :--- | :--- | :--- | :--- |
-| **GET** | `/api/rules` | List all rules | `?limit=50&offset=0` |
-| **GET** | `/api/rules/{id}` | Get single rule details | - |
-| **POST** | `/api/rules` | Create a new rule | `{ "name": "...", "code_content": "..." }` |
-| **PUT** | `/api/rules/{id}` | Update existing rule | `{ "name": "...", "code_content": "..." }` |
-| **DELETE** | `/api/rules/{id}` | Delete a rule | - |
+| **GET** | `/api/rules` | List all rules | - |
+| **GET** | `/api/rules/{id}` | Get single rule | - |
+| **POST** | `/api/rules` | Create rule | `{ "name": "...", "code_content": "...", "rule_type": "PYTHON" }` |
+| **PUT** | `/api/rules/{id}` | Update rule | - |
+| **DELETE** | `/api/rules/{id}` | Delete rule | - |
+| **GET** | `/api/agents` | List agents | - |
+| **POST** | `/api/agents` | Register agent | `{ "name": "...", "url": "...", "auth_config": {} }` |
+| **GET** | `/api/jobs` | List jobs | - |
+| **POST** | `/api/jobs` | Create job (Bind Rule to Agent) | `{ "rule_id": "...", "agent_id": "..." }` |
 
 ## 5. UI User Flow
 
-### 5.1. View All Rules (Home)
-*   Displays a table of existing rules.
-*   Columns: Name, Last Updated, Actions (Edit, Delete).
-*   "Create New Rule" button at the top.
+### 5.1. Navigation
+*   **Tabs**: Rules, Agents, Jobs.
 
-### 5.2. Create / Edit Rule
-*   Form with:
-    *   **Name**: Text input.
-    *   **Description**: Text area.
-    *   **Rule Logic**: Code editor (Monaco or simple text area) for the Python code.
-*   **Save**: Submits to `POST /api/rules` or `PUT /api/rules/{id}`.
-*   **Cancel**: Returns to list.
+### 5.2. Rules Tab
+*   List existing rules.
+*   Editor: Create/Edit Python rules (Monaco Editor).
+*   **Run Eval**: Button to trigger a job creation for the selected rule.
 
-### 5.3. Visual Mockup
+### 5.3. Agents Tab
+*   **Registry**: List registered agents (Name, URL).
+*   **Register Agent**: Form to add a new target system to evaluate.
 
-![Rule Editor UI](eval_rule_editor_ui.png)
+### 5.4. Jobs Tab
+*   **Monitor**: List of created evaluation jobs with their status (PENDING/COMPLETED) and links to the Rule and Agent.
 
+### 5.5. Visual Mockup
+
+![Premium Agent Registry UI](/home/vishravars/.gemini/antigravity/brain/5a03a694-1e37-465c-af95-73b71932d6e8/premium_agent_registry_ui_1768951812475.png)
 
 ## 6. On-Premise Deployment
 
