@@ -45,21 +45,34 @@ This suite verifies the end-to-end evaluation workflow by making real API calls 
 
 ---
 
+## 🌐 Networking & Connectivity
+
+The application uses a dedicated Docker network named `eval-planner-network`.
+
+### Connecting External Agents
+If your evaluation agent is running in a separate Docker container (e.g., the sample agent in `integration-test`), it must be on the same network as the API to communicate correctly.
+
+1. **Run the agent container**:
+   ```bash
+   sudo ./integration-test/run_agent.sh
+   ```
+
+2. **Connect it to the application network**:
+   ```bash
+   sudo docker network connect eval-planner-network sample-agent-container
+   ```
+
+3. **Register the agent** using the internal container name:
+   - **Agent URL**: `http://sample-agent-container:8081`
+
+### Running Integration Tests
+The integration test container is automatically attached to `eval-planner-network` by the `run_integration_docker.sh` script, allowing it to "see" the `api` service.
+
+---
+
 ## 🛠 Project Structure
 
 - `source/`: Contains the core application (Backend & Frontend) and Docker configuration.
 - `unit-tests/`: Contains the BDD test suite and Docker-based test runner.
 - `integration-test/`: Contains end-to-end API scripts and a sample agent for local testing.
 - `mvp.md`: The original requirements and architecture document.
-
----
-
-## 💡 Connecting Local Agents
-When running tests or using the UI, if your agent is running in a Docker container (like the one in `integration-test`), use the **internal Docker DNS name** for registration:
-
-- **Agent URL**: `http://sample-agent-container:8081`
-
-If you encounter network isolation issues, ensure the agent container is connected to the application network:
-```bash
-sudo docker network connect source_default sample-agent-container
-```
