@@ -16,6 +16,8 @@ services:
       retries: 5
     ports:
       - "5432:5432"
+    networks:
+      - eval-network
 
   api:
     build: ./backend
@@ -26,6 +28,8 @@ services:
         condition: service_healthy
     ports:
       - "8000:8000"
+    networks:
+      - eval-network
 
   ui:
     build: ./frontend
@@ -33,6 +37,12 @@ services:
       - "3000:80"
     depends_on:
       - api
+    networks:
+      - eval-network
+
+networks:
+  eval-network:
+    name: eval-planner-network
 
 volumes:
   postgres_data:
