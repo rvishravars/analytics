@@ -8,7 +8,7 @@ const AGENT_API = '/api/agents';
 const JOB_API = '/api/jobs';
 
 const DEFAULTS = {
-    PYTHON: 'def evaluate(ctx):\n    return {"score": 1, "passed": True}'
+    PYTHON: 'async def evaluate(agent_url, auth_config, config):\n    import httpx\n    async with httpx.AsyncClient() as client:\n        res = await client.get(f"{agent_url}/health")\n        return {"score": 1 if res.status_code == 200 else 0, "passed": res.status_code == 200}'
 };
 
 function App() {
@@ -33,6 +33,14 @@ function App() {
         fetchAgents();
         fetchJobs();
     }, []);
+
+    useEffect(() => {
+        let interval;
+        if (activeTab === 'JOBS') {
+            interval = setInterval(fetchJobs, 3000);
+        }
+        return () => clearInterval(interval);
+    }, [activeTab]);
 
     const fetchRules = async () => { try { const res = await axios.get(API_BASE); setRules(res.data); } catch (e) { console.error(e); } };
     const fetchAgents = async () => { try { const res = await axios.get(AGENT_API); setAgents(res.data); } catch (e) { console.error(e); } };
@@ -118,7 +126,7 @@ function App() {
                                         }
                                         {!isEditingRule && <button className="btn btn-secondary" style={{ marginLeft: '1rem' }} onClick={() => handleInitJob(selectedRule.id)}>▶ Run Eval</button>}
                                     </div>
-                                    <button className="btn btn-secondary" onClick={() => setSelectedRule(null)}>Close</button>
+                                    <button className="btn btn-secondary" onClick={() => { setSelectedRule(null); setIsEditingRule(false); }}>Close</button>
                                 </div>
                                 <div style={{ display: 'flex', gap: '2rem', height: '100%' }}>
                                     <div style={{ width: '350px' }}>

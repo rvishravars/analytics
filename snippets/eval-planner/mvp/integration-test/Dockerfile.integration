@@ -1,0 +1,12 @@
+FROM alpine:latest
+
+RUN apk add --no-cache curl python3 jq
+
+WORKDIR /app
+
+COPY integration-test/test_eval_execution.sh .
+
+# Update the script to use a configurable API URL
+RUN sed -i 's|API_BASE="http://localhost:8000/api"|API_BASE=${API_URL:-"http://localhost:8000/api"}|' test_eval_execution.sh
+
+ENTRYPOINT ["sh", "test_eval_execution.sh"]

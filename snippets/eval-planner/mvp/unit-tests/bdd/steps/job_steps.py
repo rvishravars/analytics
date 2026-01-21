@@ -42,13 +42,50 @@ def step_create_job(context, rule_name, agent_name):
     context.job_status = job.status
     db.close()
 
+@given('a Job exists for Rule "{rule_name}" and Agent "{agent_name}"')
+def step_job_exists(context, rule_name, agent_name):
+    db = SessionLocal()
+    # Ensure agent and rule exist (reusing existing steps or creating here)
+    agent = db.query(Agent).filter(Agent.name == agent_name).first()
+    if not agent:
+        agent = Agent(name=agent_name, url="http://test:8080")
+        db.add(agent)
+    
+    rule = db.query(EvalRule).filter(EvalRule.name == rule_name).first()
+    if not rule:
+        rule = EvalRule(name=rule_name, code_content="async def evaluate(u,a,c): return {'passed': True}")
+        db.add(rule)
+    
+    db.commit()
+    
+    job = Job(rule_id=rule.id, agent_id=agent.id)
+    db.add(job)
+    db.commit()
+    db.refresh(job)
+    context.job_id = job.id
+    db.close()
+
+@when('I execute the job')
+def step_execute_job(context):
+    # In the actual MVP, creation triggers execution via background tasks.
+    # For BDD, we can call the executor logic directly or simulates it.
+    from eval_runner import execute_job
+    import asyncio
+    db = SessionLocal()
+    # We run it synchronously for the test
+    asyncio.run(execute_job(context.job_id, db))
+    db.close()
+
 @then('the job should be created successfuly')
 def step_check_job_created(context):
     assert context.job_id is not None
 
 @then('the job status should be "{expected_status}"')
 def step_check_job_status(context, expected_status):
-    assert context.job_status == expected_status
+    db = SessionLocal()
+    job = db.query(Job).filter(Job.id == context.job_id).first()
+    assert job.status == expected_status
+    db.close()
 
 @then('the job should link to "{agent_name}"')
 def step_check_job_link(context, agent_name):
@@ -56,4 +93,25 @@ def step_check_job_link(context, agent_name):
     job = db.query(Job).filter(Job.id == context.job_id).first()
     agent = db.query(Agent).filter(Agent.id == job.agent_id).first()
     assert agent.name == agent_name
+    db.close()
+
+@then('the job status should eventually be "{expected_status}"')
+def step_check_job_status_eventually(context, expected_status):
+    import time
+    db = SessionLocal()
+    for _ in range(5):
+        db.expire_all()
+        job = db.query(Job).filter(Job.id == context.job_id).first()
+        if job.status == expected_status:
+            break
+        time.sleep(0.5)
+    assert job.status == expected_status
+    db.close()
+
+@then('an evaluation result should be recorded')
+def step_check_eval_result(context):
+    from database import EvalResult
+    db = SessionLocal()
+    result = db.query(EvalResult).filter(EvalResult.job_id == context.job_id).first()
+    assert result is not None
     db.close()

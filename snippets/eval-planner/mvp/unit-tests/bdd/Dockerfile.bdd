@@ -1,0 +1,21 @@
+FROM python:3.11-slim
+
+WORKDIR /app
+
+# Install dependencies
+COPY source/backend/requirements.txt ./backend-reqs.txt
+COPY unit-tests/bdd/requirements.txt ./bdd-reqs.txt
+RUN pip install --no-cache-dir -r backend-reqs.txt -r bdd-reqs.txt
+
+# Copy source and tests
+COPY source/backend ./source/backend
+COPY unit-tests/bdd ./unit-tests/bdd
+
+# Set environment
+ENV PYTHONPATH=/app/source/backend
+ENV DATABASE_URL=sqlite:////app/unit-tests/bdd/test.db
+
+WORKDIR /app/unit-tests/bdd
+
+# Run tests
+CMD ["python3", "-m", "behave"]

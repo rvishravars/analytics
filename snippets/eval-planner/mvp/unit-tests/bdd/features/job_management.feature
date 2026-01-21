@@ -7,9 +7,16 @@ Feature: Job Management
     Given an Agent named "Staging Bot" with URL "http://localhost:8080"
     And a Rule named "Safety Check" with content:
       """
-      def evaluate(ctx): return True
+      async def evaluate(agent_url, auth_config, config):
+          return {"passed": True}
       """
     When I create a job binding "Safety Check" to "Staging Bot"
     Then the job should be created successfuly
     And the job status should be "PENDING"
     And the job should link to "Staging Bot"
+
+  Scenario: Execute a job
+    Given a Job exists for Rule "Safety Check" and Agent "Staging Bot"
+    When I execute the job
+    Then the job status should eventually be "COMPLETED"
+    And an evaluation result should be recorded
