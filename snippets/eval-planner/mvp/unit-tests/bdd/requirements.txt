@@ -1,6 +1,0 @@
-behave==1.2.6
-jsonschema==4.21.0
-sqlalchemy
-fastapi
-pydantic
-psycopg2-binary
