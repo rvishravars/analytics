@@ -7,14 +7,15 @@ The goal of this MVP is to establish the fundamental capability to manage evalua
 *   **Evaluation Rules**: Defining and managing rules (Python-based).
 *   **Agent Registry**: Registering and managing target agents (SUT).
 *   **Job Management**: associating Rules with Agents to create evaluation runs.
-*   **CRUD API**: REST API for Rules, Agents, and Jobs.
+*   **Execution Engine**: Synchronous and asynchronous execution of Python-based evaluation rules.
+*   **Evaluation Results**: Storing and retrieving detailed execution outputs and errors.
+*   **CRUD API**: REST API for Rules, Agents, Jobs, and Results.
 *   **Management UI**: A web interface for users to manage their library of rules and agents.
 *   **Persistence**: Storing all data in a reliable PostgreSQL database.
 
 **Out of Scope (for MVP):**
-*   Execution Engine (Running the rules actual logic - partially in scope via manual "Run Eval" trigger for binding).
-*   Orchestrators / Workers / Queues (Future).
-*   Results Analytics / Dashboarding.
+*   Orchestrators / Workers / Queues (Future scaling).
+*   Advanced Results Analytics / Dashboarding.
 
 ## 2. Architecture
 
@@ -66,12 +67,27 @@ CREATE TABLE jobs (
     rule_id UUID REFERENCES evaluation_rules(id),
     agent_id UUID REFERENCES agents(id),
     status VARCHAR(50) DEFAULT 'PENDING',
+    config_overrides JSONB DEFAULT '{}',
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+```
+
+### 3.4. Eval Results
+```sql
+CREATE TABLE eval_results (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    job_id UUID REFERENCES jobs(id) NOT NULL,
+    status VARCHAR(50) NOT NULL, -- SUCCESS, FAILED
+    output JSONB DEFAULT '{}',
+    error TEXT,
+    started_at TIMESTAMP WITH TIME ZONE NOT NULL,
+    completed_at TIMESTAMP WITH TIME ZONE NOT NULL
 );
 ```
 
 *   `code_content`: Stored directly in DB.
 *   `auth_config`: JSONB field to store auth headers/tokens for the agent.
+*   `config_overrides`: JSONB field for job-specific parameters passed to the rule.
 
 ## 4. API Specification
 
@@ -85,7 +101,9 @@ CREATE TABLE jobs (
 | **GET** | `/api/agents` | List agents | - |
 | **POST** | `/api/agents` | Register agent | `{ "name": "...", "url": "...", "auth_config": {} }` |
 | **GET** | `/api/jobs` | List jobs | - |
-| **POST** | `/api/jobs` | Create job (Bind Rule to Agent) | `{ "rule_id": "...", "agent_id": "..." }` |
+| **POST** | `/api/jobs` | Create job & Trigger Execution | `{ "rule_id": "...", "agent_id": "...", "config_overrides": {} }` |
+| **POST** | `/api/jobs/{id}/execute` | Manually/Sync Execute Job | - |
+| **GET** | `/api/jobs/{id}/result` | Get Evaluation Result | - |
 
 ## 5. UI User Flow
 
@@ -141,3 +159,39 @@ graph TD
     
     User -->|HTTPS| Nginx
 ```
+
+## 7. Rule Evaluation
+
+The system supports writing complex evaluation logic in Python. These rules are executed in a controlled environment with access to essential utilities.
+
+### 7.1. Rule Signature
+
+Every rule must define an `evaluate` function. It can be either synchronous or asynchronous.
+
+```python
+async def evaluate(agent_url, auth_config, config):
+    # logic here
+    return { "passed": True, "score": 1.0 }
+```
+
+### 7.2. Available Context
+
+The following are injected into the rule's execution context:
+
+*   **Variables**:
+    *   `agent_url`: The base URL of the agent under test.
+    *   `auth_config`: The authentication dictionary (e.g., headers).
+    *   `config`: Merged configuration overrides from the Job definition.
+*   **Helpers**:
+    *   `call_agent(url, payload, auth, method)`: A helper for making HTTP requests to the agent.
+*   **Libraries**:
+    *   `httpx`: For custom async HTTP requests.
+    *   `json`: For data manipulation.
+
+### 7.3. Execution Flow
+
+1.  **Trigger**: Job is created via API.
+2.  **Context Preparation**: Backend fetches Agent and Rule data, merges configs.
+3.  **Dynamic Loading**: The `code_content` is executed using Python's `exec()`.
+4.  **Invocation**: The `evaluate` function is called (awaited if async).
+5.  **Persistence**: Results are captured and stored in the `eval_results` table.
